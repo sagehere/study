@@ -2,8 +2,8 @@
   "summary": {
     "total": 26,
     "production": 26,
-    "readyAudited": 20,
-    "unauditedProduction": 6,
+    "readyAudited": 26,
+    "unauditedProduction": 0,
     "remaining": 0
   },
   "rows": [
@@ -11,13 +11,13 @@
       "key": "u1.trial",
       "unit": "u1",
       "node": "trial",
-      "status": "正式包存在，但缺正式 audit",
-      "type": "待补",
+      "status": "正式迁移 + ready audit",
+      "type": "procedural",
       "renderer": "已接入/由现有包定义",
-      "grounding": "待核",
+      "grounding": "已在正式包记录",
       "batch": "—",
       "pkg": "u1-trial.json",
-      "audit": ""
+      "audit": "u1-trial.audit.json"
     },
     {
       "key": "u1.vertical",
@@ -59,25 +59,25 @@
       "key": "u2.meaning",
       "unit": "u2",
       "node": "meaning",
-      "status": "正式包存在，但缺正式 audit",
-      "type": "待补",
+      "status": "正式迁移 + ready audit",
+      "type": "concept-representation",
       "renderer": "已接入/由现有包定义",
-      "grounding": "待核",
+      "grounding": "已在正式包记录",
       "batch": "—",
       "pkg": "u2-meaning.json",
-      "audit": ""
+      "audit": "u2-meaning.audit.json"
     },
     {
       "key": "u2.formula",
       "unit": "u2",
       "node": "formula",
-      "status": "正式包存在，但缺正式 audit",
-      "type": "待补",
+      "status": "正式迁移 + ready audit",
+      "type": "concept-representation",
       "renderer": "已接入/由现有包定义",
-      "grounding": "待核",
+      "grounding": "已在正式包记录",
       "batch": "—",
       "pkg": "u2-formula.json",
-      "audit": ""
+      "audit": "u2-formula.audit.json"
     },
     {
       "key": "u2.units",
@@ -131,13 +131,13 @@
       "key": "u3.price",
       "unit": "u3",
       "node": "price",
-      "status": "正式包存在，但缺正式 audit",
-      "type": "待补",
+      "status": "正式迁移 + ready audit",
+      "type": "quantity-relation",
       "renderer": "已接入/由现有包定义",
-      "grounding": "待核",
+      "grounding": "已在正式包记录",
       "batch": "—",
       "pkg": "u3-price.json",
-      "audit": ""
+      "audit": "u3-price.audit.json"
     },
     {
       "key": "u3.speed",
@@ -251,13 +251,13 @@
       "key": "u5.round",
       "unit": "u5",
       "node": "round",
-      "status": "正式包存在，但缺正式 audit",
-      "type": "待补",
+      "status": "正式迁移 + ready audit",
+      "type": "boundary-concept",
       "renderer": "已接入/由现有包定义",
-      "grounding": "待核",
+      "grounding": "已在正式包记录",
       "batch": "—",
       "pkg": "u5-round.json",
-      "audit": ""
+      "audit": "u5-round.audit.json"
     },
     {
       "key": "u5.code",
@@ -275,13 +275,13 @@
       "key": "u6.multiply",
       "unit": "u6",
       "node": "multiply",
-      "status": "正式包存在，但缺正式 audit",
+      "status": "正式迁移 + ready audit",
       "type": "procedural",
       "renderer": "已接入/由现有包定义",
       "grounding": "已在正式包记录",
       "batch": "—",
       "pkg": "u6-multiply.json",
-      "audit": ""
+      "audit": "u6-multiply.audit.json"
     },
     {
       "key": "u6.estimate",

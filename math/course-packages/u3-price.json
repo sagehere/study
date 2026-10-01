@@ -460,6 +460,14 @@
             {
               "type": "markObjective",
               "stage": "independent_success"
+            },
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "fresh": true
+              }
             }
           ]
         },
@@ -514,7 +522,7 @@
       "transitions": [
         {
           "when": "subtract",
-          "to": "transfer",
+          "to": "freshIndependent",
           "lane": "standard",
           "effects": [
             {
@@ -633,6 +641,64 @@
         "choices": []
       },
       "transitions": []
+    },
+    "freshIndependent": {
+      "objectiveId": "O-U3-PRICE-05",
+      "hints": [
+        "",
+        "先算一共有多少本。",
+        "5盒，每盒8本，共5×8=40本。",
+        "总价160元平均分到40本。",
+        "160÷40=4元/本。"
+      ],
+      "view": {
+        "title": "修复后换一道新题确认",
+        "prompt": "5盒练习本，每盒8本，共160元。每本多少钱？",
+        "choices": [
+          [
+            "4",
+            "4元"
+          ],
+          [
+            "20",
+            "20元"
+          ],
+          [
+            "32",
+            "32元"
+          ]
+        ],
+        "renderer": "relation",
+        "rendererArgs": {
+          "unit": "单价",
+          "quantity": "数量",
+          "total": "总价",
+          "unitValue": "?元/本",
+          "quantityValue": "40本",
+          "totalValue": "160元"
+        }
+      },
+      "transitions": [
+        {
+          "when": "4",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "fresh": true,
+                "afterRepair": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
     }
   },
   "packageVersion": "0.1.0",
@@ -653,5 +719,11 @@
     "addInsteadMultiply": "M-U3-PRICE-02",
     "inverseRole": "M-U3-PRICE-03",
     "skipSubtotal": "M-U3-PRICE-04"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "quantity-relation",
+    "sourcePages": "48-49,52-53",
+    "sourceNote": "教材48—49、52—53页建立单价、数量、总价三量关系及乘除互逆，并通过复合购物情境要求先拆出当前关系所对应的数量或总价。"
   }
 }

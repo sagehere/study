@@ -1,0 +1,32 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u1.trial.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "sourceGrounding",
+      "severity": "minor",
+      "issue": "The early pilot predated the current Course Package metadata convention and had no explicit source note in meta.",
+      "revision": "Add ready metadata and textbook page/source note without changing the stable flow or IDs.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "The original pilot already contains reason-based diagnosis, targeted misconception repair, deterministic fresh variants, explicit independent evidence, transfer, and generic renderers; Phase 4.7-C backfills source metadata and current-format audit only."
+}

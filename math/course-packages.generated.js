@@ -844,6 +844,12 @@ globalThis.CoursePackageData={
     "unitId": "u1",
     "nodeId": "trial",
     "initialStep": "diagnose",
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "procedural",
+      "sourcePages": "2-7",
+      "sourceNote": "教材2—7页围绕两位数除法的试商、调商与检验展开：可把除数看成接近的整十数帮助试商，但需用原除数验证；乘积过大要调小，余数仍不小于除数要调大。现有flow已包含理由解释、定向修复、fresh variant、独立与迁移证据。"
+    },
     "labels": {
       "badge": "教学试点",
       "title": "试商与调商 V2",
@@ -3369,7 +3375,7 @@ globalThis.CoursePackageData={
         "transitions": [
           {
             "when": "rule",
-            "to": "transfer",
+            "to": "independent",
             "effects": [
               {
                 "type": "setFlag",
@@ -3429,7 +3435,7 @@ globalThis.CoursePackageData={
         "transitions": [
           {
             "when": "sq",
-            "to": "transfer",
+            "to": "independent",
             "lane": "standard",
             "effects": [
               {
@@ -3516,6 +3522,61 @@ globalThis.CoursePackageData={
           "choices": []
         },
         "transitions": []
+      },
+      "independent": {
+        "objectiveId": "O-U2-FORMULA-03",
+        "hints": [
+          "",
+          "先分别判断围一圈和铺满里面需要哪个公式。",
+          "周长=(长+宽)×2；面积=长×宽。",
+          "7×5长方形：周长=(7+5)×2，面积=7×5。",
+          "所以周长24厘米，面积35平方厘米。"
+        ],
+        "view": {
+          "title": "撤掉支架，换一个长方形独立做",
+          "prompt": "长7厘米、宽5厘米的长方形：周长和面积分别是多少？",
+          "choices": [
+            [
+              "correct",
+              "24厘米；35平方厘米"
+            ],
+            [
+              "swap",
+              "35厘米；24平方厘米"
+            ],
+            [
+              "same",
+              "24厘米；24平方厘米"
+            ]
+          ],
+          "renderer": "rect",
+          "rendererArgs": {
+            "w": 7,
+            "h": 5,
+            "mode": "both",
+            "label": "7乘5长方形同时显示边界与内部"
+          }
+        },
+        "transitions": [
+          {
+            "when": "correct",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
       }
     },
     "packageVersion": "0.1.0",
@@ -3533,6 +3594,12 @@ globalThis.CoursePackageData={
     "misconceptions": {
       "formulaSwap": "M-U2-FORMULA-01",
       "unit": "M-U2-FORMULA-02"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "concept-representation",
+      "sourcePages": "23-33",
+      "sourceNote": "教材23—33页由数边线与数单位方格分别推导长方形/正方形周长、面积公式，并强调长度单位与面积单位不可混用。"
     }
   },
   "u2.meaning.v2": {
@@ -3781,6 +3848,14 @@ globalThis.CoursePackageData={
                 }
               },
               {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "evidence": "same-number-different-quantity"
+                }
+              },
+              {
                 "type": "markObjective",
                 "objectiveId": "O-U2-MEANING-03",
                 "stage": "independent_success"
@@ -3848,7 +3923,7 @@ globalThis.CoursePackageData={
         "transitions": [
           {
             "when": "unit",
-            "to": "formalize",
+            "to": "freshIndependent",
             "lane": "standard",
             "effects": [
               {
@@ -3981,6 +4056,62 @@ globalThis.CoursePackageData={
           "choices": []
         },
         "transitions": []
+      },
+      "freshIndependent": {
+        "objectiveId": "O-U2-MEANING-01",
+        "hints": [
+          "",
+          "分别看两个任务发生在边界还是整个平面。",
+          "护栏沿操场外圈，关注边界长度。",
+          "铺塑胶要覆盖整个内部，关注平面大小。",
+          "所以护栏看周长，铺塑胶看面积。"
+        ],
+        "view": {
+          "title": "修复后换一个新情境确认",
+          "prompt": "学校操场：沿四周安装护栏，同时给场地内部铺塑胶。哪组判断正确？",
+          "choices": [
+            [
+              "pa",
+              "护栏看周长；铺塑胶看面积"
+            ],
+            [
+              "ap",
+              "护栏看面积；铺塑胶看周长"
+            ],
+            [
+              "pp",
+              "两个都只看周长"
+            ]
+          ],
+          "renderer": "rect",
+          "rendererArgs": {
+            "w": 6,
+            "h": 4,
+            "mode": "both",
+            "label": "操场边界与内部平面同时显示"
+          }
+        },
+        "transitions": [
+          {
+            "when": "pa",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true,
+                  "afterRepair": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
       }
     },
     "packageVersion": "0.1.0",
@@ -3998,6 +4129,12 @@ globalThis.CoursePackageData={
       "boundary": "M-U2-MEANING-01",
       "surface": "M-U2-MEANING-02",
       "compareNumber": "M-U2-MEANING-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "concept-representation",
+      "sourcePages": "18-22",
+      "sourceNote": "教材18—22页通过围边、覆盖、单位方格等活动区分周长与面积：周长是边界一周的长度，面积是平面的大小，二者单位类型不同。"
     }
   },
   "u2.units.v2": {
@@ -5829,6 +5966,14 @@ globalThis.CoursePackageData={
               {
                 "type": "markObjective",
                 "stage": "independent_success"
+              },
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true
+                }
               }
             ]
           },
@@ -5883,7 +6028,7 @@ globalThis.CoursePackageData={
         "transitions": [
           {
             "when": "subtract",
-            "to": "transfer",
+            "to": "freshIndependent",
             "lane": "standard",
             "effects": [
               {
@@ -6002,6 +6147,64 @@ globalThis.CoursePackageData={
           "choices": []
         },
         "transitions": []
+      },
+      "freshIndependent": {
+        "objectiveId": "O-U3-PRICE-05",
+        "hints": [
+          "",
+          "先算一共有多少本。",
+          "5盒，每盒8本，共5×8=40本。",
+          "总价160元平均分到40本。",
+          "160÷40=4元/本。"
+        ],
+        "view": {
+          "title": "修复后换一道新题确认",
+          "prompt": "5盒练习本，每盒8本，共160元。每本多少钱？",
+          "choices": [
+            [
+              "4",
+              "4元"
+            ],
+            [
+              "20",
+              "20元"
+            ],
+            [
+              "32",
+              "32元"
+            ]
+          ],
+          "renderer": "relation",
+          "rendererArgs": {
+            "unit": "单价",
+            "quantity": "数量",
+            "total": "总价",
+            "unitValue": "?元/本",
+            "quantityValue": "40本",
+            "totalValue": "160元"
+          }
+        },
+        "transitions": [
+          {
+            "when": "4",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true,
+                  "afterRepair": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
       }
     },
     "packageVersion": "0.1.0",
@@ -6022,6 +6225,12 @@ globalThis.CoursePackageData={
       "addInsteadMultiply": "M-U3-PRICE-02",
       "inverseRole": "M-U3-PRICE-03",
       "skipSubtotal": "M-U3-PRICE-04"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "quantity-relation",
+      "sourcePages": "48-49,52-53",
+      "sourceNote": "教材48—49、52—53页建立单价、数量、总价三量关系及乘除互逆，并通过复合购物情境要求先拆出当前关系所对应的数量或总价。"
     }
   },
   "u3.speed.v2": {
@@ -11020,6 +11229,14 @@ globalThis.CoursePackageData={
               {
                 "type": "markObjective",
                 "stage": "independent_success"
+              },
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true
+                }
               }
             ]
           },
@@ -11073,7 +11290,7 @@ globalThis.CoursePackageData={
         "transitions": [
           {
             "when": "no",
-            "to": "transfer",
+            "to": "freshReverse",
             "lane": "standard",
             "effects": [
               {
@@ -11184,6 +11401,62 @@ globalThis.CoursePackageData={
           "choices": []
         },
         "transitions": []
+      },
+      "freshReverse": {
+        "objectiveId": "O-U5-ROUND-04",
+        "hints": [
+          "",
+          "先找12万左右的两个中点。",
+          "11万和12万中点是115000。",
+          "12万和13万中点是125000。",
+          "所以115000≤n<125000。"
+        ],
+        "view": {
+          "title": "修复后换一个区间确认",
+          "prompt": "整数四舍五入到万位得到12万，它的完整取值范围是哪一个？",
+          "choices": [
+            [
+              "range",
+              "115000≤n<125000"
+            ],
+            [
+              "closed",
+              "115000≤n≤125000"
+            ],
+            [
+              "narrow",
+              "120000≤n<130000"
+            ]
+          ],
+          "renderer": "interval",
+          "rendererArgs": {
+            "left": 115000,
+            "center": 120000,
+            "right": 125000,
+            "label": "约12万的整数范围左闭右开"
+          }
+        },
+        "transitions": [
+          {
+            "when": "range",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true,
+                  "afterRepair": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
       }
     },
     "packageVersion": "0.1.0",
@@ -11203,6 +11476,12 @@ globalThis.CoursePackageData={
       "boundaryInclusive": "M-U5-ROUND-02",
       "wrongUnit": "M-U5-ROUND-03",
       "reverseInterval": "M-U5-ROUND-04"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "boundary-concept",
+      "sourcePages": "80-81,84-88",
+      "sourceNote": "教材80—81、84—88页用四舍五入、数轴与近似数范围理解分界：保留到万位看千位，中点5向上；反推范围时下界包含、下一段下界不包含。"
     }
   },
   "u6.calculator.v2": {

@@ -7,6 +7,7 @@
   "unitId": "u1",
   "nodeId": "trial",
   "initialStep": "diagnose",
+  "meta": {"authoringStatus":"ready","knowledgeType":"procedural","sourcePages":"2-7","sourceNote":"教材2—7页围绕两位数除法的试商、调商与检验展开：可把除数看成接近的整十数帮助试商，但需用原除数验证；乘积过大要调小，余数仍不小于除数要调大。现有flow已包含理由解释、定向修复、fresh variant、独立与迁移证据。"},
   "labels": {"badge":"教学试点","title":"试商与调商 V2","description":"答对还要说得通；典型错误只修当前概念，不整段重学。"},
   "objectives": {"estimate":"O-U1-TRIAL-01","product":"O-U1-TRIAL-02","remainder":"O-U1-TRIAL-03","verify":"O-U1-TRIAL-04","explain":"O-U1-TRIAL-05"},
   "misconceptions": {"remainder":"M-U1-TRIAL-02","verifyApprox":"M-U1-TRIAL-03","luckyGuess":"M-U1-TRIAL-04"},

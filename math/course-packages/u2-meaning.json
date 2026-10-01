@@ -244,6 +244,14 @@
               }
             },
             {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "evidence": "same-number-different-quantity"
+              }
+            },
+            {
               "type": "markObjective",
               "objectiveId": "O-U2-MEANING-03",
               "stage": "independent_success"
@@ -311,7 +319,7 @@
       "transitions": [
         {
           "when": "unit",
-          "to": "formalize",
+          "to": "freshIndependent",
           "lane": "standard",
           "effects": [
             {
@@ -444,6 +452,62 @@
         "choices": []
       },
       "transitions": []
+    },
+    "freshIndependent": {
+      "objectiveId": "O-U2-MEANING-01",
+      "hints": [
+        "",
+        "分别看两个任务发生在边界还是整个平面。",
+        "护栏沿操场外圈，关注边界长度。",
+        "铺塑胶要覆盖整个内部，关注平面大小。",
+        "所以护栏看周长，铺塑胶看面积。"
+      ],
+      "view": {
+        "title": "修复后换一个新情境确认",
+        "prompt": "学校操场：沿四周安装护栏，同时给场地内部铺塑胶。哪组判断正确？",
+        "choices": [
+          [
+            "pa",
+            "护栏看周长；铺塑胶看面积"
+          ],
+          [
+            "ap",
+            "护栏看面积；铺塑胶看周长"
+          ],
+          [
+            "pp",
+            "两个都只看周长"
+          ]
+        ],
+        "renderer": "rect",
+        "rendererArgs": {
+          "w": 6,
+          "h": 4,
+          "mode": "both",
+          "label": "操场边界与内部平面同时显示"
+        }
+      },
+      "transitions": [
+        {
+          "when": "pa",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "fresh": true,
+                "afterRepair": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
     }
   },
   "packageVersion": "0.1.0",
@@ -461,5 +525,11 @@
     "boundary": "M-U2-MEANING-01",
     "surface": "M-U2-MEANING-02",
     "compareNumber": "M-U2-MEANING-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "18-22",
+    "sourceNote": "教材18—22页通过围边、覆盖、单位方格等活动区分周长与面积：周长是边界一周的长度，面积是平面的大小，二者单位类型不同。"
   }
 }

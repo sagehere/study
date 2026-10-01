@@ -430,6 +430,14 @@
             {
               "type": "markObjective",
               "stage": "independent_success"
+            },
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "fresh": true
+              }
             }
           ]
         },
@@ -483,7 +491,7 @@
       "transitions": [
         {
           "when": "no",
-          "to": "transfer",
+          "to": "freshReverse",
           "lane": "standard",
           "effects": [
             {
@@ -594,6 +602,62 @@
         "choices": []
       },
       "transitions": []
+    },
+    "freshReverse": {
+      "objectiveId": "O-U5-ROUND-04",
+      "hints": [
+        "",
+        "先找12万左右的两个中点。",
+        "11万和12万中点是115000。",
+        "12万和13万中点是125000。",
+        "所以115000≤n<125000。"
+      ],
+      "view": {
+        "title": "修复后换一个区间确认",
+        "prompt": "整数四舍五入到万位得到12万，它的完整取值范围是哪一个？",
+        "choices": [
+          [
+            "range",
+            "115000≤n<125000"
+          ],
+          [
+            "closed",
+            "115000≤n≤125000"
+          ],
+          [
+            "narrow",
+            "120000≤n<130000"
+          ]
+        ],
+        "renderer": "interval",
+        "rendererArgs": {
+          "left": 115000,
+          "center": 120000,
+          "right": 125000,
+          "label": "约12万的整数范围左闭右开"
+        }
+      },
+      "transitions": [
+        {
+          "when": "range",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "fresh": true,
+                "afterRepair": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
     }
   },
   "packageVersion": "0.1.0",
@@ -613,5 +677,11 @@
     "boundaryInclusive": "M-U5-ROUND-02",
     "wrongUnit": "M-U5-ROUND-03",
     "reverseInterval": "M-U5-ROUND-04"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "boundary-concept",
+    "sourcePages": "80-81,84-88",
+    "sourceNote": "教材80—81、84—88页用四舍五入、数轴与近似数范围理解分界：保留到万位看千位，中点5向上；反推范围时下界包含、下一段下界不包含。"
   }
 }

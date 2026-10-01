@@ -1,0 +1,39 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u3.price.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "evidenceIntegrity",
+      "severity": "major",
+      "issue": "The early composite task was strong enough to serve as independent evidence on the direct path, but no INDEPENDENT_PASS event existed and repaired learners went directly to transfer.",
+      "revision": "Emit INDEPENDENT_PASS on direct composite success and route repaired learners through a fresh 5-box/160-yuan item before transfer.",
+      "resolved": true
+    },
+    {
+      "dimension": "sourceGrounding",
+      "severity": "minor",
+      "issue": "The early package lacked current-format source metadata.",
+      "revision": "Add ready metadata and source note for textbook pp.48-49 and 52-53.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "The three-quantity relation, inverse operations, composite subtotal reasoning, and transfer are preserved. Direct composite success is now explicit independent evidence; repaired learners receive a fresh price item before transfer."
+}

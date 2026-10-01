@@ -1,0 +1,39 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u2.formula.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "evidenceIntegrity",
+      "severity": "major",
+      "issue": "The early flow moved from formalization/repair directly to transfer and had no explicit fresh independent evidence under the current release standard.",
+      "revision": "Insert a fresh 7×5 perimeter-and-area task after formalization or unit repair; emit INDEPENDENT_PASS only on correct independent completion, then continue to the existing 8×4 transfer.",
+      "resolved": true
+    },
+    {
+      "dimension": "sourceGrounding",
+      "severity": "minor",
+      "issue": "The early package lacked current-format source metadata.",
+      "revision": "Add ready metadata and source note for textbook pp.23-33.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "Perimeter and area formulas remain representation-derived rather than memorized; Phase 4.7-C adds one fresh 7×5 independent task before the existing transfer so current evidence integrity is satisfied on both normal and repaired paths."
+}
