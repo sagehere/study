@@ -1,0 +1,1 @@
+'use strict';(()=>{const pkg=CoursePackageData['u3.one.v2'];if(!pkg)throw new Error('Missing Course Package u3.one.v2');const loaded=CoursePackageLoader.register(pkg,PriceRenderer);globalThis.OnePedagogy={...loaded,package:pkg};})();

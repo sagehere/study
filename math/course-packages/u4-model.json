@@ -1,0 +1,465 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u4.model.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u4",
+  "nodeId": "model",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "数量建模正式课",
+    "title": "数量关系到综合算式",
+    "description": "先把文字条件变成中间量关系，再把多步关系压缩成综合算式。"
+  },
+  "objectives": {
+    "target": "O-U4-MODEL-01",
+    "middle": "O-U4-MODEL-02",
+    "transfer": "O-U4-MODEL-04",
+    "compose": "O-U4-MODEL-03"
+  },
+  "misconceptions": {
+    "operateWords": "M-U4-MODEL-01",
+    "skipMiddle": "M-U4-MODEL-02"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "quantity-relation",
+    "sourcePages": "58,60-63",
+    "sourceNote": "教材第58页用书法18人、绘画为2倍、合唱比两组总人数少6人展示关系图并列综合算式；第60页用600元买4架126元飞机模型、剩余钱买48元舰船模型，先求中间量再组成带括号综合算式。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U4-MODEL-01",
+      "hints": [
+        "",
+        "题目最后一句问谁。",
+        "绘画组只是中间量。",
+        "最终问题是合唱组。",
+        "先锁定目标，再倒推需要哪些中间量。"
+      ],
+      "view": {
+        "title": "先问“最终要找谁”",
+        "prompt": "书法组18人，绘画组人数是书法组2倍，合唱组比书法组和绘画组总人数少6人。最终要找什么？",
+        "choices": [
+          [
+            "choir",
+            "合唱组人数"
+          ],
+          [
+            "art",
+            "绘画组人数"
+          ],
+          [
+            "total",
+            "三组合计"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "choir",
+          "to": "middleArt",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "art",
+          "to": "repairTarget",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-MODEL-01",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairTarget": {
+      "objectiveId": "O-U4-MODEL-01",
+      "hints": [
+        "",
+        "“比……少6人”的主语是合唱组。",
+        "书法+绘画的总人数是比较基准。",
+        "所以最终要从这个基准减6。",
+        "目标仍是合唱组。"
+      ],
+      "view": {
+        "title": "不要被最近出现的数字带走",
+        "prompt": "“合唱组比书法组和绘画组的总人数少6人”是在求谁？",
+        "choices": [
+          [
+            "choir",
+            "合唱组"
+          ],
+          [
+            "art",
+            "绘画组"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "choir",
+          "to": "middleArt",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-MODEL-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "model-lock-target"
+            }
+          ]
+        }
+      ]
+    },
+    "middleArt": {
+      "objectiveId": "O-U4-MODEL-02",
+      "hints": [
+        "",
+        "绘画是书法的2倍。",
+        "18×2。",
+        "得到36。",
+        "这是后面求两组总人数需要的中间量。"
+      ],
+      "view": {
+        "title": "先求不可缺的中间量",
+        "prompt": "绘画组人数是多少？",
+        "choices": [
+          [
+            "36",
+            "36人"
+          ],
+          [
+            "20",
+            "20人"
+          ],
+          [
+            "9",
+            "9人"
+          ]
+        ],
+        "renderer": "relation",
+        "rendererArgs": {
+          "unit": "书法组",
+          "quantity": "倍数",
+          "total": "绘画组",
+          "unitValue": "18人",
+          "quantityValue": "2倍",
+          "totalValue": "36人"
+        }
+      },
+      "transitions": [
+        {
+          "when": "36",
+          "to": "middleTotal",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "middleTotal": {
+      "objectiveId": "O-U4-MODEL-02",
+      "hints": [
+        "",
+        "18+36。",
+        "得到54。",
+        "合唱组比这个总数少6。",
+        "下一步54－6。"
+      ],
+      "view": {
+        "title": "第二个中间量连接到最终目标",
+        "prompt": "书法组和绘画组共多少人？",
+        "choices": [
+          [
+            "54",
+            "54人"
+          ],
+          [
+            "48",
+            "48人"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "54",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U4-MODEL-03",
+      "hints": [
+        "",
+        "先看依赖顺序。",
+        "先18×2求绘画组。",
+        "再与18相加。",
+        "最后减6，所以18＋18×2－6。"
+      ],
+      "view": {
+        "title": "综合算式是关系图的压缩，不是猜出来的",
+        "prompt": "哪一个综合算式正确？",
+        "choices": [
+          [
+            "expr",
+            "18＋18×2－6"
+          ],
+          [
+            "wrong",
+            "18×(2－6)"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "expr",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "derive-expression-from-dependency-chain"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U4-MODEL-03",
+      "hints": [
+        "",
+        "先求4架飞机花多少钱。",
+        "126×4=504。",
+        "再求剩余600－504=96。",
+        "最后96÷48=2。"
+      ],
+      "view": {
+        "title": "换一个带“剩余”的教材模型",
+        "prompt": "600元买4架126元飞机模型，剩下的钱买48元/艘的舰船。可以买几艘？",
+        "choices": [
+          [
+            "2",
+            "2艘"
+          ],
+          [
+            "10",
+            "10艘"
+          ],
+          [
+            "96",
+            "96艘"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "2",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        },
+        {
+          "when": "10",
+          "to": "repairMiddle",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-MODEL-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairMiddle": {
+      "objectiveId": "O-U4-MODEL-03",
+      "hints": [
+        "",
+        "舰船数量=剩余钱÷单价。",
+        "所以“剩余钱”是必要中间量。",
+        "先600－126×4。",
+        "再除以48。"
+      ],
+      "view": {
+        "title": "“剩余”必须先变成一个明确中间量",
+        "prompt": "买舰船前，必须先知道什么？",
+        "choices": [
+          [
+            "remain",
+            "剩下多少钱"
+          ],
+          [
+            "planes",
+            "飞机有几架"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "remain",
+          "to": "freshIndependent",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-MODEL-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "model-explicit-middle"
+            }
+          ]
+        }
+      ]
+    },
+    "freshIndependent": {
+      "objectiveId": "O-U4-MODEL-03",
+      "hints": [
+        "",
+        "先求第一种花费。",
+        "3×80=240。",
+        "剩260。",
+        "260÷65=4。"
+      ],
+      "view": {
+        "title": "换一道新题确认建模",
+        "prompt": "有500元，先买3件80元物品，剩下的钱按65元/件买另一种物品，最多买几件？",
+        "choices": [
+          [
+            "4",
+            "4件"
+          ],
+          [
+            "5",
+            "5件"
+          ],
+          [
+            "8",
+            "8件"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "4",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "fresh": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U4-MODEL-04",
+      "hints": [
+        "",
+        "先求乙24×3。",
+        "再求甲乙总数。",
+        "丙比总数多5。",
+        "所以24＋24×3＋5。"
+      ],
+      "view": {
+        "title": "迁移：从文字直接判断依赖链",
+        "prompt": "“甲有24个，乙是甲的3倍，丙比甲乙总数多5个。”求丙，正确结构是哪一个？",
+        "choices": [
+          [
+            "correct",
+            "24＋24×3＋5"
+          ],
+          [
+            "wrong",
+            "24×(3＋5)"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "correct",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U4-MODEL-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你会从文字生成“依赖链”了",
+        "prompt": "综合算式不是关键词拼接，而是把目标、中间量和依赖顺序压缩成一条可计算表达式。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

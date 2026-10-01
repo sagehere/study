@@ -1,0 +1,1 @@
+'use strict';(()=>{const pkg=CoursePackageData['u4.model.v2'];if(!pkg)throw new Error('Missing Course Package u4.model.v2');const loaded=CoursePackageLoader.register(pkg,PriceRenderer);globalThis.ModelPedagogy={...loaded,package:pkg};})();

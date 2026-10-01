@@ -1,6 +1,331 @@
 /* GENERATED from math/course-packages/*.json by pack-course-packages.cjs. Do not edit manually. */
 'use strict';
 globalThis.CoursePackageData={
+  "u1.chain.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u1.chain.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u1",
+    "nodeId": "chain",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "多步数量链正式课",
+      "title": "连除与条件整理",
+      "description": "先找中间量，再把总量逐层分到每一份。"
+    },
+    "objectives": {
+      "structure": "O-U1-CHAIN-01",
+      "middle": "O-U1-CHAIN-02",
+      "order": "O-U1-CHAIN-03",
+      "transfer": "O-U1-CHAIN-04"
+    },
+    "misconceptions": {
+      "skip": "M-U1-CHAIN-01",
+      "wrongOrder": "M-U1-CHAIN-02"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "quantity-relation",
+      "sourcePages": "10-12",
+      "sourceNote": "教材以2个书架、每架4层、共224本为主例，要求整理条件、先求有关联中间量，再列综合算式；练习继续覆盖900本分6年级每级3班、150片药每天3次每次2片等连除结构。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U1-CHAIN-01",
+        "hints": [
+          "",
+          "目标是“每层”。",
+          "总量224要平均分到所有层。",
+          "先知道总共有几层。",
+          "2×4=8层。"
+        ],
+        "view": {
+          "title": "先找“总共有多少份”",
+          "prompt": "2个书架，每个4层，共224本。平均每层多少本？哪一个中间量最有帮助？",
+          "choices": [
+            [
+              "layers",
+              "一共有2×4=8层"
+            ],
+            [
+              "books",
+              "先算224×4"
+            ]
+          ],
+          "renderer": "relation",
+          "rendererArgs": {
+            "unit": "每架层数",
+            "quantity": "书架数",
+            "total": "总层数",
+            "unitValue": "4层",
+            "quantityValue": "2架",
+            "totalValue": "8层"
+          }
+        },
+        "transitions": [
+          {
+            "when": "layers",
+            "to": "middle",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "books",
+            "to": "repairSkip",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U1-CHAIN-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairSkip": {
+        "objectiveId": "O-U1-CHAIN-01",
+        "hints": [
+          "",
+          "每一层是一份。",
+          "2架，每架4层。",
+          "总份数=2×4。",
+          "所以是8份。"
+        ],
+        "view": {
+          "title": "不能跳过份数结构",
+          "prompt": "224本最终要平均分成多少份？",
+          "choices": [
+            [
+              "8",
+              "8份"
+            ],
+            [
+              "4",
+              "4份"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "8",
+            "to": "middle",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U1-CHAIN-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "chain-total-parts"
+              }
+            ]
+          }
+        ]
+      },
+      "middle": {
+        "objectiveId": "O-U1-CHAIN-02",
+        "hints": [
+          "",
+          "总量÷总份数。",
+          "224÷8。",
+          "得到28。",
+          "所以每层28本。"
+        ],
+        "view": {
+          "title": "中间量一旦明确，第二步就清楚了",
+          "prompt": "已知一共8层、224本，每层多少本？",
+          "choices": [
+            [
+              "28",
+              "28本"
+            ],
+            [
+              "1792",
+              "1792本"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "28",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U1-CHAIN-03",
+        "hints": [
+          "",
+          "连除不是机械格式。",
+          "每次除法都在消掉一层“份数”。",
+          "先解释中间量，步骤才可靠。",
+          "综合算式只是把已理解的关系压缩。"
+        ],
+        "view": {
+          "title": "把两步关系写成可复用方法",
+          "prompt": "哪种方法最可靠？",
+          "choices": [
+            [
+              "rule",
+              "先求总份数，再用总量÷总份数；或按层级连续除，但每一步都要说清除掉的是什么"
+            ],
+            [
+              "blind",
+              "看到两个条件就连续除，不用解释"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "multi-step-division-chain"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U1-CHAIN-03",
+        "hints": [
+          "",
+          "先求总班数。",
+          "6×3=18班。",
+          "900÷18。",
+          "得到50本。"
+        ],
+        "view": {
+          "title": "教材式独立题",
+          "prompt": "900本图书平均分给6个年级，每个年级3个班。平均每班多少本？",
+          "choices": [
+            [
+              "50",
+              "50本"
+            ],
+            [
+              "450",
+              "450本"
+            ],
+            [
+              "18",
+              "18本"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "50",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U1-CHAIN-04",
+        "hints": [
+          "",
+          "先求每天吃多少片。",
+          "3×2=6片/天。",
+          "150÷6。",
+          "得到25天。"
+        ],
+        "view": {
+          "title": "迁移到另一种连除情境",
+          "prompt": "150片药，每天吃3次，每次2片，可以吃多少天？",
+          "choices": [
+            [
+              "25",
+              "25天"
+            ],
+            [
+              "100",
+              "100天"
+            ],
+            [
+              "6",
+              "6天"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "25",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U1-CHAIN-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你会把多层条件拆成中间量了",
+          "prompt": "连除题的关键不是“除两次”，而是看总量被哪几层份数逐步分开，并给每个中间量起清楚的名字。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
   "u1.invariant.v2": {
     "packageVersion": "0.1.0",
     "schemaVersion": "0.2",
@@ -4106,6 +4431,459 @@ globalThis.CoursePackageData={
       }
     }
   },
+  "u3.one.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u3.one.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u3",
+    "nodeId": "one",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "归一归总正式课",
+      "title": "归一与归总",
+      "description": "先找不变量，再决定是先求每1份还是先求总量。"
+    },
+    "objectives": {
+      "invariant": "O-U3-ONE-01",
+      "unit": "O-U3-ONE-02",
+      "total": "O-U3-ONE-03",
+      "transfer": "O-U3-ONE-04"
+    },
+    "misconceptions": {
+      "direct": "M-U3-ONE-01",
+      "wrongInvariant": "M-U3-ONE-02"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "quantity-relation",
+      "sourcePages": "54-56",
+      "sourceNote": "教材用3本18元、5本求总价建立“单价不变→先求单价”；练习还用每间4盆可放24间、改为每间6盆，先求总盆数再重新分，形成归一与归总两类结构。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U3-ONE-01",
+        "hints": [
+          "",
+          "买的本数变了。",
+          "总价也会跟着变。",
+          "同一种笔记本，每本价格不变。",
+          "所以不变量是单价。"
+        ],
+        "view": {
+          "title": "先圈出不变的量",
+          "prompt": "3本笔记本18元，买5本要多少钱？什么量保持不变？",
+          "choices": [
+            [
+              "price",
+              "每本单价"
+            ],
+            [
+              "total",
+              "总价18元"
+            ],
+            [
+              "count",
+              "本数3本"
+            ]
+          ],
+          "renderer": "relation",
+          "rendererArgs": {
+            "unit": "单价",
+            "quantity": "数量",
+            "total": "总价",
+            "unitValue": "?元/本",
+            "quantityValue": "3本",
+            "totalValue": "18元"
+          }
+        },
+        "transitions": [
+          {
+            "when": "price",
+            "to": "unit",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "total",
+            "to": "repairInvariant",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-ONE-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairInvariant": {
+        "objectiveId": "O-U3-ONE-01",
+        "hints": [
+          "",
+          "数量改变。",
+          "总价随数量改变。",
+          "同一种商品的每本单价保持不变。",
+          "因此先求单价。"
+        ],
+        "view": {
+          "title": "先修“到底什么没变”",
+          "prompt": "从买3本变成买5本，哪一个量仍可直接沿用？",
+          "choices": [
+            [
+              "price",
+              "每本价格"
+            ],
+            [
+              "total",
+              "总价18元"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "price",
+            "to": "unit",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-ONE-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "unit-rate-invariant"
+              }
+            ]
+          }
+        ]
+      },
+      "unit": {
+        "objectiveId": "O-U3-ONE-02",
+        "hints": [
+          "",
+          "总价÷数量。",
+          "18÷3。",
+          "得到6元/本。",
+          "这就是每1份量。"
+        ],
+        "view": {
+          "title": "归一：先求每1份",
+          "prompt": "18元买3本，每本多少钱？",
+          "choices": [
+            [
+              "6",
+              "6元"
+            ],
+            [
+              "54",
+              "54元"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "6",
+            "to": "newTotal",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "newTotal": {
+        "objectiveId": "O-U3-ONE-02",
+        "hints": [
+          "",
+          "单价×新数量。",
+          "6×5。",
+          "得到30。",
+          "所以5本30元。"
+        ],
+        "view": {
+          "title": "再用每1份量求新总量",
+          "prompt": "每本6元，5本多少钱？",
+          "choices": [
+            [
+              "30",
+              "30元"
+            ],
+            [
+              "11",
+              "11元"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "30",
+            "to": "aggregate",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "aggregate": {
+        "objectiveId": "O-U3-ONE-03",
+        "hints": [
+          "",
+          "这次不变的不是“每间盆数”。",
+          "总花盆数量不变。",
+          "先还原总量。",
+          "4×24=96盆。"
+        ],
+        "view": {
+          "title": "归总：有时先求固定总量",
+          "prompt": "每间教室放4盆花，可以放24间。若改成每间6盆，先求什么最合理？",
+          "choices": [
+            [
+              "flowers",
+              "先求总盆数4×24=96盆"
+            ],
+            [
+              "rooms",
+              "直接24÷6"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "flowers",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "rooms",
+            "to": "repairDirect",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-ONE-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairDirect": {
+        "objectiveId": "O-U3-ONE-03",
+        "hints": [
+          "",
+          "单位先对齐。",
+          "24的单位是“间”。",
+          "6的单位是“盆/间”。",
+          "先求96盆，再用96÷6。"
+        ],
+        "view": {
+          "title": "不能把旧“间数”直接除以新盆数",
+          "prompt": "24表示什么？能直接和6盆/间相除吗？",
+          "choices": [
+            [
+              "no",
+              "不能，24是间数，不是总盆数"
+            ],
+            [
+              "yes",
+              "能"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "no",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-ONE-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "aggregate-before-redistribute"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U3-ONE-03",
+        "hints": [
+          "",
+          "算法由不变量决定。",
+          "单价/速度等单位量不变时先求每1份。",
+          "总盆数/总路程等总量不变时先求总量。",
+          "不是固定“先除后乘”。"
+        ],
+        "view": {
+          "title": "归一和归总其实都先找不变量",
+          "prompt": "哪句最准确？",
+          "choices": [
+            [
+              "rule",
+              "先找不变量：单位量不变就先归一；总量不变就先归总，再按新条件计算"
+            ],
+            [
+              "always",
+              "所有题都先除再乘"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "unitize-or-aggregate-by-invariant"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U3-ONE-02",
+        "hints": [
+          "",
+          "先求固定总路程。",
+          "85×8=680千米。",
+          "680÷10。",
+          "得到68千米/时。"
+        ],
+        "view": {
+          "title": "换一道归一题独立做",
+          "prompt": "汽车85千米/时行8小时到达。总路程不变，返程用10小时，返程速度是多少？",
+          "choices": [
+            [
+              "68",
+              "68千米/时"
+            ],
+            [
+              "850",
+              "850千米/时"
+            ],
+            [
+              "10",
+              "10千米/时"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "68",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U3-ONE-04",
+        "hints": [
+          "",
+          "先归一到每1小时。",
+          "12÷2=6厘米/时。",
+          "120÷6。",
+          "得到20小时。"
+        ],
+        "view": {
+          "title": "迁移：从观测间隔归一",
+          "prompt": "水库每2小时下降12厘米，按同样速度，下降120厘米需要多少小时？",
+          "choices": [
+            [
+              "20",
+              "20小时"
+            ],
+            [
+              "10",
+              "10小时"
+            ],
+            [
+              "240",
+              "240小时"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "20",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U3-ONE-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你已经会先找不变量再选路径",
+          "prompt": "归一与归总不是两套死公式：先判断什么量不变，再决定先求每1份还是先还原总量。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
   "u3.price.v2": {
     "schemaVersion": "0.2",
     "flowId": "u3.price.v2",
@@ -5882,6 +6660,471 @@ globalThis.CoursePackageData={
         "view": {
           "title": "括号现在表示的是“运算层级”",
           "prompt": "先识别最里面的括号，再在该层内部按正常运算顺序计算；括号位置一变，参与运算的整体就会变。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
+  "u4.model.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u4.model.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u4",
+    "nodeId": "model",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "数量建模正式课",
+      "title": "数量关系到综合算式",
+      "description": "先把文字条件变成中间量关系，再把多步关系压缩成综合算式。"
+    },
+    "objectives": {
+      "target": "O-U4-MODEL-01",
+      "middle": "O-U4-MODEL-02",
+      "transfer": "O-U4-MODEL-04",
+      "compose": "O-U4-MODEL-03"
+    },
+    "misconceptions": {
+      "operateWords": "M-U4-MODEL-01",
+      "skipMiddle": "M-U4-MODEL-02"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "quantity-relation",
+      "sourcePages": "58,60-63",
+      "sourceNote": "教材第58页用书法18人、绘画为2倍、合唱比两组总人数少6人展示关系图并列综合算式；第60页用600元买4架126元飞机模型、剩余钱买48元舰船模型，先求中间量再组成带括号综合算式。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U4-MODEL-01",
+        "hints": [
+          "",
+          "题目最后一句问谁。",
+          "绘画组只是中间量。",
+          "最终问题是合唱组。",
+          "先锁定目标，再倒推需要哪些中间量。"
+        ],
+        "view": {
+          "title": "先问“最终要找谁”",
+          "prompt": "书法组18人，绘画组人数是书法组2倍，合唱组比书法组和绘画组总人数少6人。最终要找什么？",
+          "choices": [
+            [
+              "choir",
+              "合唱组人数"
+            ],
+            [
+              "art",
+              "绘画组人数"
+            ],
+            [
+              "total",
+              "三组合计"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "choir",
+            "to": "middleArt",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "art",
+            "to": "repairTarget",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-MODEL-01",
+                "confidence": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      "repairTarget": {
+        "objectiveId": "O-U4-MODEL-01",
+        "hints": [
+          "",
+          "“比……少6人”的主语是合唱组。",
+          "书法+绘画的总人数是比较基准。",
+          "所以最终要从这个基准减6。",
+          "目标仍是合唱组。"
+        ],
+        "view": {
+          "title": "不要被最近出现的数字带走",
+          "prompt": "“合唱组比书法组和绘画组的总人数少6人”是在求谁？",
+          "choices": [
+            [
+              "choir",
+              "合唱组"
+            ],
+            [
+              "art",
+              "绘画组"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "choir",
+            "to": "middleArt",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-MODEL-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "model-lock-target"
+              }
+            ]
+          }
+        ]
+      },
+      "middleArt": {
+        "objectiveId": "O-U4-MODEL-02",
+        "hints": [
+          "",
+          "绘画是书法的2倍。",
+          "18×2。",
+          "得到36。",
+          "这是后面求两组总人数需要的中间量。"
+        ],
+        "view": {
+          "title": "先求不可缺的中间量",
+          "prompt": "绘画组人数是多少？",
+          "choices": [
+            [
+              "36",
+              "36人"
+            ],
+            [
+              "20",
+              "20人"
+            ],
+            [
+              "9",
+              "9人"
+            ]
+          ],
+          "renderer": "relation",
+          "rendererArgs": {
+            "unit": "书法组",
+            "quantity": "倍数",
+            "total": "绘画组",
+            "unitValue": "18人",
+            "quantityValue": "2倍",
+            "totalValue": "36人"
+          }
+        },
+        "transitions": [
+          {
+            "when": "36",
+            "to": "middleTotal",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "middleTotal": {
+        "objectiveId": "O-U4-MODEL-02",
+        "hints": [
+          "",
+          "18+36。",
+          "得到54。",
+          "合唱组比这个总数少6。",
+          "下一步54－6。"
+        ],
+        "view": {
+          "title": "第二个中间量连接到最终目标",
+          "prompt": "书法组和绘画组共多少人？",
+          "choices": [
+            [
+              "54",
+              "54人"
+            ],
+            [
+              "48",
+              "48人"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "54",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U4-MODEL-03",
+        "hints": [
+          "",
+          "先看依赖顺序。",
+          "先18×2求绘画组。",
+          "再与18相加。",
+          "最后减6，所以18＋18×2－6。"
+        ],
+        "view": {
+          "title": "综合算式是关系图的压缩，不是猜出来的",
+          "prompt": "哪一个综合算式正确？",
+          "choices": [
+            [
+              "expr",
+              "18＋18×2－6"
+            ],
+            [
+              "wrong",
+              "18×(2－6)"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "expr",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "derive-expression-from-dependency-chain"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U4-MODEL-03",
+        "hints": [
+          "",
+          "先求4架飞机花多少钱。",
+          "126×4=504。",
+          "再求剩余600－504=96。",
+          "最后96÷48=2。"
+        ],
+        "view": {
+          "title": "换一个带“剩余”的教材模型",
+          "prompt": "600元买4架126元飞机模型，剩下的钱买48元/艘的舰船。可以买几艘？",
+          "choices": [
+            [
+              "2",
+              "2艘"
+            ],
+            [
+              "10",
+              "10艘"
+            ],
+            [
+              "96",
+              "96艘"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "2",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          },
+          {
+            "when": "10",
+            "to": "repairMiddle",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-MODEL-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairMiddle": {
+        "objectiveId": "O-U4-MODEL-03",
+        "hints": [
+          "",
+          "舰船数量=剩余钱÷单价。",
+          "所以“剩余钱”是必要中间量。",
+          "先600－126×4。",
+          "再除以48。"
+        ],
+        "view": {
+          "title": "“剩余”必须先变成一个明确中间量",
+          "prompt": "买舰船前，必须先知道什么？",
+          "choices": [
+            [
+              "remain",
+              "剩下多少钱"
+            ],
+            [
+              "planes",
+              "飞机有几架"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "remain",
+            "to": "freshIndependent",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-MODEL-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "model-explicit-middle"
+              }
+            ]
+          }
+        ]
+      },
+      "freshIndependent": {
+        "objectiveId": "O-U4-MODEL-03",
+        "hints": [
+          "",
+          "先求第一种花费。",
+          "3×80=240。",
+          "剩260。",
+          "260÷65=4。"
+        ],
+        "view": {
+          "title": "换一道新题确认建模",
+          "prompt": "有500元，先买3件80元物品，剩下的钱按65元/件买另一种物品，最多买几件？",
+          "choices": [
+            [
+              "4",
+              "4件"
+            ],
+            [
+              "5",
+              "5件"
+            ],
+            [
+              "8",
+              "8件"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "4",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U4-MODEL-04",
+        "hints": [
+          "",
+          "先求乙24×3。",
+          "再求甲乙总数。",
+          "丙比总数多5。",
+          "所以24＋24×3＋5。"
+        ],
+        "view": {
+          "title": "迁移：从文字直接判断依赖链",
+          "prompt": "“甲有24个，乙是甲的3倍，丙比甲乙总数多5个。”求丙，正确结构是哪一个？",
+          "choices": [
+            [
+              "correct",
+              "24＋24×3＋5"
+            ],
+            [
+              "wrong",
+              "24×(3＋5)"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "correct",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U4-MODEL-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你会从文字生成“依赖链”了",
+          "prompt": "综合算式不是关键词拼接，而是把目标、中间量和依赖顺序压缩成一条可计算表达式。",
           "choices": []
         },
         "transitions": [],

@@ -1,0 +1,325 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u1.chain.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u1",
+  "nodeId": "chain",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "多步数量链正式课",
+    "title": "连除与条件整理",
+    "description": "先找中间量，再把总量逐层分到每一份。"
+  },
+  "objectives": {
+    "structure": "O-U1-CHAIN-01",
+    "middle": "O-U1-CHAIN-02",
+    "order": "O-U1-CHAIN-03",
+    "transfer": "O-U1-CHAIN-04"
+  },
+  "misconceptions": {
+    "skip": "M-U1-CHAIN-01",
+    "wrongOrder": "M-U1-CHAIN-02"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "quantity-relation",
+    "sourcePages": "10-12",
+    "sourceNote": "教材以2个书架、每架4层、共224本为主例，要求整理条件、先求有关联中间量，再列综合算式；练习继续覆盖900本分6年级每级3班、150片药每天3次每次2片等连除结构。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U1-CHAIN-01",
+      "hints": [
+        "",
+        "目标是“每层”。",
+        "总量224要平均分到所有层。",
+        "先知道总共有几层。",
+        "2×4=8层。"
+      ],
+      "view": {
+        "title": "先找“总共有多少份”",
+        "prompt": "2个书架，每个4层，共224本。平均每层多少本？哪一个中间量最有帮助？",
+        "choices": [
+          [
+            "layers",
+            "一共有2×4=8层"
+          ],
+          [
+            "books",
+            "先算224×4"
+          ]
+        ],
+        "renderer": "relation",
+        "rendererArgs": {
+          "unit": "每架层数",
+          "quantity": "书架数",
+          "total": "总层数",
+          "unitValue": "4层",
+          "quantityValue": "2架",
+          "totalValue": "8层"
+        }
+      },
+      "transitions": [
+        {
+          "when": "layers",
+          "to": "middle",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "books",
+          "to": "repairSkip",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U1-CHAIN-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairSkip": {
+      "objectiveId": "O-U1-CHAIN-01",
+      "hints": [
+        "",
+        "每一层是一份。",
+        "2架，每架4层。",
+        "总份数=2×4。",
+        "所以是8份。"
+      ],
+      "view": {
+        "title": "不能跳过份数结构",
+        "prompt": "224本最终要平均分成多少份？",
+        "choices": [
+          [
+            "8",
+            "8份"
+          ],
+          [
+            "4",
+            "4份"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "8",
+          "to": "middle",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U1-CHAIN-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "chain-total-parts"
+            }
+          ]
+        }
+      ]
+    },
+    "middle": {
+      "objectiveId": "O-U1-CHAIN-02",
+      "hints": [
+        "",
+        "总量÷总份数。",
+        "224÷8。",
+        "得到28。",
+        "所以每层28本。"
+      ],
+      "view": {
+        "title": "中间量一旦明确，第二步就清楚了",
+        "prompt": "已知一共8层、224本，每层多少本？",
+        "choices": [
+          [
+            "28",
+            "28本"
+          ],
+          [
+            "1792",
+            "1792本"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "28",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U1-CHAIN-03",
+      "hints": [
+        "",
+        "连除不是机械格式。",
+        "每次除法都在消掉一层“份数”。",
+        "先解释中间量，步骤才可靠。",
+        "综合算式只是把已理解的关系压缩。"
+      ],
+      "view": {
+        "title": "把两步关系写成可复用方法",
+        "prompt": "哪种方法最可靠？",
+        "choices": [
+          [
+            "rule",
+            "先求总份数，再用总量÷总份数；或按层级连续除，但每一步都要说清除掉的是什么"
+          ],
+          [
+            "blind",
+            "看到两个条件就连续除，不用解释"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "multi-step-division-chain"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U1-CHAIN-03",
+      "hints": [
+        "",
+        "先求总班数。",
+        "6×3=18班。",
+        "900÷18。",
+        "得到50本。"
+      ],
+      "view": {
+        "title": "教材式独立题",
+        "prompt": "900本图书平均分给6个年级，每个年级3个班。平均每班多少本？",
+        "choices": [
+          [
+            "50",
+            "50本"
+          ],
+          [
+            "450",
+            "450本"
+          ],
+          [
+            "18",
+            "18本"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "50",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U1-CHAIN-04",
+      "hints": [
+        "",
+        "先求每天吃多少片。",
+        "3×2=6片/天。",
+        "150÷6。",
+        "得到25天。"
+      ],
+      "view": {
+        "title": "迁移到另一种连除情境",
+        "prompt": "150片药，每天吃3次，每次2片，可以吃多少天？",
+        "choices": [
+          [
+            "25",
+            "25天"
+          ],
+          [
+            "100",
+            "100天"
+          ],
+          [
+            "6",
+            "6天"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "25",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U1-CHAIN-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你会把多层条件拆成中间量了",
+        "prompt": "连除题的关键不是“除两次”，而是看总量被哪几层份数逐步分开，并给每个中间量起清楚的名字。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

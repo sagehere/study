@@ -1,0 +1,453 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u3.one.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u3",
+  "nodeId": "one",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "归一归总正式课",
+    "title": "归一与归总",
+    "description": "先找不变量，再决定是先求每1份还是先求总量。"
+  },
+  "objectives": {
+    "invariant": "O-U3-ONE-01",
+    "unit": "O-U3-ONE-02",
+    "total": "O-U3-ONE-03",
+    "transfer": "O-U3-ONE-04"
+  },
+  "misconceptions": {
+    "direct": "M-U3-ONE-01",
+    "wrongInvariant": "M-U3-ONE-02"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "quantity-relation",
+    "sourcePages": "54-56",
+    "sourceNote": "教材用3本18元、5本求总价建立“单价不变→先求单价”；练习还用每间4盆可放24间、改为每间6盆，先求总盆数再重新分，形成归一与归总两类结构。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U3-ONE-01",
+      "hints": [
+        "",
+        "买的本数变了。",
+        "总价也会跟着变。",
+        "同一种笔记本，每本价格不变。",
+        "所以不变量是单价。"
+      ],
+      "view": {
+        "title": "先圈出不变的量",
+        "prompt": "3本笔记本18元，买5本要多少钱？什么量保持不变？",
+        "choices": [
+          [
+            "price",
+            "每本单价"
+          ],
+          [
+            "total",
+            "总价18元"
+          ],
+          [
+            "count",
+            "本数3本"
+          ]
+        ],
+        "renderer": "relation",
+        "rendererArgs": {
+          "unit": "单价",
+          "quantity": "数量",
+          "total": "总价",
+          "unitValue": "?元/本",
+          "quantityValue": "3本",
+          "totalValue": "18元"
+        }
+      },
+      "transitions": [
+        {
+          "when": "price",
+          "to": "unit",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "total",
+          "to": "repairInvariant",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U3-ONE-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairInvariant": {
+      "objectiveId": "O-U3-ONE-01",
+      "hints": [
+        "",
+        "数量改变。",
+        "总价随数量改变。",
+        "同一种商品的每本单价保持不变。",
+        "因此先求单价。"
+      ],
+      "view": {
+        "title": "先修“到底什么没变”",
+        "prompt": "从买3本变成买5本，哪一个量仍可直接沿用？",
+        "choices": [
+          [
+            "price",
+            "每本价格"
+          ],
+          [
+            "total",
+            "总价18元"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "price",
+          "to": "unit",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U3-ONE-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "unit-rate-invariant"
+            }
+          ]
+        }
+      ]
+    },
+    "unit": {
+      "objectiveId": "O-U3-ONE-02",
+      "hints": [
+        "",
+        "总价÷数量。",
+        "18÷3。",
+        "得到6元/本。",
+        "这就是每1份量。"
+      ],
+      "view": {
+        "title": "归一：先求每1份",
+        "prompt": "18元买3本，每本多少钱？",
+        "choices": [
+          [
+            "6",
+            "6元"
+          ],
+          [
+            "54",
+            "54元"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "6",
+          "to": "newTotal",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "newTotal": {
+      "objectiveId": "O-U3-ONE-02",
+      "hints": [
+        "",
+        "单价×新数量。",
+        "6×5。",
+        "得到30。",
+        "所以5本30元。"
+      ],
+      "view": {
+        "title": "再用每1份量求新总量",
+        "prompt": "每本6元，5本多少钱？",
+        "choices": [
+          [
+            "30",
+            "30元"
+          ],
+          [
+            "11",
+            "11元"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "30",
+          "to": "aggregate",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "aggregate": {
+      "objectiveId": "O-U3-ONE-03",
+      "hints": [
+        "",
+        "这次不变的不是“每间盆数”。",
+        "总花盆数量不变。",
+        "先还原总量。",
+        "4×24=96盆。"
+      ],
+      "view": {
+        "title": "归总：有时先求固定总量",
+        "prompt": "每间教室放4盆花，可以放24间。若改成每间6盆，先求什么最合理？",
+        "choices": [
+          [
+            "flowers",
+            "先求总盆数4×24=96盆"
+          ],
+          [
+            "rooms",
+            "直接24÷6"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "flowers",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "rooms",
+          "to": "repairDirect",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U3-ONE-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairDirect": {
+      "objectiveId": "O-U3-ONE-03",
+      "hints": [
+        "",
+        "单位先对齐。",
+        "24的单位是“间”。",
+        "6的单位是“盆/间”。",
+        "先求96盆，再用96÷6。"
+      ],
+      "view": {
+        "title": "不能把旧“间数”直接除以新盆数",
+        "prompt": "24表示什么？能直接和6盆/间相除吗？",
+        "choices": [
+          [
+            "no",
+            "不能，24是间数，不是总盆数"
+          ],
+          [
+            "yes",
+            "能"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U3-ONE-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "aggregate-before-redistribute"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U3-ONE-03",
+      "hints": [
+        "",
+        "算法由不变量决定。",
+        "单价/速度等单位量不变时先求每1份。",
+        "总盆数/总路程等总量不变时先求总量。",
+        "不是固定“先除后乘”。"
+      ],
+      "view": {
+        "title": "归一和归总其实都先找不变量",
+        "prompt": "哪句最准确？",
+        "choices": [
+          [
+            "rule",
+            "先找不变量：单位量不变就先归一；总量不变就先归总，再按新条件计算"
+          ],
+          [
+            "always",
+            "所有题都先除再乘"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "unitize-or-aggregate-by-invariant"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U3-ONE-02",
+      "hints": [
+        "",
+        "先求固定总路程。",
+        "85×8=680千米。",
+        "680÷10。",
+        "得到68千米/时。"
+      ],
+      "view": {
+        "title": "换一道归一题独立做",
+        "prompt": "汽车85千米/时行8小时到达。总路程不变，返程用10小时，返程速度是多少？",
+        "choices": [
+          [
+            "68",
+            "68千米/时"
+          ],
+          [
+            "850",
+            "850千米/时"
+          ],
+          [
+            "10",
+            "10千米/时"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "68",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U3-ONE-04",
+      "hints": [
+        "",
+        "先归一到每1小时。",
+        "12÷2=6厘米/时。",
+        "120÷6。",
+        "得到20小时。"
+      ],
+      "view": {
+        "title": "迁移：从观测间隔归一",
+        "prompt": "水库每2小时下降12厘米，按同样速度，下降120厘米需要多少小时？",
+        "choices": [
+          [
+            "20",
+            "20小时"
+          ],
+          [
+            "10",
+            "10小时"
+          ],
+          [
+            "240",
+            "240小时"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "20",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U3-ONE-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你已经会先找不变量再选路径",
+        "prompt": "归一与归总不是两套死公式：先判断什么量不变，再决定先求每1份还是先还原总量。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

@@ -1,0 +1,1 @@
+'use strict';(()=>{const pkg=CoursePackageData['u1.chain.v2'];if(!pkg)throw new Error('Missing Course Package u1.chain.v2');const loaded=CoursePackageLoader.register(pkg,PriceRenderer);globalThis.ChainPedagogy={...loaded,package:pkg};})();
