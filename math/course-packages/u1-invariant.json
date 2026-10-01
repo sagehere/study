@@ -1,0 +1,505 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u1.invariant.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u1",
+  "nodeId": "invariant",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "规律归纳正式课",
+    "title": "商不变规律",
+    "description": "先从多组等商算式发现“同时同倍变化”，再处理有余数时余数的单位还原。"
+  },
+  "objectives": {
+    "observe": "O-U1-INVARIANT-01",
+    "condition": "O-U1-INVARIANT-02",
+    "remainder": "O-U1-INVARIANT-03",
+    "transfer": "O-U1-INVARIANT-04"
+  },
+  "misconceptions": {
+    "oneSide": "M-U1-INVARIANT-01",
+    "differentFactor": "M-U1-INVARIANT-02",
+    "sameRemainder": "M-U1-INVARIANT-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "13-15",
+    "sourceNote": "教材探索表从270÷30=9扩展到540÷60、810÷90、54÷6、27÷3，引导发现被除数和除数同时按同一倍数变化时商保持不变。本课程的有余数情形作为对该规律的数学延伸：整数商可保持，但余数随原数量单位的缩放同步变化，不声称是教材原句。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U1-INVARIANT-01",
+      "hints": [
+        "",
+        "不要只看被除数变大。",
+        "除数也同时变大。",
+        "540÷60可以同时去掉一个0，变成54÷6。",
+        "54÷6=9。"
+      ],
+      "view": {
+        "title": "先看结果，再猜规律",
+        "prompt": "270÷30=9。把被除数和除数都乘2，540÷60等于多少？",
+        "choices": [
+          [
+            "9",
+            "9"
+          ],
+          [
+            "18",
+            "18"
+          ],
+          [
+            "4.5",
+            "4.5"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "9",
+          "to": "divideBoth",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "18",
+          "to": "repairOneSide",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U1-INVARIANT-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairOneSide": {
+      "objectiveId": "O-U1-INVARIANT-01",
+      "hints": [
+        "",
+        "商可以理解为“里面有几份”。",
+        "总量和每份大小一起乘2。",
+        "能分成的份数不需要变化。",
+        "所以商仍是9。"
+      ],
+      "view": {
+        "title": "为什么商没有跟着翻倍",
+        "prompt": "270→540乘2，30→60也乘2。两边同时乘2，相当于每一份和总量一起放大，份数会怎样？",
+        "choices": [
+          [
+            "same",
+            "份数不变"
+          ],
+          [
+            "double",
+            "份数也翻倍"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "same",
+          "to": "divideBoth",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U1-INVARIANT-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "same-scale-quotient"
+            }
+          ]
+        }
+      ]
+    },
+    "divideBoth": {
+      "objectiveId": "O-U1-INVARIANT-02",
+      "hints": [
+        "",
+        "两边都除以同一个数。",
+        "27÷3可以直接算。",
+        "27里有9个3。",
+        "商仍然是9。"
+      ],
+      "view": {
+        "title": "反过来同时缩小也一样",
+        "prompt": "270÷30=9。把两数都除以10得到27÷3，商是多少？",
+        "choices": [
+          [
+            "9",
+            "9"
+          ],
+          [
+            "0.9",
+            "0.9"
+          ],
+          [
+            "90",
+            "90"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "9",
+          "to": "sameFactor",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "sameFactor": {
+      "objectiveId": "O-U1-INVARIANT-02",
+      "hints": [
+        "",
+        "比较两个变化倍数。",
+        "一个×2，一个×3，不是同倍变化。",
+        "比例已经改变。",
+        "因此商不能保证不变。"
+      ],
+      "view": {
+        "title": "“同时变化”还不够，还要同一个倍数",
+        "prompt": "270÷30中，如果只把被除数乘2、除数乘3，商还能保证不变吗？",
+        "choices": [
+          [
+            "no",
+            "不能保证"
+          ],
+          [
+            "yes",
+            "仍然保证不变"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "yes",
+          "to": "repairFactor",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U1-INVARIANT-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairFactor": {
+      "objectiveId": "O-U1-INVARIANT-02",
+      "hints": [
+        "",
+        "教材表格的每一行都检查“同一个倍数”。",
+        "×2配×2，×3配×3，÷5配÷5。",
+        "而且不能除以0。",
+        "条件是“同时、同一个、非零”。"
+      ],
+      "view": {
+        "title": "规律的条件不能少",
+        "prompt": "哪种变化一定保持商不变？",
+        "choices": [
+          [
+            "same",
+            "被除数和除数同时乘或除以同一个非零数"
+          ],
+          [
+            "any",
+            "两边只要都变化就行"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "same",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U1-INVARIANT-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "same-factor-condition"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U1-INVARIANT-02",
+      "hints": [
+        "",
+        "把刚才三个证据放一起。",
+        "关键条件是同倍缩放。",
+        "除数不能变成0。",
+        "满足这些条件时商不变。"
+      ],
+      "view": {
+        "title": "现在再形成商不变规律",
+        "prompt": "哪句话完整？",
+        "choices": [
+          [
+            "rule",
+            "被除数和除数同时乘或除以同一个非零数，商不变"
+          ],
+          [
+            "half",
+            "被除数和除数只要同时变化，商就不变"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "remainder",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "quotient-invariant-same-scale"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "remainder": {
+      "objectiveId": "O-U1-INVARIANT-03",
+      "hints": [
+        "",
+        "整数商4可以保持。",
+        "但原来的“3”也属于被除数量的单位。",
+        "整体放大10倍，没分完的部分也放大10倍。",
+        "所以余数3→30。"
+      ],
+      "view": {
+        "title": "有余数时，余数也有“单位”",
+        "prompt": "83÷20=4余3。把被除数和除数都乘10得到830÷200，结果应该是哪一个？",
+        "choices": [
+          [
+            "scaled",
+            "4余30"
+          ],
+          [
+            "same",
+            "4余3"
+          ],
+          [
+            "forty",
+            "40余30"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "scaled",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "same",
+          "to": "repairRemainder",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U1-INVARIANT-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairRemainder": {
+      "objectiveId": "O-U1-INVARIANT-03",
+      "hints": [
+        "",
+        "用被除数=除数×商+余数检查。",
+        "200×4=800。",
+        "830－800=30。",
+        "所以余数必须是30。"
+      ],
+      "view": {
+        "title": "为什么不能把余数3原样抄过去",
+        "prompt": "检验830=200×4＋?，问号是多少？",
+        "choices": [
+          [
+            "30",
+            "30"
+          ],
+          [
+            "3",
+            "3"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "30",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U1-INVARIANT-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "remainder-scale-unit"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U1-INVARIANT-02",
+      "hints": [
+        "",
+        "找“同时乘同一个数”。",
+        "72→720乘10。",
+        "8→80也乘10。",
+        "所以720÷80仍等于9。"
+      ],
+      "view": {
+        "title": "换一组独立判断",
+        "prompt": "72÷8=9。下面哪一个商也一定是9？",
+        "choices": [
+          [
+            "correct",
+            "720÷80"
+          ],
+          [
+            "wrong",
+            "720÷8"
+          ],
+          [
+            "mixed",
+            "144÷24"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "correct",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U1-INVARIANT-04",
+      "hints": [
+        "",
+        "商保持15。",
+        "余数也要按同样的缩放还原。",
+        "12÷3=4。",
+        "所以154÷10=15余4。"
+      ],
+      "view": {
+        "title": "迁移到有余数的缩放",
+        "prompt": "462÷30=15余12。把被除数和除数都除以3，154÷10应该是多少？",
+        "choices": [
+          [
+            "correct",
+            "15余4"
+          ],
+          [
+            "same",
+            "15余12"
+          ],
+          [
+            "five",
+            "5余4"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "correct",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U1-INVARIANT-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你已经把“商不变”理解成比例不变",
+        "prompt": "同倍缩放保持商；有余数时，整数商可以保持，但余数属于原数量单位，也必须按相同倍数缩放或还原。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

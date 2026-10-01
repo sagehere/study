@@ -16,6 +16,8 @@
     "partialProducts",
     "thresholdBound",
     "longDivision",
-    "placeValueGroups"
+    "placeValueGroups",
+    "boundaryTrace",
+    "codeSegments"
   ]
 }

@@ -1,0 +1,509 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u2.cut.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u2",
+  "nodeId": "cut",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "边界表征正式课",
+    "title": "拼剪与靠墙围栏",
+    "description": "先追踪最终外边界，再决定哪些边计入；内部接缝和贴墙边不是需要围的外边界。"
+  },
+  "objectives": {
+    "boundary": "O-U2-CUT-01",
+    "seam": "O-U2-CUT-02",
+    "change": "O-U2-CUT-03",
+    "transfer": "O-U2-CUT-04"
+  },
+  "misconceptions": {
+    "fullPerimeter": "M-U2-CUT-01",
+    "doubleSeam": "M-U2-CUT-02",
+    "sameAreaSamePerimeter": "M-U2-CUT-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "26,41-42",
+    "sourceNote": "教材26页包含一面靠墙的12m×8m花圃、组合图形篱笆和两个3cm正方形拼成长方形；42页用6个1cm正方形拼不同图形比较面积与周长，明确同面积可以有不同周长。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U2-CUT-01",
+      "hints": [
+        "",
+        "先描“真正要围”的边。",
+        "靠墙的一边不需要栅栏。",
+        "只算另外三边：12+8+8。",
+        "得到28米。"
+      ],
+      "view": {
+        "title": "先问：到底围哪几条边",
+        "prompt": "长12米、宽8米的长方形花圃有一面靠墙。需要栅栏多少米？",
+        "choices": [
+          [
+            "28",
+            "28米"
+          ],
+          [
+            "40",
+            "40米"
+          ],
+          [
+            "32",
+            "32米"
+          ]
+        ],
+        "renderer": "boundaryTrace",
+        "rendererArgs": {
+          "label": "靠墙花圃：哪些边需要栅栏",
+          "segments": [
+            {
+              "name": "上边12m",
+              "counted": false
+            },
+            {
+              "name": "左边8m",
+              "counted": true
+            },
+            {
+              "name": "右边8m",
+              "counted": true
+            },
+            {
+              "name": "下边12m",
+              "counted": true
+            }
+          ]
+        }
+      },
+      "transitions": [
+        {
+          "when": "28",
+          "to": "seam",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "40",
+          "to": "repairWall",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-CUT-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairWall": {
+      "objectiveId": "O-U2-CUT-01",
+      "hints": [
+        "",
+        "题目问的是“栅栏长度”，不是完整几何周长。",
+        "墙已经把这一边封住。",
+        "因此实际材料只覆盖其余外边界。",
+        "先判断边的角色，再计算。"
+      ],
+      "view": {
+        "title": "周长公式不能先于边界判断",
+        "prompt": "靠墙的那一边为什么不能算进栅栏长度？",
+        "choices": [
+          [
+            "wall",
+            "因为墙已经充当边界，不需要再围"
+          ],
+          [
+            "short",
+            "因为那条边比较短"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "wall",
+          "to": "seam",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-CUT-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "wall-edge-excluded"
+            }
+          ]
+        }
+      ]
+    },
+    "seam": {
+      "objectiveId": "O-U2-CUT-02",
+      "hints": [
+        "",
+        "拼接前两块各有4条外边。",
+        "拼接后中间那条接缝藏到内部。",
+        "新长方形长6、宽3。",
+        "周长=2×(6+3)=18厘米。"
+      ],
+      "view": {
+        "title": "拼起来以后，接缝还算外边界吗",
+        "prompt": "两个边长3厘米的正方形拼成一个长方形，新图形周长是多少？",
+        "choices": [
+          [
+            "18",
+            "18厘米"
+          ],
+          [
+            "12",
+            "12厘米"
+          ],
+          [
+            "24",
+            "24厘米"
+          ]
+        ],
+        "renderer": "boundaryTrace",
+        "rendererArgs": {
+          "label": "两个正方形拼成长方形",
+          "segments": [
+            {
+              "name": "左外边3cm",
+              "counted": true
+            },
+            {
+              "name": "上外边6cm",
+              "counted": true
+            },
+            {
+              "name": "右外边3cm",
+              "counted": true
+            },
+            {
+              "name": "下外边6cm",
+              "counted": true
+            },
+            {
+              "name": "两个正方形接缝3cm",
+              "counted": false
+            }
+          ]
+        }
+      },
+      "transitions": [
+        {
+          "when": "18",
+          "to": "areaVsPerimeter",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "24",
+          "to": "repairSeam",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-CUT-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairSeam": {
+      "objectiveId": "O-U2-CUT-02",
+      "hints": [
+        "",
+        "周长只看最终外轮廓。",
+        "接缝两侧都被图形占住。",
+        "它不再暴露在外面。",
+        "所以不计入最终周长。"
+      ],
+      "view": {
+        "title": "内部接缝不能重复算",
+        "prompt": "拼接后的中间3厘米接缝，手指沿最终图形外圈能摸到吗？",
+        "choices": [
+          [
+            "no",
+            "摸不到，它在内部"
+          ],
+          [
+            "yes",
+            "能，所以要算两次"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "areaVsPerimeter",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-CUT-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "internal-seam-excluded"
+            }
+          ]
+        }
+      ]
+    },
+    "areaVsPerimeter": {
+      "objectiveId": "O-U2-CUT-03",
+      "hints": [
+        "",
+        "面积数的是用了多少个小正方形。",
+        "周长数的是最终暴露在外的边。",
+        "拼法不同会改变共享接缝数量。",
+        "所以面积相同，周长可以不同。"
+      ],
+      "view": {
+        "title": "面积相同，周长一定相同吗",
+        "prompt": "用6个边长1厘米的小正方形拼不同图形。它们面积都6平方厘米，周长一定相同吗？",
+        "choices": [
+          [
+            "no",
+            "不一定"
+          ],
+          [
+            "yes",
+            "一定相同"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "yes",
+          "to": "repairSame",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-CUT-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairSame": {
+      "objectiveId": "O-U2-CUT-03",
+      "hints": [
+        "",
+        "小正方形总数相同，所以面积相同。",
+        "但拼接越紧密，隐藏到内部的边越多。",
+        "外面暴露的边就可能更少。",
+        "周长取决于外边界结构。"
+      ],
+      "view": {
+        "title": "面积和周长在数不同的东西",
+        "prompt": "两个图形都用6个小正方形，为什么周长还能不同？",
+        "choices": [
+          [
+            "boundary",
+            "因为内部共享边数量不同，外边界会变"
+          ],
+          [
+            "area",
+            "因为面积其实不同"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "boundary",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-CUT-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "same-area-different-boundary"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U2-CUT-03",
+      "hints": [
+        "",
+        "题目中的边可能改变角色。",
+        "有的边变成内部接缝，有的被墙替代。",
+        "公式只能对“确定后的边界”计算。",
+        "所以先描边，再列式。"
+      ],
+      "view": {
+        "title": "现在形成“先描边，再计算”的策略",
+        "prompt": "遇到拼剪、靠墙、组合图形时，最可靠的第一步是什么？",
+        "choices": [
+          [
+            "trace",
+            "先描清最终需要计算的外边界，再列式"
+          ],
+          [
+            "formula",
+            "先套原图形周长公式"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "trace",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "trace-final-boundary-first"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U2-CUT-01",
+      "hints": [
+        "",
+        "沿最终外圈一段一段走。",
+        "底边54，右边18，上回18，再向上18。",
+        "再走左上边36和左边36。",
+        "54+18+18+18+36+36=180米。"
+      ],
+      "view": {
+        "title": "换一道教材组合边界题",
+        "prompt": "一个边长36米的正方形右下方再向右伸出一个边长18米的正方形，形成L形。这个L形外边界周长是多少？",
+        "choices": [
+          [
+            "180",
+            "180米"
+          ],
+          [
+            "144",
+            "144米"
+          ],
+          [
+            "216",
+            "216米"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "180",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U2-CUT-04",
+      "hints": [
+        "",
+        "每共享一条边，就有两条原外边藏到内部。",
+        "共享边越多，暴露外边越少。",
+        "紧凑拼法通常共享边更多。",
+        "所以更容易得到较小周长。"
+      ],
+      "view": {
+        "title": "迁移：同面积如何让周长变小",
+        "prompt": "用同样6个1cm²小正方形拼图，想让周长尽量小，应该怎样拼？",
+        "choices": [
+          [
+            "compact",
+            "尽量紧凑，让更多边互相贴合"
+          ],
+          [
+            "spread",
+            "尽量分散，让更少边接触"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "compact",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U2-CUT-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你已经会先看“边的角色”",
+        "prompt": "拼、剪、靠墙都会改变边界结构。不要先套公式：先追踪最终外边界，排除内部接缝或不需要围的边，再计算。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

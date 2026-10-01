@@ -1,0 +1,32 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u5.code.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "rendererFit",
+      "severity": "major",
+      "issue": "Existing renderers could not show code-field boundaries and meanings without treating the code as a magnitude.",
+      "revision": "Add generic codeSegments renderer driven by field labels and values.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "Textbook-grounded field semantics, generic segmented-code representation, fresh decode evidence, and reverse-encoding transfer satisfy ready gate."
+}
