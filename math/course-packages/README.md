@@ -32,3 +32,27 @@ Expressions, operators and function calls are not allowed.
 ## IDs and compatibility
 
 Treat `flowId`, objective IDs, misconception IDs and step IDs as persistent data contracts. Changing `flowVersion` causes incompatible saved sessions to restart safely while retained learning evidence remains separate.
+
+## Creating a new package
+
+Generate a draft outside the official package directory:
+
+```bash
+node math/create-course-package.cjs \
+  --type procedural \
+  --course sujiao-math-2026 \
+  --unit u1 \
+  --node example \
+  --title "示例知识点"
+```
+
+The default output is `math/course-drafts/`, which is ignored by Git. The scaffold contains stable objective/misconception IDs and an appropriate flow shape, but it is intentionally marked `draft`.
+
+A draft must be authored and reviewed before publication. When complete, set `meta.authoringStatus` to `ready`, validate it, then move/publish it into `course-packages/`. Official packaging refuses invalid packages and official validation rejects a package still marked `draft`.
+
+For tooling changes, run:
+
+```bash
+node math/test-course-authoring.cjs
+node math/validate-course-packages.cjs --self-test
+```

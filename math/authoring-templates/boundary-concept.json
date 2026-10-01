@@ -1,0 +1,7 @@
+{
+  "type":"boundary-concept",
+  "steps":["locate","boundary","repair","formalize","reverse","transfer","complete"],
+  "defaultRenderer":"numberLine",
+  "objectiveRoles":["locate","boundary","rule","reverse","transfer"],
+  "misconceptionRoles":["location","boundary","unit","reverse"]
+}

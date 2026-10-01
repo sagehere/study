@@ -1,3 +1,5 @@
 # 教材原件与本地视觉检查产物不属于可执行代码
 math/*.pdf
 math/*.png
+# Course authoring drafts are generated working files
+math/course-drafts/

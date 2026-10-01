@@ -1,0 +1,7 @@
+{
+  "type":"concept-representation",
+  "steps":["diagnose","contrast","repair","representation","formalize","transfer","complete"],
+  "defaultRenderer":"rect",
+  "objectiveRoles":["identify","represent","explain","transfer"],
+  "misconceptionRoles":["confusion","representation","language"]
+}
