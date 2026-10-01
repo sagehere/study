@@ -624,7 +624,7 @@ globalThis.CoursePackageData={
     "labels": {
       "badge": "程序竖式正式课",
       "title": "竖式与余数",
-      "description": "把商位、乘减落和余数约束连成可检查的长除法流程。"
+      "description": "从“商写在哪一位”和“余数必须小于除数”理解两位数除法竖式。"
     },
     "objectives": {
       "place": "O-U1-VERTICAL-01",
@@ -634,28 +634,28 @@ globalThis.CoursePackageData={
     },
     "misconceptions": {
       "place": "M-U1-VERTICAL-01",
-      "bringDown": "M-U1-VERTICAL-02",
+      "skip": "M-U1-VERTICAL-02",
       "remainder": "M-U1-VERTICAL-03"
     },
     "meta": {
       "authoringStatus": "ready",
       "knowledgeType": "procedural",
       "sourcePages": "8-9",
-      "sourceNote": "教材以156÷12说明先把1百5十看作15个十，商1写在十位；并总结“除到被除数的哪一位，商就写在那一位上面”“每次除后的余数都比除数小”，再安排593÷28、680÷17及729÷27等竖式练习。"
+      "sourceNote": "教材用156÷12说明两位数除法竖式，追问“1为什么写在商的十位上”，并总结：先除前两位，不够商1时再看前三位；除到哪一位，商写在那一位上；每次除后的余数都比除数小。"
     },
     "steps": {
       "diagnose": {
         "objectiveId": "O-U1-VERTICAL-01",
         "hints": [
           "",
-          "先看当前实际除到被除数的哪一位。",
-          "15表示15个十。",
-          "15个十÷12，每份先得到1个十。",
-          "所以商1写在十位。"
+          "先看当前参与除法的是被除数的哪一位。",
+          "15对应的是156里的百位和十位，当前商定位在十位。",
+          "除到被除数的哪一位，商就写在那一位上面。",
+          "所以1写在商的十位。"
         ],
         "view": {
           "title": "商的第一位为什么写在十位",
-          "prompt": "156÷12，先用15个十除以12，商1。这个1应该写在哪一位上？",
+          "prompt": "156÷12，先用前两位15÷12商1。这个1应该写在商的哪一位？",
           "choices": [
             [
               "tens",
@@ -664,10 +664,6 @@ globalThis.CoursePackageData={
             [
               "ones",
               "个位"
-            ],
-            [
-              "hundreds",
-              "百位"
             ]
           ],
           "renderer": "longDivision",
@@ -676,17 +672,13 @@ globalThis.CoursePackageData={
             "divisor": 12,
             "quotient": "1_",
             "current": 15,
-            "product": 12,
-            "remainder": 3,
-            "bringDown": 6,
-            "highlight": "current",
-            "label": "156除以12，先用15个十除以12，商1写十位"
+            "label": "156除以12，当前用15除以12，商1写在十位"
           }
         },
         "transitions": [
           {
             "when": "tens",
-            "to": "bringDown",
+            "to": "subtract",
             "effects": [
               {
                 "type": "markObjective",
@@ -705,18 +697,6 @@ globalThis.CoursePackageData={
                 "confidence": "high"
               }
             ]
-          },
-          {
-            "when": "hundreds",
-            "to": "repairPlace",
-            "lane": "repair",
-            "effects": [
-              {
-                "type": "markMisconception",
-                "id": "M-U1-VERTICAL-01",
-                "confidence": "high"
-              }
-            ]
           }
         ]
       },
@@ -724,29 +704,29 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-VERTICAL-01",
         "hints": [
           "",
-          "15来自百位和十位组成的15个十。",
-          "除法分的是“十”这个单位。",
-          "得到1份十。",
-          "因此商位必须在十位。"
+          "商的位置不是由数字大小决定。",
+          "看被除数当前除到哪一位。",
+          "当前是十位。",
+          "所以商1写在十位上面。"
         ],
         "view": {
-          "title": "只修“商位跟着当前被除数”",
-          "prompt": "如果当前拿15个“十”去除，商得到的1表示什么？",
+          "title": "只修“商的位置”",
+          "prompt": "为什么不能把这个1写在个位？",
           "choices": [
             [
-              "oneTen",
-              "1个十"
+              "current",
+              "因为当前除到十位，商要和当前数位对齐"
             ],
             [
-              "one",
-              "1个一"
+              "small",
+              "因为1比较小"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "oneTen",
-            "to": "bringDown",
+            "when": "current",
+            "to": "subtract",
             "effects": [
               {
                 "type": "resolveMisconception",
@@ -760,26 +740,30 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "bringDown": {
+      "subtract": {
         "objectiveId": "O-U1-VERTICAL-02",
         "hints": [
           "",
-          "检查被除数还有没有没处理的数位。",
-          "个位6还没有参与。",
-          "把6落到当前余数3后面。",
-          "组成36，再继续36÷12。"
+          "竖式每一位都形成一个完整循环。",
+          "先用商乘除数。",
+          "再从当前被除数里减去这个积。",
+          "得到余数后，才能落下下一位。"
         ],
         "view": {
-          "title": "减完以后为什么还不能停",
-          "prompt": "15－12=3。156还有个位6没有处理，下一步应该做什么？",
+          "title": "每一步都要“商—乘—减—落”",
+          "prompt": "15÷12商1后，下一步最合理是什么？",
           "choices": [
             [
-              "bring",
-              "把个位6落下来，组成36继续除"
+              "multiply",
+              "用1×12，再从15里减去12"
             ],
             [
-              "stop",
-              "把3当最终余数直接停"
+              "bring",
+              "直接把6落下来，不做乘减"
+            ],
+            [
+              "next",
+              "马上写下一个商"
             ]
           ],
           "renderer": "longDivision",
@@ -790,15 +774,14 @@ globalThis.CoursePackageData={
             "current": 15,
             "product": 12,
             "remainder": 3,
-            "bringDown": 6,
-            "highlight": "bringDown",
-            "label": "156除以12，减后余3，再落下个位6组成36"
+            "highlight": "remainder",
+            "label": "156除以12第一步：15减12余3"
           }
         },
         "transitions": [
           {
-            "when": "bring",
-            "to": "remainderCheck",
+            "when": "multiply",
+            "to": "bringDown",
             "effects": [
               {
                 "type": "markObjective",
@@ -807,8 +790,8 @@ globalThis.CoursePackageData={
             ]
           },
           {
-            "when": "stop",
-            "to": "repairBring",
+            "when": "bring",
+            "to": "repairCycle",
             "lane": "repair",
             "effects": [
               {
@@ -820,33 +803,33 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "repairBring": {
+      "repairCycle": {
         "objectiveId": "O-U1-VERTICAL-02",
         "hints": [
           "",
-          "竖式要从高位依次处理到个位。",
-          "还有一位没处理就不能结束。",
-          "3个十加上落下来的6个一，得到36个一。",
-          "继续36÷12。"
+          "“落”不是独立动作。",
+          "它要和上一轮的余数组成新的当前被除数。",
+          "先得到15－12=3。",
+          "再落6，得到36。"
         ],
         "view": {
-          "title": "余数只有在最后一位处理完后才可能是最终余数",
-          "prompt": "3后面还有被除数的个位6，应该怎样处理？",
+          "title": "为什么不能直接“落”下一位",
+          "prompt": "如果不先算15－12，能知道下一步要把6和哪个余数组成新数吗？",
           "choices": [
             [
-              "bring",
-              "落下6组成36"
+              "no",
+              "不能，必须先得到余数"
             ],
             [
-              "ignore",
-              "忽略6"
+              "yes",
+              "能，直接把6当成新被除数"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "bring",
-            "to": "remainderCheck",
+            "when": "no",
+            "to": "bringDown",
             "effects": [
               {
                 "type": "resolveMisconception",
@@ -854,32 +837,83 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "division-bring-down"
+                "reason": "long-division-cycle"
               }
             ]
           }
         ]
       },
-      "remainderCheck": {
+      "bringDown": {
+        "objectiveId": "O-U1-VERTICAL-02",
+        "hints": [
+          "",
+          "找最大的整商，使乘积不超过36。",
+          "12×3=36。",
+          "12×4=48太大。",
+          "所以商3。"
+        ],
+        "view": {
+          "title": "落下下一位，继续同样循环",
+          "prompt": "余3，落下6得到36。36÷12应该商几？",
+          "choices": [
+            [
+              "3",
+              "3"
+            ],
+            [
+              "2",
+              "2"
+            ],
+            [
+              "4",
+              "4"
+            ]
+          ],
+          "renderer": "longDivision",
+          "rendererArgs": {
+            "dividend": 156,
+            "divisor": 12,
+            "quotient": "13",
+            "current": 36,
+            "product": 36,
+            "remainder": 0,
+            "highlight": "product",
+            "label": "落下6后得到36，36除以12商3"
+          }
+        },
+        "transitions": [
+          {
+            "when": "3",
+            "to": "remainderRule",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "remainderRule": {
         "objectiveId": "O-U1-VERTICAL-03",
         "hints": [
           "",
-          "余数表示还没有分掉的数量。",
-          "如果余数≥除数，还能再分出至少1份。",
-          "17≥12。",
-          "所以商偏小，余数不能保留。"
+          "余数表示当前还没分完的量。",
+          "如果余数≥除数，还能再分一整份。",
+          "那说明当前商偏小。",
+          "所以每步余数都必须小于除数。"
         ],
         "view": {
           "title": "余数为什么必须小于除数",
-          "prompt": "某一步算完得到余数17，而除数是12。这个余数可以保留吗？",
+          "prompt": "如果某一步除完后余数是15，而除数是12，这一步能结束吗？",
           "choices": [
             [
               "no",
-              "不可以，说明商还可以再大"
+              "不能，还能再商1"
             ],
             [
               "yes",
-              "可以，只要不是0就行"
+              "能，余数可以大于除数"
             ]
           ]
         },
@@ -912,28 +946,28 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-VERTICAL-03",
         "hints": [
           "",
-          "余数是“再也分不出一整份”的剩余。",
-          "若余数达到除数，就还能继续分。",
-          "所以余数必须小于除数。",
-          "0≤r<除数。"
+          "比较15和12。",
+          "15里至少还有1个12。",
+          "所以不能把15当最终余数。",
+          "应继续调整商，直到余数<12。"
         ],
         "view": {
-          "title": "只修“余数约束”",
-          "prompt": "余数与除数必须满足什么关系？",
+          "title": "只修余数约束",
+          "prompt": "余数15、除数12时，至少还能再分出几份12？",
           "choices": [
             [
-              "lt",
-              "0≤余数＜除数"
+              "1",
+              "1份"
             ],
             [
-              "any",
-              "余数可以大于除数"
+              "0",
+              "0份"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "lt",
+            "when": "1",
             "to": "formalize",
             "effects": [
               {
@@ -952,22 +986,22 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-VERTICAL-02",
         "hints": [
           "",
-          "把前面三条证据合在一起。",
-          "先确定开始除的数位。",
-          "每一位都经历商、乘、减、落。",
-          "每一步都检查余数<除数。"
+          "位置、步骤、余数三个条件缺一不可。",
+          "位置由当前数位决定。",
+          "步骤按商—乘—减—落循环。",
+          "余数每一步都必须小于除数。"
         ],
         "view": {
-          "title": "把竖式流程说完整",
-          "prompt": "哪一句最符合教材总结？",
+          "title": "现在总结竖式规则",
+          "prompt": "哪组规则最完整？",
           "choices": [
             [
               "rule",
-              "先判断从哪一位开始除；除到哪一位商写哪一位；每步商、乘、减、落，并检查余数小于除数"
+              "除到哪一位商写哪一位；每步商、乘、减、落；余数始终小于除数"
             ],
             [
-              "placeOnly",
-              "只要最后答案对，商位和中间余数不重要"
+              "place",
+              "商都写个位；最后余数小于除数即可"
             ]
           ]
         },
@@ -985,7 +1019,7 @@ globalThis.CoursePackageData={
                 "type": "emit",
                 "event": "FORMALIZATION_UNLOCKED",
                 "result": {
-                  "rule": "long-division-cycle"
+                  "rule": "long-division-place-cycle-remainder"
                 }
               },
               {
@@ -1000,43 +1034,43 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-VERTICAL-02",
         "hints": [
           "",
-          "先看72÷27。",
-          "商2写十位，2×27=54，余18。",
-          "落下9得189，再商7。",
-          "27×7=189，所以商27。"
+          "先看59÷28。",
+          "59够商1，所以不用看到593才开始。",
+          "当前除到十位。",
+          "所以商的最高位在十位。"
         ],
         "view": {
-          "title": "换一道新竖式独立完成",
-          "prompt": "729÷27的商是多少？",
+          "title": "换一道教材题独立判断",
+          "prompt": "593÷28，商的最高位应该写在哪一位？",
           "choices": [
             [
-              "27",
-              "27"
+              "tens",
+              "十位"
             ],
             [
-              "23",
-              "23"
+              "ones",
+              "个位"
             ],
             [
-              "37",
-              "37"
+              "hundreds",
+              "百位"
             ]
           ],
           "renderer": "longDivision",
           "rendererArgs": {
-            "dividend": 729,
-            "divisor": 27,
-            "quotient": "27",
-            "current": 189,
-            "product": 189,
-            "remainder": 0,
-            "highlight": "none",
-            "label": "729除以27的长除法结构"
+            "dividend": 593,
+            "divisor": 28,
+            "quotient": "2_",
+            "current": 59,
+            "product": 56,
+            "remainder": 3,
+            "bringDown": 3,
+            "label": "593除以28的第一轮竖式位置"
           }
         },
         "transitions": [
           {
-            "when": "27",
+            "when": "tens",
             "to": "transfer",
             "effects": [
               {
@@ -1058,32 +1092,32 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-VERTICAL-04",
         "hints": [
           "",
-          "64÷32先商2在十位。",
-          "2×32=64，余0，落下5。",
-          "5<32，个位商0。",
-          "所以商20，余5。"
+          "除法可以用乘法验算。",
+          "除数×商应回到被除数（无余数时）。",
+          "27×27。",
+          "等于729，所以商正确。"
         ],
         "view": {
-          "title": "迁移到有余数的竖式",
-          "prompt": "645÷32的结果是哪一个？",
+          "title": "迁移到验算关系",
+          "prompt": "729÷27=27。用哪条关系最直接验算？",
           "choices": [
             [
-              "20r5",
-              "20……5"
+              "check",
+              "27×27=729"
             ],
             [
-              "21r5",
-              "21……5"
+              "add",
+              "27+27=54"
             ],
             [
-              "20r25",
-              "20……25"
+              "sub",
+              "729－27=702"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "20r5",
+            "when": "check",
             "to": "complete",
             "effects": [
               {
@@ -1111,8 +1145,8 @@ globalThis.CoursePackageData={
           ""
         ],
         "view": {
-          "title": "竖式已经变成可检查的程序",
-          "prompt": "商位由当前处理的数位决定；每一步都商、乘、减、落；结束前检查余数小于除数，并可用“除数×商＋余数=被除数”验算。",
+          "title": "竖式不再只是“照格式写”",
+          "prompt": "你已经能用数位解释商的位置，用商—乘—减—落解释每一步，并用“余数<除数”和乘法验算检查结果。",
           "choices": []
         },
         "transitions": [],
@@ -4250,39 +4284,39 @@ globalThis.CoursePackageData={
     "nodeId": "bracket",
     "initialStep": "diagnose",
     "labels": {
-      "badge": "程序顺序正式课",
+      "badge": "运算顺序正式课",
       "title": "小括号与中括号",
-      "description": "把括号看成改变先后关系的结构：先小括号，再中括号，括号内仍遵守运算顺序。"
+      "description": "把括号看成“先形成一个整体”，再按从内到外的层级计算。"
     },
     "objectives": {
-      "inner": "O-U4-BRACKET-01",
+      "paren": "O-U4-BRACKET-01",
       "nested": "O-U4-BRACKET-02",
-      "order": "O-U4-BRACKET-03",
+      "compare": "O-U4-BRACKET-03",
       "transfer": "O-U4-BRACKET-04"
     },
     "misconceptions": {
       "ignore": "M-U4-BRACKET-01",
       "outerFirst": "M-U4-BRACKET-02",
-      "insideLeft": "M-U4-BRACKET-03"
+      "leftRight": "M-U4-BRACKET-03"
     },
     "meta": {
       "authoringStatus": "ready",
       "knowledgeType": "procedural",
       "sourcePages": "60-62",
-      "sourceNote": "教材以(600－126×4)÷48说明括号中的量先算，且括号内仍先乘除后加减；再明确既有小括号又有中括号时先算小括号，再算中括号，最后算括号外，并安排58×(20－78÷13)、42×[169－(78+35)]等练习。"
+      "sourceNote": "教材用(600－126×4)÷48建立小括号优先，再明确“既有小括号又有中括号，先算小括号里面，再算中括号里面”；练习通过有无括号、括号位置不同的式子比较结果。"
     },
     "steps": {
       "diagnose": {
         "objectiveId": "O-U4-BRACKET-01",
         "hints": [
           "",
-          "先确定最外层有没有括号。",
-          "括号里面要先完成。",
-          "但括号内部仍遵守乘除先于加减。",
-          "所以先算126×4。"
+          "先看括号里面。",
+          "括号里面仍然遵循乘除先于加减。",
+          "所以先126×4。",
+          "得到504，再做600－504。"
         ],
         "view": {
-          "title": "有括号不等于“从左往右”",
+          "title": "括号是在改变“先算谁”",
           "prompt": "(600－126×4)÷48，第一步应该算什么？",
           "choices": [
             [
@@ -4302,7 +4336,7 @@ globalThis.CoursePackageData={
         "transitions": [
           {
             "when": "mul",
-            "to": "nested",
+            "to": "smallParen",
             "effects": [
               {
                 "type": "markObjective",
@@ -4312,18 +4346,6 @@ globalThis.CoursePackageData={
           },
           {
             "when": "sub",
-            "to": "repairInside",
-            "lane": "repair",
-            "effects": [
-              {
-                "type": "markMisconception",
-                "id": "M-U4-BRACKET-03",
-                "confidence": "high"
-              }
-            ]
-          },
-          {
-            "when": "div",
             "to": "repairIgnore",
             "lane": "repair",
             "effects": [
@@ -4336,73 +4358,33 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "repairInside": {
-        "objectiveId": "O-U4-BRACKET-01",
-        "hints": [
-          "",
-          "括号表示这部分先整体完成。",
-          "不代表括号内部改成纯左到右。",
-          "126×4是乘法。",
-          "乘法先于600－。"
-        ],
-        "view": {
-          "title": "括号里面也有自己的运算顺序",
-          "prompt": "在600－126×4这个括号内部，应该先算哪类运算？",
-          "choices": [
-            [
-              "mul",
-              "乘法"
-            ],
-            [
-              "sub",
-              "减法"
-            ]
-          ]
-        },
-        "transitions": [
-          {
-            "when": "mul",
-            "to": "nested",
-            "effects": [
-              {
-                "type": "resolveMisconception",
-                "id": "M-U4-BRACKET-03"
-              },
-              {
-                "type": "scheduleReview",
-                "reason": "order-inside-parentheses"
-              }
-            ]
-          }
-        ]
-      },
       "repairIgnore": {
         "objectiveId": "O-U4-BRACKET-01",
         "hints": [
           "",
-          "括号把一部分变成一个整体。",
-          "外面的运算要等这个整体有值。",
-          "先求括号内结果。",
-          "再用结果÷48。"
+          "括号不是说“从左到右”。",
+          "它只是把括号内作为先处理的整体。",
+          "整体内部仍遵守乘除先于加减。",
+          "所以126×4先算。"
         ],
         "view": {
-          "title": "只修“不能越过括号先算外面”",
-          "prompt": "整个式子最后的÷48能不能先算？",
+          "title": "括号优先，但括号里也有顺序",
+          "prompt": "为什么不能先算600－126？",
           "choices": [
             [
-              "no",
-              "不能，要先完成括号"
+              "inside",
+              "因为括号内126×4要先于减法"
             ],
             [
-              "yes",
-              "能，除法优先"
+              "left",
+              "因为从右边开始算"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "no",
-            "to": "nested",
+            "when": "inside",
+            "to": "smallParen",
             "effects": [
               {
                 "type": "resolveMisconception",
@@ -4410,7 +4392,47 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "parentheses-before-outside"
+                "reason": "parentheses-priority"
+              }
+            ]
+          }
+        ]
+      },
+      "smallParen": {
+        "objectiveId": "O-U4-BRACKET-01",
+        "hints": [
+          "",
+          "126×4=504。",
+          "600－504=96。",
+          "96÷48。",
+          "结果2。"
+        ],
+        "view": {
+          "title": "先把小括号算成一个数",
+          "prompt": "(600－126×4)÷48 的结果是多少？",
+          "choices": [
+            [
+              "2",
+              "2"
+            ],
+            [
+              "8",
+              "8"
+            ],
+            [
+              "22",
+              "22"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "2",
+            "to": "nested",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
               }
             ]
           }
@@ -4420,26 +4442,26 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U4-BRACKET-02",
         "hints": [
           "",
-          "找最里面的括号。",
-          "(81－56)在中括号内部。",
-          "先把小括号算成25。",
-          "再算中括号里的25×3，最后525÷。"
+          "看括号层级。",
+          "小括号在中括号里面。",
+          "必须先得到最里面的整体。",
+          "先81－56=25。"
         ],
         "view": {
-          "title": "小括号和中括号谁先",
-          "prompt": "525÷[(81－56)×3]，第一步是哪一个？",
+          "title": "有小括号和中括号时，从里向外",
+          "prompt": "525÷[(81－56)×3]，第一步应该算什么？",
           "choices": [
             [
               "small",
               "81－56"
             ],
             [
-              "times",
+              "multiply",
               "先×3"
             ],
             [
               "divide",
-              "525÷"
+              "先525÷"
             ]
           ]
         },
@@ -4455,8 +4477,8 @@ globalThis.CoursePackageData={
             ]
           },
           {
-            "when": "times",
-            "to": "repairNested",
+            "when": "multiply",
+            "to": "repairOuter",
             "lane": "repair",
             "effects": [
               {
@@ -4468,32 +4490,32 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "repairNested": {
+      "repairOuter": {
         "objectiveId": "O-U4-BRACKET-02",
         "hints": [
           "",
-          "看结构的包含关系。",
-          "小括号在中括号内部。",
-          "先得到最里面部分的值。",
-          "再一层层向外。"
+          "×3左边不是一个现成数字。",
+          "它是小括号(81－56)。",
+          "先算25。",
+          "再25×3=75，最后525÷75。"
         ],
         "view": {
-          "title": "嵌套括号要从内向外",
-          "prompt": "同时有( )和[ ]时，教材规定怎样算？",
+          "title": "为什么不能先处理中括号外层",
+          "prompt": "中括号里的×3依赖哪个尚未算出的值？",
           "choices": [
             [
-              "inside",
-              "先小括号，再中括号，最后括号外"
+              "small",
+              "依赖(81－56)的结果"
             ],
             [
-              "outer",
-              "先中括号，再小括号"
+              "none",
+              "不依赖任何值"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "inside",
+            "when": "small",
             "to": "formalize",
             "effects": [
               {
@@ -4509,25 +4531,25 @@ globalThis.CoursePackageData={
         ]
       },
       "formalize": {
-        "objectiveId": "O-U4-BRACKET-03",
+        "objectiveId": "O-U4-BRACKET-02",
         "hints": [
           "",
-          "括号决定层级。",
-          "运算规则决定每层内部的先后。",
-          "两套规则同时存在。",
-          "从内到外，每层内部再遵守乘除先于加减。"
+          "括号决定优先层级。",
+          "小括号在更里面。",
+          "中括号包着小括号。",
+          "从内向外，同时每层内部仍按运算顺序。"
         ],
         "view": {
-          "title": "把括号规则说完整",
-          "prompt": "哪一句最准确？",
+          "title": "现在总结括号层级规则",
+          "prompt": "哪句最准确？",
           "choices": [
             [
               "rule",
-              "先小括号，再中括号，最后括号外；每个括号内部仍按正常运算顺序"
+              "先算小括号，再算中括号；括号内部仍遵循原有运算顺序"
             ],
             [
-              "simple",
-              "只要看见括号，就把里面从左往右算"
+              "left",
+              "有括号也只从左到右"
             ]
           ]
         },
@@ -4545,7 +4567,7 @@ globalThis.CoursePackageData={
                 "type": "emit",
                 "event": "FORMALIZATION_UNLOCKED",
                 "result": {
-                  "rule": "nested-bracket-order"
+                  "rule": "inner-to-outer-brackets"
                 }
               },
               {
@@ -4560,26 +4582,26 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U4-BRACKET-03",
         "hints": [
           "",
-          "先处理括号。",
-          "括号内先78÷13=6。",
+          "先小括号。",
+          "括号内78÷13=6。",
           "20－6=14。",
           "58×14=812。"
         ],
         "view": {
-          "title": "换一道教材式表达式独立算",
-          "prompt": "58×(20－78÷13)的结果是多少？",
+          "title": "换一道教材题独立算",
+          "prompt": "58×(20－78÷13) 的结果是多少？",
           "choices": [
             [
               "812",
               "812"
             ],
             [
-              "2088",
-              "2088"
+              "84",
+              "84"
             ],
             [
-              "638",
-              "638"
+              "696",
+              "696"
             ]
           ]
         },
@@ -4600,6 +4622,106 @@ globalThis.CoursePackageData={
                 "stage": "independent_success"
               }
             ]
+          },
+          {
+            "when": "84",
+            "to": "repairLeftRight",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-BRACKET-03",
+                "confidence": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      "repairLeftRight": {
+        "objectiveId": "O-U4-BRACKET-03",
+        "hints": [
+          "",
+          "括号只确定“这一块先算”。",
+          "块里面仍有运算等级。",
+          "除法先于减法。",
+          "所以先78÷13。"
+        ],
+        "view": {
+          "title": "括号内也不能机械从左到右",
+          "prompt": "20－78÷13里哪一步先算？",
+          "choices": [
+            [
+              "div",
+              "78÷13"
+            ],
+            [
+              "sub",
+              "20－78"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "div",
+            "to": "freshIndependent",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-BRACKET-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "inside-bracket-precedence"
+              }
+            ]
+          }
+        ]
+      },
+      "freshIndependent": {
+        "objectiveId": "O-U4-BRACKET-03",
+        "hints": [
+          "",
+          "先括号32－17。",
+          "得到15。",
+          "48×15=720。",
+          "720÷30=24。"
+        ],
+        "view": {
+          "title": "换一道新题确认",
+          "prompt": "48×(32－17)÷30 的结果是多少？",
+          "choices": [
+            [
+              "24",
+              "24"
+            ],
+            [
+              "720",
+              "720"
+            ],
+            [
+              "49",
+              "49"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "24",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
           }
         ]
       },
@@ -4607,32 +4729,32 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U4-BRACKET-04",
         "hints": [
           "",
-          "先最里面的小括号。",
-          "78+35=113。",
-          "中括号169－113=56。",
-          "42×56=2352。"
+          "分别按各自顺序算。",
+          "第一个：180+12=192。",
+          "第二个：括号内3+12=15，540÷15=36。",
+          "192>36。"
         ],
         "view": {
-          "title": "迁移到中括号嵌套",
-          "prompt": "42×[169－(78＋35)]的结果是多少？",
+          "title": "迁移：括号位置改变结果",
+          "prompt": "比较540÷3＋6×2与540÷(3＋6×2)，哪一个更大？",
           "choices": [
             [
-              "2352",
-              "2352"
+              "first",
+              "第一个更大"
             ],
             [
-              "4704",
-              "4704"
+              "second",
+              "第二个更大"
             ],
             [
-              "3612",
-              "3612"
+              "same",
+              "一样大"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "2352",
+            "when": "first",
             "to": "complete",
             "effects": [
               {
@@ -4660,8 +4782,8 @@ globalThis.CoursePackageData={
           ""
         ],
         "view": {
-          "title": "括号不再是装饰符号",
-          "prompt": "先看括号层级，再看每层内部的运算顺序：小括号→中括号→括号外；任何一层里仍遵守同级从左到右、乘除先于加减。",
+          "title": "括号现在表示的是“运算层级”",
+          "prompt": "先识别最里面的括号，再在该层内部按正常运算顺序计算；括号位置一变，参与运算的整体就会变。",
           "choices": []
         },
         "transitions": [],
@@ -5653,63 +5775,63 @@ globalThis.CoursePackageData={
     "nodeId": "read",
     "initialStep": "diagnose",
     "labels": {
-      "badge": "数级表征正式课",
+      "badge": "数位表征正式课",
       "title": "读数、写数与零",
-      "description": "先按四位一级组织大数，再用级末零与级内零规则读写。"
+      "description": "先按“四位一级”分级，再判断每一级里的零是否需要读出。"
     },
     "objectives": {
       "group": "O-U5-READ-01",
       "zero": "O-U5-READ-02",
-      "read": "O-U5-READ-03",
-      "write": "O-U5-READ-04"
+      "write": "O-U5-READ-03",
+      "transfer": "O-U5-READ-04"
     },
     "misconceptions": {
-      "ungrouped": "M-U5-READ-01",
-      "readAllZero": "M-U5-READ-02",
-      "skipBridgeZero": "M-U5-READ-03"
+      "digitByDigit": "M-U5-READ-01",
+      "allZeros": "M-U5-READ-02",
+      "omitZero": "M-U5-READ-03"
     },
     "meta": {
       "authoringStatus": "ready",
       "knowledgeType": "concept-representation",
-      "sourcePages": "71-76",
-      "sourceNote": "教材从右边起每四个数位分一级，使用万级/个级及亿级位值表；明确“每级末尾不管有几个0都不读，其他数位有一个0或连续几个0都只读一个零”，并用52395239、6004000、300800007等数组织读写和比较活动。"
+      "sourcePages": "71-75,86-88",
+      "sourceNote": "教材明确“从右边起，每四个数位是一级”；读数时每级末尾不管有几个0都不读，其他数位有一个0或连续几个0只读一个零；复习继续要求按数级理解、读写并处理零。"
     },
     "steps": {
       "diagnose": {
         "objectiveId": "O-U5-READ-01",
         "hints": [
           "",
-          "我国整数数位按“级”组织。",
-          "从右边个位开始数。",
-          "每四个数位一级。",
-          "5239属于个级，前面的5239属于万级。"
+          "从右边开始。",
+          "每四位是一级。",
+          "右边四位5239是个级。",
+          "左边四位5239是万级。"
         ],
         "view": {
           "title": "先分级，再读数",
-          "prompt": "52395239应该先怎样分组？",
+          "prompt": "52395239 按我国计数习惯应该怎样分级？",
           "choices": [
             [
-              "groups",
-              "5239｜5239（万级｜个级）"
+              "group",
+              "5239｜5239"
             ],
             [
               "three",
               "52｜395｜239"
             ],
             [
-              "none",
-              "不分级直接逐位读"
+              "single",
+              "每一位都单独读"
             ]
           ],
           "renderer": "placeValueGroups",
           "rendererArgs": {
             "value": "52395239",
-            "label": "52395239按万级和个级每四位分组"
+            "label": "52395239按四位一级分成万级5239和个级5239"
           }
         },
         "transitions": [
           {
-            "when": "groups",
+            "when": "group",
             "to": "zeroRule",
             "effects": [
               {
@@ -5729,18 +5851,6 @@ globalThis.CoursePackageData={
                 "confidence": "high"
               }
             ]
-          },
-          {
-            "when": "none",
-            "to": "repairGroup",
-            "lane": "repair",
-            "effects": [
-              {
-                "type": "markMisconception",
-                "id": "M-U5-READ-01",
-                "confidence": "medium"
-              }
-            ]
           }
         ]
       },
@@ -5748,22 +5858,22 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U5-READ-01",
         "hints": [
           "",
-          "看教材整数数位顺序表。",
-          "个、十、百、千组成个级。",
-          "再往左四位组成万级。",
-          "所以从右向左每四位一级。"
+          "看整数数位顺序表。",
+          "个级有个、十、百、千四位。",
+          "万级也有四位。",
+          "所以每四位一级。"
         ],
         "view": {
-          "title": "只修“四位一级”",
-          "prompt": "从个位起，每多少个数位分一级？",
+          "title": "不是三位一节，而是四位一级",
+          "prompt": "从右边起，一个数级包含几个数位？",
           "choices": [
             [
               "four",
-              "4位"
+              "4个"
             ],
             [
               "three",
-              "3位"
+              "3个"
             ]
           ]
         },
@@ -5788,14 +5898,14 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U5-READ-02",
         "hints": [
           "",
-          "先分别读万级和个级。",
-          "每级末尾的0不读。",
-          "万级600读“六百万”。",
-          "个级4000读“四千”，合起来“六百万四千”。"
+          "先分成600｜4000。",
+          "万级读600，添“万”。",
+          "个级4000读四千，级末尾的0不读。",
+          "所以六百万四千。"
         ],
         "view": {
-          "title": "级末尾的零为什么不读",
-          "prompt": "6004000按级写成600｜4000。正确读法是哪一个？",
+          "title": "零不是“见一个读一个”",
+          "prompt": "6004000 应该怎样读？",
           "choices": [
             [
               "correct",
@@ -5803,23 +5913,23 @@ globalThis.CoursePackageData={
             ],
             [
               "all",
-              "六百零零万四千"
+              "六百万零零四千零零零"
             ],
             [
-              "bridge",
-              "六百万零四千"
+              "one",
+              "六百零四万"
             ]
           ],
           "renderer": "placeValueGroups",
           "rendererArgs": {
             "value": "6004000",
-            "label": "6004000按万级和个级分组，观察每级末尾的零"
+            "label": "6004000按万级和个级分组，级末尾的零不读"
           }
         },
         "transitions": [
           {
             "when": "correct",
-            "to": "crossZero",
+            "to": "middleZero",
             "effects": [
               {
                 "type": "markObjective",
@@ -5845,29 +5955,29 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U5-READ-02",
         "hints": [
           "",
-          "区分“级末尾”和“级内”。",
-          "级末尾的0只是占位。",
-          "教材明确说级末尾几个0都不读。",
-          "所以不要逐位念零。"
+          "这些0都在该级末尾。",
+          "教材规则：每级末尾不管有几个0，都不读。",
+          "4000读四千。",
+          "因此6004000读六百万四千。"
         ],
         "view": {
-          "title": "零不是看见一个就读一个",
-          "prompt": "教材对“每级末尾的0”怎么规定？",
+          "title": "级末尾的0为什么不读",
+          "prompt": "4000读“四千”时，末尾三个0怎样处理？",
           "choices": [
             [
               "silent",
-              "不管有几个都不读"
+              "都不读"
             ],
             [
-              "all",
-              "每个0都读"
+              "zero",
+              "都读零"
             ]
           ]
         },
         "transitions": [
           {
             "when": "silent",
-            "to": "crossZero",
+            "to": "middleZero",
             "effects": [
               {
                 "type": "resolveMisconception",
@@ -5875,42 +5985,42 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "group-ending-zero"
+                "reason": "group-trailing-zero-reading"
               }
             ]
           }
         ]
       },
-      "crossZero": {
+      "middleZero": {
         "objectiveId": "O-U5-READ-02",
         "hints": [
           "",
-          "先分成3｜0080｜0007。",
-          "每一级按个级读法处理，再加“亿”“万”。",
-          "级内缺位造成的一个或连续多个0只读一个“零”。",
-          "所以读“三亿零八十万零七”。"
+          "分成3080｜0007。",
+          "万级3080读三千零八十万。",
+          "个级前面连续有0直到7，需要读一个零。",
+          "所以三千零八十万零七。"
         ],
         "view": {
-          "title": "级内连续零只读一个",
-          "prompt": "300800007正确读法是哪一个？",
+          "title": "中间的连续零只读一个",
+          "prompt": "30800007 读作哪一个？",
           "choices": [
             [
               "correct",
-              "三亿零八十万零七"
+              "三千零八十万零七"
             ],
             [
-              "skip",
-              "三亿八十万七"
+              "none",
+              "三千八十万七"
             ],
             [
               "many",
-              "三亿零零八十万零零零七"
+              "三千零零八十万零零零七"
             ]
           ],
           "renderer": "placeValueGroups",
           "rendererArgs": {
-            "value": "300800007",
-            "label": "300800007按亿级万级个级分组，观察跨级缺位零"
+            "value": "30800007",
+            "label": "30800007按万级3080和个级0007分组，中间连续零只读一个"
           }
         },
         "transitions": [
@@ -5925,8 +6035,8 @@ globalThis.CoursePackageData={
             ]
           },
           {
-            "when": "skip",
-            "to": "repairBridge",
+            "when": "none",
+            "to": "repairOmit",
             "lane": "repair",
             "effects": [
               {
@@ -5938,32 +6048,32 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "repairBridge": {
+      "repairOmit": {
         "objectiveId": "O-U5-READ-02",
         "hints": [
           "",
-          "这些0不全在每级末尾。",
-          "它们出现在本级有效数字之前。",
-          "连续多个0也只读一个零。",
-          "因此需要“三亿零八十万零七”。"
+          "读数要保留位值结构。",
+          "个级是0007。",
+          "从万级过渡到个位7时，中间缺位需要一个“零”。",
+          "连续几个0只读一个零。"
         ],
         "view": {
-          "title": "只修“跨级缺位不能直接跳过”",
-          "prompt": "3｜0080｜0007中，万级开头和个级开头缺位时应该怎样读？",
+          "title": "为什么这里不能完全不读零",
+          "prompt": "如果不读零，“三千八十万七”会让7听起来落在哪个数位附近？",
           "choices": [
             [
-              "oneZero",
-              "需要用一个“零”连接缺位"
+              "wrong",
+              "会丢失中间数位信息"
             ],
             [
-              "skip",
-              "全部跳过"
+              "fine",
+              "完全没有影响"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "oneZero",
+            "when": "wrong",
             "to": "formalize",
             "effects": [
               {
@@ -5972,7 +6082,7 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "internal-zero-reading"
+                "reason": "middle-zero-reading"
               }
             ]
           }
@@ -5982,22 +6092,22 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U5-READ-03",
         "hints": [
           "",
-          "先结构，再语音。",
-          "四位一级决定哪里添“万”“亿”。",
-          "零规则在每一级内部处理。",
-          "最后按从高到低的级连接。"
+          "先结构后语言。",
+          "分级决定“万、亿”等级名称。",
+          "每级内部按四位处理。",
+          "最后按零的规则连接各级。"
         ],
         "view": {
-          "title": "把大数读法整理成步骤",
-          "prompt": "哪套流程最可靠？",
+          "title": "现在总结读写步骤",
+          "prompt": "哪组步骤最可靠？",
           "choices": [
             [
               "rule",
-              "从右四位一级→从最高级读→每级按个级读法→添万/亿→级末0不读，其他连续0只读一个"
+              "先四位一级分级；每级按个级读法；级末尾0不读，级中连续0只读一个；再添万/亿"
             ],
             [
               "digit",
-              "从最高位开始逐位念数字和0"
+              "从最高位把每个数字逐个念出来"
             ]
           ]
         },
@@ -6030,32 +6140,32 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U5-READ-03",
         "hints": [
           "",
-          "分成2｜0060｜0000。",
-          "亿级读二亿。",
-          "万级0060读零六十万。",
-          "个级全0不读，所以二亿零六十万。"
+          "分成400｜3000｜0000。",
+          "亿级400读四百亿。",
+          "万级3000读三千万。",
+          "个级全是0且在末级，不再读。"
         ],
         "view": {
-          "title": "换一个跨级零的新数独立读",
-          "prompt": "200600000正确读法是哪一个？",
+          "title": "换一道教材式读数独立做",
+          "prompt": "40030000000 应该读作哪一个？",
           "choices": [
             [
               "correct",
-              "二亿零六十万"
+              "四百亿三千万"
             ],
             [
-              "skip",
-              "二亿六十万"
+              "zero",
+              "四百亿零三千万"
             ],
             [
-              "many",
-              "二亿零零六十万"
+              "four",
+              "四百亿三百万"
             ]
           ],
           "renderer": "placeValueGroups",
           "rendererArgs": {
-            "value": "200600000",
-            "label": "200600000按亿级万级个级分组"
+            "value": "40030000000",
+            "label": "40030000000按亿级、万级、个级分组"
           }
         },
         "transitions": [
@@ -6082,32 +6192,32 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U5-READ-04",
         "hints": [
           "",
-          "先按亿级、万级、个级分别填。",
-          "六亿→6｜____｜____。",
-          "四十二万→0042放在万级；五千→5000放在个级。",
-          "合起来6｜0042｜5000=600425000。"
+          "先按“万”分成两级。",
+          "万级是六千零四，即6004。",
+          "个级是二千，即2000。",
+          "合起来6004｜2000=60042000。"
         ],
         "view": {
-          "title": "迁移到“听读法写数”",
-          "prompt": "“六亿零四十二万五千”写成数字是哪一个？",
+          "title": "迁移到写数",
+          "prompt": "“六千零四万二千”写成数字是哪一个？",
           "choices": [
             [
-              "600425000",
-              "600425000"
+              "correct",
+              "60042000"
             ],
             [
-              "604205000",
-              "604205000"
+              "wrong",
+              "6042000"
             ],
             [
-              "600420500",
-              "600420500"
+              "zero",
+              "600402000"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "600425000",
+            "when": "correct",
             "to": "complete",
             "effects": [
               {
@@ -6135,8 +6245,8 @@ globalThis.CoursePackageData={
           ""
         ],
         "view": {
-          "title": "大数读写已经有“骨架”了",
-          "prompt": "先四位一级，再按级读写；级末尾的0不读，级内一个或连续多个0只读一个。写数时也按亿级、万级、个级逐级补足四位。",
+          "title": "你已经会“先分级，再处理零”",
+          "prompt": "大数读写不是逐位念数字：先四位一级分组，再按每级的位值读写，最后用零的规则连接各级。",
           "choices": []
         },
         "transitions": [],

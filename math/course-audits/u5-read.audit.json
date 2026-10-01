@@ -1,7 +1,7 @@
 {
   "auditVersion": "0.1.0",
   "flowId": "u5.read.v2",
-  "revisionRound": 1,
+  "revisionRound": 2,
   "scores": {
     "sourceGrounding": 2,
     "knowledgeTypeFit": 2,
@@ -28,5 +28,5 @@
   ],
   "decision": "pass",
   "finalRecommendation": "ready",
-  "summary": "Textbook-grounded four-digit grouping, zero-reading repair, fresh cross-group independent evidence, and reading-to-writing transfer satisfy the ready gate."
+  "summary": "After textbook re-grounding and flow refinement, four-digit grouping, zero-reading rules, fresh independent reading evidence, writing transfer, and the generic placeValueGroups renderer satisfy the ready gate."
 }

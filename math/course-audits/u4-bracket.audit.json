@@ -1,7 +1,7 @@
 {
   "auditVersion": "0.1.0",
   "flowId": "u4.bracket.v2",
-  "revisionRound": 1,
+  "revisionRound": 2,
   "scores": {
     "sourceGrounding": 2,
     "knowledgeTypeFit": 2,
@@ -20,5 +20,5 @@
   "findings": [],
   "decision": "pass",
   "finalRecommendation": "ready",
-  "summary": "Textbook-grounded nested-bracket order, targeted misconception repair, fresh independent calculation, and nested transfer satisfy the ready gate."
+  "summary": "After textbook re-grounding and flow refinement, parentheses priority, nested-bracket order, fresh independent computation, and changed-parentheses transfer satisfy the ready gate."
 }

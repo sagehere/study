@@ -8,39 +8,39 @@
   "nodeId": "bracket",
   "initialStep": "diagnose",
   "labels": {
-    "badge": "程序顺序正式课",
+    "badge": "运算顺序正式课",
     "title": "小括号与中括号",
-    "description": "把括号看成改变先后关系的结构：先小括号，再中括号，括号内仍遵守运算顺序。"
+    "description": "把括号看成“先形成一个整体”，再按从内到外的层级计算。"
   },
   "objectives": {
-    "inner": "O-U4-BRACKET-01",
+    "paren": "O-U4-BRACKET-01",
     "nested": "O-U4-BRACKET-02",
-    "order": "O-U4-BRACKET-03",
+    "compare": "O-U4-BRACKET-03",
     "transfer": "O-U4-BRACKET-04"
   },
   "misconceptions": {
     "ignore": "M-U4-BRACKET-01",
     "outerFirst": "M-U4-BRACKET-02",
-    "insideLeft": "M-U4-BRACKET-03"
+    "leftRight": "M-U4-BRACKET-03"
   },
   "meta": {
     "authoringStatus": "ready",
     "knowledgeType": "procedural",
     "sourcePages": "60-62",
-    "sourceNote": "教材以(600－126×4)÷48说明括号中的量先算，且括号内仍先乘除后加减；再明确既有小括号又有中括号时先算小括号，再算中括号，最后算括号外，并安排58×(20－78÷13)、42×[169－(78+35)]等练习。"
+    "sourceNote": "教材用(600－126×4)÷48建立小括号优先，再明确“既有小括号又有中括号，先算小括号里面，再算中括号里面”；练习通过有无括号、括号位置不同的式子比较结果。"
   },
   "steps": {
     "diagnose": {
       "objectiveId": "O-U4-BRACKET-01",
       "hints": [
         "",
-        "先确定最外层有没有括号。",
-        "括号里面要先完成。",
-        "但括号内部仍遵守乘除先于加减。",
-        "所以先算126×4。"
+        "先看括号里面。",
+        "括号里面仍然遵循乘除先于加减。",
+        "所以先126×4。",
+        "得到504，再做600－504。"
       ],
       "view": {
-        "title": "有括号不等于“从左往右”",
+        "title": "括号是在改变“先算谁”",
         "prompt": "(600－126×4)÷48，第一步应该算什么？",
         "choices": [
           [
@@ -60,7 +60,7 @@
       "transitions": [
         {
           "when": "mul",
-          "to": "nested",
+          "to": "smallParen",
           "effects": [
             {
               "type": "markObjective",
@@ -70,18 +70,6 @@
         },
         {
           "when": "sub",
-          "to": "repairInside",
-          "lane": "repair",
-          "effects": [
-            {
-              "type": "markMisconception",
-              "id": "M-U4-BRACKET-03",
-              "confidence": "high"
-            }
-          ]
-        },
-        {
-          "when": "div",
           "to": "repairIgnore",
           "lane": "repair",
           "effects": [
@@ -94,73 +82,33 @@
         }
       ]
     },
-    "repairInside": {
-      "objectiveId": "O-U4-BRACKET-01",
-      "hints": [
-        "",
-        "括号表示这部分先整体完成。",
-        "不代表括号内部改成纯左到右。",
-        "126×4是乘法。",
-        "乘法先于600－。"
-      ],
-      "view": {
-        "title": "括号里面也有自己的运算顺序",
-        "prompt": "在600－126×4这个括号内部，应该先算哪类运算？",
-        "choices": [
-          [
-            "mul",
-            "乘法"
-          ],
-          [
-            "sub",
-            "减法"
-          ]
-        ]
-      },
-      "transitions": [
-        {
-          "when": "mul",
-          "to": "nested",
-          "effects": [
-            {
-              "type": "resolveMisconception",
-              "id": "M-U4-BRACKET-03"
-            },
-            {
-              "type": "scheduleReview",
-              "reason": "order-inside-parentheses"
-            }
-          ]
-        }
-      ]
-    },
     "repairIgnore": {
       "objectiveId": "O-U4-BRACKET-01",
       "hints": [
         "",
-        "括号把一部分变成一个整体。",
-        "外面的运算要等这个整体有值。",
-        "先求括号内结果。",
-        "再用结果÷48。"
+        "括号不是说“从左到右”。",
+        "它只是把括号内作为先处理的整体。",
+        "整体内部仍遵守乘除先于加减。",
+        "所以126×4先算。"
       ],
       "view": {
-        "title": "只修“不能越过括号先算外面”",
-        "prompt": "整个式子最后的÷48能不能先算？",
+        "title": "括号优先，但括号里也有顺序",
+        "prompt": "为什么不能先算600－126？",
         "choices": [
           [
-            "no",
-            "不能，要先完成括号"
+            "inside",
+            "因为括号内126×4要先于减法"
           ],
           [
-            "yes",
-            "能，除法优先"
+            "left",
+            "因为从右边开始算"
           ]
         ]
       },
       "transitions": [
         {
-          "when": "no",
-          "to": "nested",
+          "when": "inside",
+          "to": "smallParen",
           "effects": [
             {
               "type": "resolveMisconception",
@@ -168,7 +116,47 @@
             },
             {
               "type": "scheduleReview",
-              "reason": "parentheses-before-outside"
+              "reason": "parentheses-priority"
+            }
+          ]
+        }
+      ]
+    },
+    "smallParen": {
+      "objectiveId": "O-U4-BRACKET-01",
+      "hints": [
+        "",
+        "126×4=504。",
+        "600－504=96。",
+        "96÷48。",
+        "结果2。"
+      ],
+      "view": {
+        "title": "先把小括号算成一个数",
+        "prompt": "(600－126×4)÷48 的结果是多少？",
+        "choices": [
+          [
+            "2",
+            "2"
+          ],
+          [
+            "8",
+            "8"
+          ],
+          [
+            "22",
+            "22"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "2",
+          "to": "nested",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
             }
           ]
         }
@@ -178,26 +166,26 @@
       "objectiveId": "O-U4-BRACKET-02",
       "hints": [
         "",
-        "找最里面的括号。",
-        "(81－56)在中括号内部。",
-        "先把小括号算成25。",
-        "再算中括号里的25×3，最后525÷。"
+        "看括号层级。",
+        "小括号在中括号里面。",
+        "必须先得到最里面的整体。",
+        "先81－56=25。"
       ],
       "view": {
-        "title": "小括号和中括号谁先",
-        "prompt": "525÷[(81－56)×3]，第一步是哪一个？",
+        "title": "有小括号和中括号时，从里向外",
+        "prompt": "525÷[(81－56)×3]，第一步应该算什么？",
         "choices": [
           [
             "small",
             "81－56"
           ],
           [
-            "times",
+            "multiply",
             "先×3"
           ],
           [
             "divide",
-            "525÷"
+            "先525÷"
           ]
         ]
       },
@@ -213,8 +201,8 @@
           ]
         },
         {
-          "when": "times",
-          "to": "repairNested",
+          "when": "multiply",
+          "to": "repairOuter",
           "lane": "repair",
           "effects": [
             {
@@ -226,32 +214,32 @@
         }
       ]
     },
-    "repairNested": {
+    "repairOuter": {
       "objectiveId": "O-U4-BRACKET-02",
       "hints": [
         "",
-        "看结构的包含关系。",
-        "小括号在中括号内部。",
-        "先得到最里面部分的值。",
-        "再一层层向外。"
+        "×3左边不是一个现成数字。",
+        "它是小括号(81－56)。",
+        "先算25。",
+        "再25×3=75，最后525÷75。"
       ],
       "view": {
-        "title": "嵌套括号要从内向外",
-        "prompt": "同时有( )和[ ]时，教材规定怎样算？",
+        "title": "为什么不能先处理中括号外层",
+        "prompt": "中括号里的×3依赖哪个尚未算出的值？",
         "choices": [
           [
-            "inside",
-            "先小括号，再中括号，最后括号外"
+            "small",
+            "依赖(81－56)的结果"
           ],
           [
-            "outer",
-            "先中括号，再小括号"
+            "none",
+            "不依赖任何值"
           ]
         ]
       },
       "transitions": [
         {
-          "when": "inside",
+          "when": "small",
           "to": "formalize",
           "effects": [
             {
@@ -267,25 +255,25 @@
       ]
     },
     "formalize": {
-      "objectiveId": "O-U4-BRACKET-03",
+      "objectiveId": "O-U4-BRACKET-02",
       "hints": [
         "",
-        "括号决定层级。",
-        "运算规则决定每层内部的先后。",
-        "两套规则同时存在。",
-        "从内到外，每层内部再遵守乘除先于加减。"
+        "括号决定优先层级。",
+        "小括号在更里面。",
+        "中括号包着小括号。",
+        "从内向外，同时每层内部仍按运算顺序。"
       ],
       "view": {
-        "title": "把括号规则说完整",
-        "prompt": "哪一句最准确？",
+        "title": "现在总结括号层级规则",
+        "prompt": "哪句最准确？",
         "choices": [
           [
             "rule",
-            "先小括号，再中括号，最后括号外；每个括号内部仍按正常运算顺序"
+            "先算小括号，再算中括号；括号内部仍遵循原有运算顺序"
           ],
           [
-            "simple",
-            "只要看见括号，就把里面从左往右算"
+            "left",
+            "有括号也只从左到右"
           ]
         ]
       },
@@ -303,7 +291,7 @@
               "type": "emit",
               "event": "FORMALIZATION_UNLOCKED",
               "result": {
-                "rule": "nested-bracket-order"
+                "rule": "inner-to-outer-brackets"
               }
             },
             {
@@ -318,26 +306,26 @@
       "objectiveId": "O-U4-BRACKET-03",
       "hints": [
         "",
-        "先处理括号。",
-        "括号内先78÷13=6。",
+        "先小括号。",
+        "括号内78÷13=6。",
         "20－6=14。",
         "58×14=812。"
       ],
       "view": {
-        "title": "换一道教材式表达式独立算",
-        "prompt": "58×(20－78÷13)的结果是多少？",
+        "title": "换一道教材题独立算",
+        "prompt": "58×(20－78÷13) 的结果是多少？",
         "choices": [
           [
             "812",
             "812"
           ],
           [
-            "2088",
-            "2088"
+            "84",
+            "84"
           ],
           [
-            "638",
-            "638"
+            "696",
+            "696"
           ]
         ]
       },
@@ -358,6 +346,106 @@
               "stage": "independent_success"
             }
           ]
+        },
+        {
+          "when": "84",
+          "to": "repairLeftRight",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-BRACKET-03",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairLeftRight": {
+      "objectiveId": "O-U4-BRACKET-03",
+      "hints": [
+        "",
+        "括号只确定“这一块先算”。",
+        "块里面仍有运算等级。",
+        "除法先于减法。",
+        "所以先78÷13。"
+      ],
+      "view": {
+        "title": "括号内也不能机械从左到右",
+        "prompt": "20－78÷13里哪一步先算？",
+        "choices": [
+          [
+            "div",
+            "78÷13"
+          ],
+          [
+            "sub",
+            "20－78"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "div",
+          "to": "freshIndependent",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-BRACKET-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "inside-bracket-precedence"
+            }
+          ]
+        }
+      ]
+    },
+    "freshIndependent": {
+      "objectiveId": "O-U4-BRACKET-03",
+      "hints": [
+        "",
+        "先括号32－17。",
+        "得到15。",
+        "48×15=720。",
+        "720÷30=24。"
+      ],
+      "view": {
+        "title": "换一道新题确认",
+        "prompt": "48×(32－17)÷30 的结果是多少？",
+        "choices": [
+          [
+            "24",
+            "24"
+          ],
+          [
+            "720",
+            "720"
+          ],
+          [
+            "49",
+            "49"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "24",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "fresh": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
         }
       ]
     },
@@ -365,32 +453,32 @@
       "objectiveId": "O-U4-BRACKET-04",
       "hints": [
         "",
-        "先最里面的小括号。",
-        "78+35=113。",
-        "中括号169－113=56。",
-        "42×56=2352。"
+        "分别按各自顺序算。",
+        "第一个：180+12=192。",
+        "第二个：括号内3+12=15，540÷15=36。",
+        "192>36。"
       ],
       "view": {
-        "title": "迁移到中括号嵌套",
-        "prompt": "42×[169－(78＋35)]的结果是多少？",
+        "title": "迁移：括号位置改变结果",
+        "prompt": "比较540÷3＋6×2与540÷(3＋6×2)，哪一个更大？",
         "choices": [
           [
-            "2352",
-            "2352"
+            "first",
+            "第一个更大"
           ],
           [
-            "4704",
-            "4704"
+            "second",
+            "第二个更大"
           ],
           [
-            "3612",
-            "3612"
+            "same",
+            "一样大"
           ]
         ]
       },
       "transitions": [
         {
-          "when": "2352",
+          "when": "first",
           "to": "complete",
           "effects": [
             {
@@ -418,8 +506,8 @@
         ""
       ],
       "view": {
-        "title": "括号不再是装饰符号",
-        "prompt": "先看括号层级，再看每层内部的运算顺序：小括号→中括号→括号外；任何一层里仍遵守同级从左到右、乘除先于加减。",
+        "title": "括号现在表示的是“运算层级”",
+        "prompt": "先识别最里面的括号，再在该层内部按正常运算顺序计算；括号位置一变，参与运算的整体就会变。",
         "choices": []
       },
       "transitions": [],

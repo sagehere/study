@@ -1,7 +1,7 @@
 {
   "auditVersion": "0.1.0",
   "flowId": "u1.vertical.v2",
-  "revisionRound": 1,
+  "revisionRound": 2,
   "scores": {
     "sourceGrounding": 2,
     "knowledgeTypeFit": 2,
@@ -28,5 +28,5 @@
   ],
   "decision": "pass",
   "finalRecommendation": "ready",
-  "summary": "Textbook-grounded quotient placement, bring-down cycle, remainder constraint, fresh long-division evidence, and remainder transfer satisfy the ready gate."
+  "summary": "After textbook re-grounding and flow refinement, quotient placement, the long-division cycle, remainder constraint, fresh independent evidence, verification transfer, and the generic longDivision renderer all satisfy the ready gate."
 }

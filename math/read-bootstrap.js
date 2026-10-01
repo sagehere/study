@@ -1,4 +1,4 @@
-/* Registers u5 large-number reading flow from a declarative Course Package. */
+/* Registers u5 reading/writing flow from a declarative Course Package. */
 'use strict';
 (() => {
  const pkg=CoursePackageData['u5.read.v2'];if(!pkg)throw new Error('Missing Course Package u5.read.v2');
