@@ -34,6 +34,7 @@ if(process.argv.includes('--pedagogy'))pedagogyChecks();
 if(process.argv.includes('--browser'))browserChecks().catch(e=>{console.error(e);process.exitCode=1;});
 
 function pedagogyChecks(){
+ const authoring=require('./validate-course-packages.cjs').validateAll();assert.deepEqual(authoring.errors,[],'Course Package authoring validation');assert.equal(authoring.files.length,5,'expected five pilot Course Packages');
  const pc={URLSearchParams,location:{search:''}};vm.createContext(pc);
  for(const f of ['learning-flow-engine.js','pedagogy-v2.js','course-package-loader.js','course-packages.generated.js','trial-renderer.js','trial-bootstrap.js','area-renderer.js','area-bootstrap.js','price-renderer.js','price-bootstrap.js','round-renderer.js','round-bootstrap.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,f),'utf8'),pc);
  const E=pc.LearningFlowEngine,P=pc.PedagogyV2,T=pc.TrialPedagogy,R=T.runtime;
@@ -70,7 +71,7 @@ function pedagogyChecks(){
  root=M.fresh();st=G.runtime.session(root);G.runtime.submit(root,'right');assert.equal(st.current_step_id,'repairNearest');assert.equal(root.pedagogy_v2.misconceptions['M-U5-ROUND-01'].active,true);G.runtime.submit(root,'left');assert.equal(st.current_step_id,'boundary');G.runtime.submit(root,'both79');assert.equal(st.current_step_id,'repairBoundary');assert.equal(root.pedagogy_v2.misconceptions['M-U5-ROUND-02'].active,true);G.runtime.submit(root,'right');assert.equal(st.current_step_id,'formalize');G.runtime.submit(root,'rule');G.runtime.submit(root,'823');assert.equal(st.current_step_id,'repairUnit');assert.equal(root.pedagogy_v2.misconceptions['M-U5-ROUND-03'].active,true);G.runtime.submit(root,'82');assert.equal(st.current_step_id,'reverse');G.runtime.submit(root,'closed');assert.equal(st.current_step_id,'repairReverse');assert.equal(root.pedagogy_v2.misconceptions['M-U5-ROUND-04'].active,true);G.runtime.submit(root,'no');assert.equal(st.current_step_id,'transfer');G.runtime.submit(root,'correct');assert.equal(st.current_step_id,'complete');assert(root.pedagogy_v2.events.some(e=>e.flow_id==='u5.round.v2'&&e.type==='TRANSFER_PASS'));
  // Engine boundary now covers four pedagogical types without course leakage.
  for(const token of ['rounding','number-line','四舍五入','分界点','round-to-ten-thousand'])assert(!engineSource.includes(token),'generic engine leaked rounding token: '+token);
- console.log('PASS: Phase 2.2 all pilot flows loaded from declarative Course Packages.');
+ console.log('PASS: Phase 2.3 Course Package schema and authoring validator across all pilot flows.');
 }
 async function browserChecks(){
  const pw=require(path.resolve(path.dirname(process.execPath),'..','lib','node_modules','playwright'));

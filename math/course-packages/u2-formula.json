@@ -463,17 +463,12 @@
     "title": "周长与面积 · 公式"
   },
   "objectives": {
-    "meaning": "O-U2-MEANING-01",
-    "representation": "O-U2-MEANING-02",
     "explain": "O-U2-MEANING-03",
     "formulaP": "O-U2-FORMULA-01",
     "formulaA": "O-U2-FORMULA-02",
     "transfer": "O-U2-FORMULA-03"
   },
   "misconceptions": {
-    "boundary": "M-U2-MEANING-01",
-    "surface": "M-U2-MEANING-02",
-    "compareNumber": "M-U2-MEANING-03",
     "formulaSwap": "M-U2-FORMULA-01",
     "unit": "M-U2-FORMULA-02"
   }
