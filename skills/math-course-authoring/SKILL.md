@@ -9,13 +9,13 @@ Create textbook-grounded, declarative Course Packages for the offline learning e
 
 ## Workflow
 
-1. **Ground the node in source material.** Read the relevant textbook/content section before authoring. Extract the exact concept, prerequisite, representations, examples, terminology, and likely error patterns. Do not invent textbook claims or page references.
+1. **Ground the node in source material.** Read the relevant textbook/content section before authoring. Extract the exact concept, prerequisite, representations, examples, terminology, and likely error patterns. Do not invent textbook claims or page references. If an important pedagogical rule comes from project design rather than the inspected source, record that distinction and keep the package `draft` until it is reviewed.
 2. **Choose one knowledge type.** Read `references/knowledge-types.md` and select `procedural`, `concept-representation`, `quantity-relation`, or `boundary-concept`. If none fits, explain the gap instead of inventing a fifth type silently.
 3. **Create a scaffold.** Run `scripts/scaffold_course_package.py` with course/unit/node/type. Use the generated stable IDs; do not renumber released IDs casually.
 4. **Replace every placeholder with real teaching design.** Write objectives, misconceptions, prompts, choices, H0-H4 hints, transitions, evidence effects, independent checks, and transfer tasks. Prefer one main cognitive action per step.
-5. **Design repair, not generic retry.** Route identifiable misconceptions to targeted repair. After strong scaffolding, require a fresh or changed item before counting independent mastery.
+5. **Design repair, not generic retry.** Route identifiable misconceptions to targeted repair. After strong scaffolding, require a genuinely fresh item before counting independent mastery; correcting the same item is repair evidence, not independent evidence.
 6. **Formalize after evidence.** Do not expose the final rule before the learner has produced enough observations/reasoning. A correct answer with an invalid reason is not full understanding.
-7. **Select renderers conservatively.** Use only names from `references/renderer-registry.json`. If no renderer fits, omit the visual or report that a renderer extension is required; never invent an unregistered renderer.
+7. **Select renderers conservatively.** Use only names from `references/renderer-registry.json`. Check not only the picture but also captions and accessibility semantics (`aria-label`) before calling a renderer reusable. If no renderer fits, omit the visual or report that a renderer extension is required; never invent an unregistered renderer.
 8. **Keep the DSL non-executable.** Follow `references/authoring-contract.md`. Never add scripts, expressions, JavaScript URLs, `eval`, `new Function`, or arbitrary code-bearing fields.
 9. **Validate deterministically.** Run `scripts/validate_course_package.py <package.json>`. Fix every error before returning a package. For multiple packages, validate them together so shared-ID rules can be checked.
 10. **Return the package plus a short audit.** State the knowledge type, major objectives, targeted misconceptions, independent/transfer evidence, and any renderer or source gaps. Do not claim `ready` status if substantive TODOs or unresolved source questions remain.

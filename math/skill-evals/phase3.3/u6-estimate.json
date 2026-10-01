@@ -1,0 +1,425 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u6.estimate.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u6",
+  "nodeId": "estimate",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "Skill泛化草稿",
+    "title": "估算与情境判断",
+    "description": "用上界/下界作确定性判断；临界时主动切换精算。"
+  },
+  "objectives": {
+    "direction": "O-U6-ESTIMATE-01",
+    "bound": "O-U6-ESTIMATE-02",
+    "boundary": "O-U6-ESTIMATE-03",
+    "verify": "O-U6-ESTIMATE-04",
+    "transfer": "O-U6-ESTIMATE-05"
+  },
+  "misconceptions": {
+    "nearest": "M-U6-ESTIMATE-01",
+    "wrongDirection": "M-U6-ESTIMATE-02",
+    "estimateAsExact": "M-U6-ESTIMATE-03",
+    "unit": "M-U6-ESTIMATE-04"
+  },
+  "meta": {
+    "authoringStatus": "draft",
+    "knowledgeType": "boundary-concept",
+    "sourcePages": "96-97,102",
+    "sourceNote": "教材包含估算/实际计算与情境判断；项目节点要求形成“往大估仍够→一定够，往小估仍不够→一定不够；临界附近精算”的单边界策略。",
+    "rendererGap": "需要通用 upperLowerBound / threshold renderer；现有 numberLine/price budget 都不应硬套。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U6-ESTIMATE-01",
+      "hints": [
+        "",
+        "先想你要证明“够”还是“不够”。",
+        "证明不够，需要找一个不会高估需求的下界。",
+        "73往小估成70，70×3=210。",
+        "连更小的估计都超过200，实际一定更不够。"
+      ],
+      "view": {
+        "title": "估算不是永远取“最近”",
+        "prompt": "每副球拍73元，买3副，只有200元。若想快速证明“不够”，把73估成哪个数更有力？",
+        "choices": [
+          [
+            "70",
+            "70（往小估）"
+          ],
+          [
+            "80",
+            "80（往大估）"
+          ],
+          [
+            "73",
+            "必须精算"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "70",
+          "to": "bound",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "80",
+          "to": "repairDirection",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-02",
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "when": "73",
+          "to": "repairDirection",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-01",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairDirection": {
+      "objectiveId": "O-U6-ESTIMATE-01",
+      "hints": [
+        "",
+        "不是问“最接近”，而是问“能否保证结论”。",
+        "证明“不够”要构造实际总价的下界。",
+        "往小估后都不够，真实值只会更大。",
+        "70×3=210>200，因此73×3一定>200。"
+      ],
+      "view": {
+        "title": "只修估算方向",
+        "prompt": "要证明实际总价一定超过200，哪种估法更安全？",
+        "choices": [
+          [
+            "down",
+            "把单价往小估"
+          ],
+          [
+            "up",
+            "把单价往大估"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "down",
+          "to": "bound",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "one-sided-estimate-direction"
+            }
+          ]
+        }
+      ]
+    },
+    "bound": {
+      "objectiveId": "O-U6-ESTIMATE-02",
+      "hints": [
+        "",
+        "往大估得到的是实际总价的上界。",
+        "上界98都不超过100。",
+        "实际成人票比40元低。",
+        "所以实际总价一定≤98≤100。"
+      ],
+      "view": {
+        "title": "把估算变成“保证”",
+        "prompt": "成人票36元2张、儿童票18元1张，带100元。成人票往大估成40元，40×2+18=98。能否确认够？",
+        "choices": [
+          [
+            "yes",
+            "可以确认够"
+          ],
+          [
+            "no",
+            "不能确认"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "yes",
+          "to": "boundary",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "no",
+          "to": "repairBound",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-03",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairBound": {
+      "objectiveId": "O-U6-ESTIMATE-02",
+      "hints": [
+        "",
+        "题里真实成人票是36元。",
+        "40元只是为了快速判断而换的数。",
+        "估算值可以帮助证明，但不是准确账单。",
+        "实际总价36×2+18=90元。"
+      ],
+      "view": {
+        "title": "区分上界和准确值",
+        "prompt": "98元是不是实际总价？",
+        "choices": [
+          [
+            "upper",
+            "不是，是往大估得到的上界"
+          ],
+          [
+            "exact",
+            "是准确总价"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "upper",
+          "to": "boundary",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "estimate-vs-exact"
+            }
+          ]
+        }
+      ]
+    },
+    "boundary": {
+      "objectiveId": "O-U6-ESTIMATE-03",
+      "hints": [
+        "",
+        "先看160是把165往哪边估。",
+        "往小估得到需求的下界。",
+        "下界低于预算不能证明真实需求也低于预算。",
+        "而且4960离5000只有40，必须精算。"
+      ],
+      "view": {
+        "title": "什么时候估算不够用",
+        "prompt": "每天吃165千克，5吨食物够吃31天吗？把165估成160，160×31=4960千克。能据此确认“够”吗？",
+        "choices": [
+          [
+            "cannot",
+            "不能，估得偏小且离5000很近"
+          ],
+          [
+            "enough",
+            "能，4960<5000所以够"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "cannot",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "enough",
+          "to": "repairBoundary",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairBoundary": {
+      "objectiveId": "O-U6-ESTIMATE-03",
+      "hints": [
+        "",
+        "当前估计不能推出结论。",
+        "比较5115与5000。",
+        "165×31=5115。",
+        "5115>5000，所以实际不够。"
+      ],
+      "view": {
+        "title": "只修“临界点”判断",
+        "prompt": "要判断够不够，下一步最可靠是什么？",
+        "choices": [
+          [
+            "exact",
+            "精算165×31"
+          ],
+          [
+            "round",
+            "继续把165估成160"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "exact",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "boundary-needs-exact"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U6-ESTIMATE-04",
+      "hints": [
+        "",
+        "关键是估计值与实际值谁更大。",
+        "上界都够，实际更小；下界都不够，实际更大。",
+        "若估计方向不能保证结论，就不能下定论。",
+        "临界附近切换精算。"
+      ],
+      "view": {
+        "title": "现在总结判断规则",
+        "prompt": "哪组规则正确？",
+        "choices": [
+          [
+            "rule",
+            "往大估仍够→一定够；往小估仍不够→一定不够；其余临界情况精算"
+          ],
+          [
+            "nearest",
+            "一律四舍五入到最近整十后判断"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "one-sided-bounds"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U6-ESTIMATE-05",
+      "hints": [
+        "",
+        "两个正数量都往大估。",
+        "估得总价是实际总价的上界。",
+        "上界刚好10000。",
+        "实际48×198一定不超过50×200=10000。"
+      ],
+      "view": {
+        "title": "迁移：预算上界",
+        "prompt": "学校买48件每件198元物品，预算10000元。用50件、每件200元往大估得10000元，能确认够吗？",
+        "choices": [
+          [
+            "yes",
+            "可以确认够"
+          ],
+          [
+            "no",
+            "不能"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "yes",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U6-ESTIMATE-05",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你已经会用“界”而不是靠感觉估",
+        "prompt": "估算的价值不是替代精算，而是在方向正确时快速给出保证；没有保证时就切回精算。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}
