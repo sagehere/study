@@ -289,6 +289,9 @@ globalThis.QuestData={COURSE,FINAL,ACTIVITIES,SOURCES};
 <script src="trial-renderer.js"></script>
 <script src="trial-course.js"></script>
 <script src="trial-bootstrap.js"></script>
+<script src="area-renderer.js"></script>
+<script src="area-course.js"></script>
+<script src="area-bootstrap.js"></script>
 <script id="quest-app">
 'use strict';
 const M=MathQuest,D=QuestData,allUnits=[...D.COURSE,D.FINAL],unitById=Object.fromEntries(allUnits.map(u=>[u.id,u])),questions=Object.fromEntries(allUnits.flatMap(u=>u.questions).map(q=>[q.id,q]));
