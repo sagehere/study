@@ -3,10 +3,10 @@
 ## Summary
 
 - Total legacy knowledge nodes: **26**
-- Production Course Packages: **24**
-- Production packages with ready audit: **18**
+- Production Course Packages: **26**
+- Production packages with ready audit: **20**
 - Production packages missing formal audit: **6**
-- Nodes not yet migrated: **2**
+- Nodes not yet migrated: **0**
 
 ## 26-node inventory
 
@@ -36,15 +36,12 @@
 | `u5.code` | 正式迁移 + ready audit | concept-representation | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u6.multiply` | 正式包存在，但缺正式 audit | procedural | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u6.estimate` | 正式迁移 + ready audit | boundary-concept | 已接入/由现有包定义 | 已在正式包记录 | — |
-| `u6.calculator` | 尚未迁移 | procedural | 无必要；重点在输入检查/分步验证 | 教材98—99页；需核按键与估算检查 | Final-B |
-| `u6.pattern` | 尚未迁移 | concept-representation | rect / tileRows；可能需新 pattern decomposition renderer | 教材100—103页；需核规律发现与面积拆分解释 | Final-B |
+| `u6.calculator` | 正式迁移 + ready audit | procedural | 无必要；重点在输入检查/分步验证 | 已在正式包记录 | — |
+| `u6.pattern` | 正式迁移 + ready audit | concept-representation | rect / tileRows；可能需新 pattern decomposition renderer | 已在正式包记录 | — |
 
 ## Remaining migration plan
 
-### Final-B
-
-1. `u6.calculator` — teach relation-first input and verification, not button memorization
-2. `u6.pattern` — try rect/tileRows first; add only a generic decomposition renderer if required
+All legacy nodes now have production Course Packages.
 
 ## Audit backfill before Phase 5
 

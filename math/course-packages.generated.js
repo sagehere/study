@@ -11205,6 +11205,560 @@ globalThis.CoursePackageData={
       "reverseInterval": "M-U5-ROUND-04"
     }
   },
+  "u6.calculator.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u6.calculator.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u6",
+    "nodeId": "calculator",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "工具使用正式课",
+      "title": "计算器与输入检查",
+      "description": "先理解算式和运算顺序，再输入计算器；结果要用估算、分步或逆运算检查。"
+    },
+    "objectives": {
+      "plan": "O-U6-CALC-01",
+      "input": "O-U6-CALC-02",
+      "correct": "O-U6-CALC-03",
+      "verify": "O-U6-CALC-04"
+    },
+    "misconceptions": {
+      "blindInput": "M-U6-CALC-01",
+      "ignoreBracket": "M-U6-CALC-02",
+      "trustDisplay": "M-U6-CALC-03",
+      "clearAll": "M-U6-CALC-04"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "procedural",
+      "sourcePages": "98-99",
+      "sourceNote": "教材以11800－(2099×3＋1929×2＋1549)展示计算器适用于步数多、数较大的计算，并强调有括号要先算括号内或使用带括号输入；第99页介绍CE改错键，练习同时要求“用合适的方法计算”，说明计算器不是代替审题和合理性判断。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U6-CALC-01",
+        "hints": [
+          "",
+          "先看运算结构。",
+          "外层是11800减去一个“总支出”。",
+          "括号内必须先形成一个整体。",
+          "所以先算括号内，再做减法。"
+        ],
+        "view": {
+          "title": "按键前先读懂算式",
+          "prompt": "11800－(2099×3＋1929×2＋1549)，如果计算器不能直接识别括号，最可靠的做法是什么？",
+          "choices": [
+            [
+              "inside",
+              "先算括号里的总支出，再用11800减去它"
+            ],
+            [
+              "left",
+              "从左到右把所有数字和符号依次按进去"
+            ],
+            [
+              "guess",
+              "先估一个结果再随便按"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "inside",
+            "to": "bracket",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "left",
+            "to": "repairBlind",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-CALC-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairBlind": {
+        "objectiveId": "O-U6-CALC-01",
+        "hints": [
+          "",
+          "问题不在按键数量。",
+          "关键是输入必须代表原算式。",
+          "括号改变计算整体。",
+          "所以先理解关系，再输入。"
+        ],
+        "view": {
+          "title": "计算器不会替你审题",
+          "prompt": "为什么不能把题目从左到右机械输入？",
+          "choices": [
+            [
+              "order",
+              "因为必须遵守原算式的运算顺序和括号结构"
+            ],
+            [
+              "keys",
+              "因为按键太多"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "order",
+            "to": "bracket",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-CALC-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "calculator-plan-before-input"
+              }
+            ]
+          }
+        ]
+      },
+      "bracket": {
+        "objectiveId": "O-U6-CALC-02",
+        "hints": [
+          "",
+          "括号先形成整体。",
+          "41600和640先相加。",
+          "得到42240。",
+          "再用42240÷128。"
+        ],
+        "view": {
+          "title": "有括号时先确定计算层级",
+          "prompt": "(41600＋640)÷128，如果设备不能输入括号，第一步应算什么？",
+          "choices": [
+            [
+              "inside",
+              "41600＋640"
+            ],
+            [
+              "divide",
+              "640÷128"
+            ],
+            [
+              "left",
+              "41600÷128"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "inside",
+            "to": "ce",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "divide",
+            "to": "repairBracket",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-CALC-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairBracket": {
+        "objectiveId": "O-U6-CALC-02",
+        "hints": [
+          "",
+          "括号把这两个数绑成一个整体。",
+          "整体还没算出前，不能先除128。",
+          "先42240。",
+          "再除128。"
+        ],
+        "view": {
+          "title": "只修括号层级",
+          "prompt": "括号里的41600＋640在整个算式里是什么？",
+          "choices": [
+            [
+              "whole",
+              "一个要先求出的整体"
+            ],
+            [
+              "separate",
+              "两个可分别和128运算的数"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "whole",
+            "to": "ce",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-CALC-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "calculator-bracket-order"
+              }
+            ]
+          }
+        ]
+      },
+      "ce": {
+        "objectiveId": "O-U6-CALC-03",
+        "hints": [
+          "",
+          "教材专门介绍CE是为了纠正当前输入。",
+          "前面的123＋不必丢掉。",
+          "清掉455。",
+          "改输456即可。"
+        ],
+        "view": {
+          "title": "输错一位时不必全部重来",
+          "prompt": "计算123＋456时，不小心把456按成455，教材介绍的CE键最适合做什么？",
+          "choices": [
+            [
+              "fix",
+              "清除刚输错的当前数字，再输入456"
+            ],
+            [
+              "all",
+              "把整个计算器全部复位，从123重新开始"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "fix",
+            "to": "verify",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "all",
+            "to": "repairClear",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-CALC-04",
+                "confidence": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      "repairClear": {
+        "objectiveId": "O-U6-CALC-03",
+        "hints": [
+          "",
+          "定位错误发生在哪里。",
+          "前面123＋是正确的。",
+          "只清除当前错误输入。",
+          "再输入456。"
+        ],
+        "view": {
+          "title": "错误也要“局部修复”",
+          "prompt": "已经正确输入123＋，错的是455。最少要重做哪一部分？",
+          "choices": [
+            [
+              "current",
+              "只重输当前的456"
+            ],
+            [
+              "all",
+              "全部从头"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "current",
+            "to": "verify",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-CALC-04"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "calculator-correct-current-entry"
+              }
+            ]
+          }
+        ]
+      },
+      "verify": {
+        "objectiveId": "O-U6-CALC-04",
+        "hints": [
+          "",
+          "估算能发现输错位数或运算符。",
+          "3928接近4000。",
+          "4000×50约20万。",
+          "196400在合理范围，而且小于20万。"
+        ],
+        "view": {
+          "title": "屏幕有答案，也要问“合理吗”",
+          "prompt": "3928元/台，买50台，预算20万元。计算器显示196400元。最好的下一步是什么？",
+          "choices": [
+            [
+              "check",
+              "用约4000×50≈200000检查数量级，判断结果合理且预算够"
+            ],
+            [
+              "trust",
+              "看到屏幕就直接相信"
+            ],
+            [
+              "recalc",
+              "不看题意再按一遍相同按键"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "check",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "trust",
+            "to": "repairTrust",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-CALC-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairTrust": {
+        "objectiveId": "O-U6-CALC-04",
+        "hints": [
+          "",
+          "计算器只按输入计算。",
+          "输入错一位，它也会认真算错。",
+          "估算先给出数量级预期。",
+          "结果偏离很多时就该检查输入。"
+        ],
+        "view": {
+          "title": "计算器结果不是“自动正确”",
+          "prompt": "如果把3928误输成39280，屏幕也会正常给出数字。什么办法最容易发现？",
+          "choices": [
+            [
+              "estimate",
+              "先估算数量级再对照结果"
+            ],
+            [
+              "display",
+              "只看屏幕有没有小数点"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "estimate",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-CALC-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "calculator-estimate-check"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U6-CALC-04",
+        "hints": [
+          "",
+          "工具使用也需要数学判断。",
+          "先定结构。",
+          "再输入和纠错。",
+          "最后检查结果是否符合题意和数量级。"
+        ],
+        "view": {
+          "title": "把计算器使用变成可检查流程",
+          "prompt": "哪套流程最可靠？",
+          "choices": [
+            [
+              "rule",
+              "先审题和定顺序→正确输入→局部纠错→用估算/分步/逆运算检查"
+            ],
+            [
+              "keys",
+              "记住按键越多越熟练"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "calculator-plan-input-correct-verify"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U6-CALC-02",
+        "hints": [
+          "",
+          "先449－289。",
+          "得到160。",
+          "再25120÷160。",
+          "得到157。"
+        ],
+        "view": {
+          "title": "换一道教材式算式",
+          "prompt": "25120÷(449－289)，如果分步输入，括号内结果和最终结果分别是多少？",
+          "choices": [
+            [
+              "correct",
+              "160；157"
+            ],
+            [
+              "wrong",
+              "160；40"
+            ],
+            [
+              "other",
+              "25120；160"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "correct",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U6-CALC-04",
+        "hints": [
+          "",
+          "教材还要求“用合适的方法计算”。",
+          "20×50很容易凑整。",
+          "先得1000。",
+          "1000×17=17000，比机械按键更清楚。"
+        ],
+        "view": {
+          "title": "迁移：什么时候反而不该依赖计算器",
+          "prompt": "20×50×17，哪种方法更合适？",
+          "choices": [
+            [
+              "mental",
+              "先20×50=1000，再×17=17000，口算/简算更直接"
+            ],
+            [
+              "calculator",
+              "任何题都必须用计算器"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "mental",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U6-CALC-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你在使用工具，而不是被工具牵着走",
+          "prompt": "计算器擅长繁杂计算，但运算结构、输入正确性和结果合理性仍要由你判断。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
   "u6.estimate.v2": {
     "packageVersion": "0.1.0",
     "schemaVersion": "0.2",
@@ -12447,6 +13001,603 @@ globalThis.CoursePackageData={
           "choices": []
         },
         "transitions": []
+      }
+    }
+  },
+  "u6.pattern.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u6.pattern.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u6",
+    "nodeId": "pattern",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "规律解释正式课",
+      "title": "规律探索与解释",
+      "description": "先从多组结果发现规律，再用面积拆分重组解释，并用新例验证，不把巧合当规律。"
+    },
+    "objectives": {
+      "notice": "O-U6-PATTERN-01",
+      "front": "O-U6-PATTERN-02",
+      "explain": "O-U6-PATTERN-03",
+      "transfer": "O-U6-PATTERN-04"
+    },
+    "misconceptions": {
+      "append25": "M-U6-PATTERN-01",
+      "overgeneralize": "M-U6-PATTERN-02",
+      "patternOnly": "M-U6-PATTERN-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "concept-representation",
+      "sourcePages": "100-101",
+      "sourceNote": "教材先用计算器计算15×15、25×25、35×35，发现积末两位都是25，前部等于十位上的数乘比它大1的数；随后要求用25×25面积图拆分重组解释规律，并继续猜算45×45、55×55、65×65及44×46、54×56、64×66等相邻对称乘积。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U6-PATTERN-01",
+        "hints": [
+          "",
+          "先只观察结果。",
+          "225、625、1225。",
+          "末两位都一样。",
+          "都是25。"
+        ],
+        "view": {
+          "title": "先从多组结果找“稳定不变”",
+          "prompt": "15×15=225，25×25=625，35×35=1225。最明显的共同点是什么？",
+          "choices": [
+            [
+              "25",
+              "积的末两位都是25"
+            ],
+            [
+              "double",
+              "积都是原数的2倍"
+            ],
+            [
+              "same",
+              "三个积完全相同"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "25",
+            "to": "front",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          }
+        ]
+      },
+      "front": {
+        "objectiveId": "O-U6-PATTERN-02",
+        "hints": [
+          "",
+          "把前部和十位数配对。",
+          "2=1×2。",
+          "6=2×3，12=3×4。",
+          "也就是n×(n+1)。"
+        ],
+        "view": {
+          "title": "前面的数也有规律",
+          "prompt": "15²前面是2，25²前面是6，35²前面是12。若原数十位分别是1、2、3，前面的2、6、12最像什么？",
+          "choices": [
+            [
+              "next",
+              "1×2，2×3，3×4"
+            ],
+            [
+              "square",
+              "1²，2²，3²"
+            ],
+            [
+              "plus",
+              "1+1，2+2，3+3"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "next",
+            "to": "ruleGuess",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "ruleGuess": {
+        "objectiveId": "O-U6-PATTERN-02",
+        "hints": [
+          "",
+          "十位数是4。",
+          "前部=4×5=20。",
+          "末两位25。",
+          "所以2025。"
+        ],
+        "view": {
+          "title": "先提出规律，再去解释",
+          "prompt": "按刚才规律，45×45应该是多少？",
+          "choices": [
+            [
+              "2025",
+              "2025"
+            ],
+            [
+              "1625",
+              "1625"
+            ],
+            [
+              "4025",
+              "4025"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "2025",
+            "to": "explain",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "4025",
+            "to": "repairAppend",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-PATTERN-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairAppend": {
+        "objectiveId": "O-U6-PATTERN-02",
+        "hints": [
+          "",
+          "末两位25只是规律的一半。",
+          "前部不是原十位照抄。",
+          "3要乘它后面的4。",
+          "所以得到12。"
+        ],
+        "view": {
+          "title": "不能只“前面照抄，再添25”",
+          "prompt": "35×35=1225时，前面的12来自什么？",
+          "choices": [
+            [
+              "next",
+              "3×4"
+            ],
+            [
+              "copy",
+              "把35前面的3直接写过去"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "next",
+            "to": "explain",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-PATTERN-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "ending-five-square-front-rule"
+              }
+            ]
+          }
+        ]
+      },
+      "explain": {
+        "objectiveId": "O-U6-PATTERN-03",
+        "hints": [
+          "",
+          "25×25是(20+5)×(20+5)。",
+          "有20×20、两个20×5和5×5。",
+          "把一个20×5条带搬到另一个方向。",
+          "两个“5”把20延长成30，于是20×30，再加25。"
+        ],
+        "view": {
+          "title": "为什么会这样：把25×25拆开重组",
+          "prompt": "把25看成20＋5。面积拆分重组后，可变成20×30＋25。20×30里的30从哪里来？",
+          "choices": [
+            [
+              "move",
+              "20和原来的两个5合成30"
+            ],
+            [
+              "magic",
+              "只是结果碰巧等于30"
+            ],
+            [
+              "double",
+              "20翻倍得到40再减10"
+            ]
+          ],
+          "renderer": "areaDecomposition",
+          "rendererArgs": {
+            "base": 20,
+            "tail": 5,
+            "label": "25乘25拆分为20乘30加5乘5的面积重组"
+          }
+        },
+        "transitions": [
+          {
+            "when": "move",
+            "to": "generalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "magic",
+            "to": "repairExplain",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-PATTERN-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairExplain": {
+        "objectiveId": "O-U6-PATTERN-03",
+        "hints": [
+          "",
+          "观察只能提出猜想。",
+          "解释说明结构为什么必然成立。",
+          "新例还能继续验证。",
+          "规律不是“看起来像”就够了。"
+        ],
+        "view": {
+          "title": "规律要能说“为什么”",
+          "prompt": "如果只记“前部乘下一个数，末尾25”，你能保证不是前三题巧合吗？",
+          "choices": [
+            [
+              "need",
+              "不能，需要用面积或运算关系解释并用新例验证"
+            ],
+            [
+              "enough",
+              "能，看三题就一定成立"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "need",
+            "to": "generalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-PATTERN-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "pattern-needs-explanation"
+              }
+            ]
+          }
+        ]
+      },
+      "generalize": {
+        "objectiveId": "O-U6-PATTERN-03",
+        "hints": [
+          "",
+          "十位是5。",
+          "前部=5×6=30。",
+          "末两位25。",
+          "得到3025。"
+        ],
+        "view": {
+          "title": "把解释推广到个位是5的数",
+          "prompt": "55×55按规律是多少？",
+          "choices": [
+            [
+              "3025",
+              "3025"
+            ],
+            [
+              "2525",
+              "2525"
+            ],
+            [
+              "5525",
+              "5525"
+            ]
+          ],
+          "renderer": "areaDecomposition",
+          "rendererArgs": {
+            "base": 50,
+            "tail": 5,
+            "label": "55乘55拆分为50乘60加5乘5的面积重组"
+          }
+        },
+        "transitions": [
+          {
+            "when": "3025",
+            "to": "boundary",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "boundary": {
+        "objectiveId": "O-U6-PATTERN-03",
+        "hints": [
+          "",
+          "检查规律从哪些例子得到。",
+          "15、25、35、45、55都以5结尾。",
+          "面积解释也用了“+5”。",
+          "所以不能直接推广到54²。"
+        ],
+        "view": {
+          "title": "规律有适用范围",
+          "prompt": "“前部n×(n+1)，末两位25”能直接用于54×54吗？",
+          "choices": [
+            [
+              "no",
+              "不能，它要求个位是5"
+            ],
+            [
+              "yes",
+              "能，所有两位数平方都这样"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "no",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "yes",
+            "to": "repairOver",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-PATTERN-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairOver": {
+        "objectiveId": "O-U6-PATTERN-03",
+        "hints": [
+          "",
+          "规律不是无条件口诀。",
+          "结构依赖原数写成10n+5。",
+          "所以个位必须是5。",
+          "超出范围要重新分析。"
+        ],
+        "view": {
+          "title": "规律必须带适用条件",
+          "prompt": "下面哪类数能直接使用这个规律？",
+          "choices": [
+            [
+              "ending5",
+              "个位是5的整数平方"
+            ],
+            [
+              "all",
+              "所有两位数平方"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "ending5",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-PATTERN-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "pattern-domain-boundary"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U6-PATTERN-03",
+        "hints": [
+          "",
+          "先观察。",
+          "再解释为什么。",
+          "然后用新例验证。",
+          "最后说清规律边界。"
+        ],
+        "view": {
+          "title": "把“发现—解释—验证”说完整",
+          "prompt": "哪种学习规律的方法最可靠？",
+          "choices": [
+            [
+              "rule",
+              "多例计算→提出猜想→用图形/运算解释→换新例验证→说明适用范围"
+            ],
+            [
+              "memorize",
+              "发现三题相像就直接背口诀"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "pattern-observe-explain-verify-boundary"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U6-PATTERN-02",
+        "hints": [
+          "",
+          "十位数6。",
+          "前部6×7=42。",
+          "末两位25。",
+          "得到4225。"
+        ],
+        "view": {
+          "title": "换一个新例独立验证",
+          "prompt": "65×65等于多少？",
+          "choices": [
+            [
+              "4225",
+              "4225"
+            ],
+            [
+              "3625",
+              "3625"
+            ],
+            [
+              "6525",
+              "6525"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "4225",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U6-PATTERN-04",
+        "hints": [
+          "",
+          "一边少1，另一边多1。",
+          "围绕45对称。",
+          "(45－1)(45＋1)=45²－1²。",
+          "所以比45²少1。"
+        ],
+        "view": {
+          "title": "迁移：相邻对称乘积也能用同一图解释",
+          "prompt": "44×46可以看成(45－1)×(45＋1)。它比45×45少多少？",
+          "choices": [
+            [
+              "1",
+              "少1"
+            ],
+            [
+              "2",
+              "少2"
+            ],
+            [
+              "45",
+              "少45"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "1",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U6-PATTERN-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你已经从“看见规律”走到了“解释规律”",
+          "prompt": "可靠的规律不是记住几组答案，而是能说明结构为什么成立、能用新例验证，还知道什么时候不能套用。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
       }
     }
   }

@@ -1,0 +1,32 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u6.pattern.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "rendererFit",
+      "severity": "major",
+      "issue": "Existing rectangle/grid renderers could show area but could not express the textbook-required cut/move/rearrange explanation for why the pattern holds.",
+      "revision": "Add generic areaDecomposition renderer parameterized by base and tail; no course routing or ending-5 rule is embedded in the renderer.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "The textbook observe-explain-verify sequence is preserved; a generic areaDecomposition renderer closes the genuine representation gap for rearrangement-based explanation, while domain-boundary repair prevents overgeneralization."
+}

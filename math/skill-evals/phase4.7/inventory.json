@@ -1,10 +1,10 @@
 {
   "summary": {
     "total": 26,
-    "production": 24,
-    "readyAudited": 18,
+    "production": 26,
+    "readyAudited": 20,
     "unauditedProduction": 6,
-    "remaining": 2
+    "remaining": 0
   },
   "rows": [
     {
@@ -299,25 +299,25 @@
       "key": "u6.calculator",
       "unit": "u6",
       "node": "calculator",
-      "status": "尚未迁移",
+      "status": "正式迁移 + ready audit",
       "type": "procedural",
       "renderer": "无必要；重点在输入检查/分步验证",
-      "grounding": "教材98—99页；需核按键与估算检查",
-      "batch": "Final-B",
-      "pkg": "",
-      "audit": ""
+      "grounding": "已在正式包记录",
+      "batch": "—",
+      "pkg": "u6-calculator.json",
+      "audit": "u6-calculator.audit.json"
     },
     {
       "key": "u6.pattern",
       "unit": "u6",
       "node": "pattern",
-      "status": "尚未迁移",
+      "status": "正式迁移 + ready audit",
       "type": "concept-representation",
       "renderer": "rect / tileRows；可能需新 pattern decomposition renderer",
-      "grounding": "教材100—103页；需核规律发现与面积拆分解释",
-      "batch": "Final-B",
-      "pkg": "",
-      "audit": ""
+      "grounding": "已在正式包记录",
+      "batch": "—",
+      "pkg": "u6-pattern.json",
+      "audit": "u6-pattern.audit.json"
     }
   ]
 }

@@ -1,0 +1,597 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u6.pattern.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u6",
+  "nodeId": "pattern",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "规律解释正式课",
+    "title": "规律探索与解释",
+    "description": "先从多组结果发现规律，再用面积拆分重组解释，并用新例验证，不把巧合当规律。"
+  },
+  "objectives": {
+    "notice": "O-U6-PATTERN-01",
+    "front": "O-U6-PATTERN-02",
+    "explain": "O-U6-PATTERN-03",
+    "transfer": "O-U6-PATTERN-04"
+  },
+  "misconceptions": {
+    "append25": "M-U6-PATTERN-01",
+    "overgeneralize": "M-U6-PATTERN-02",
+    "patternOnly": "M-U6-PATTERN-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "100-101",
+    "sourceNote": "教材先用计算器计算15×15、25×25、35×35，发现积末两位都是25，前部等于十位上的数乘比它大1的数；随后要求用25×25面积图拆分重组解释规律，并继续猜算45×45、55×55、65×65及44×46、54×56、64×66等相邻对称乘积。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U6-PATTERN-01",
+      "hints": [
+        "",
+        "先只观察结果。",
+        "225、625、1225。",
+        "末两位都一样。",
+        "都是25。"
+      ],
+      "view": {
+        "title": "先从多组结果找“稳定不变”",
+        "prompt": "15×15=225，25×25=625，35×35=1225。最明显的共同点是什么？",
+        "choices": [
+          [
+            "25",
+            "积的末两位都是25"
+          ],
+          [
+            "double",
+            "积都是原数的2倍"
+          ],
+          [
+            "same",
+            "三个积完全相同"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "25",
+          "to": "front",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        }
+      ]
+    },
+    "front": {
+      "objectiveId": "O-U6-PATTERN-02",
+      "hints": [
+        "",
+        "把前部和十位数配对。",
+        "2=1×2。",
+        "6=2×3，12=3×4。",
+        "也就是n×(n+1)。"
+      ],
+      "view": {
+        "title": "前面的数也有规律",
+        "prompt": "15²前面是2，25²前面是6，35²前面是12。若原数十位分别是1、2、3，前面的2、6、12最像什么？",
+        "choices": [
+          [
+            "next",
+            "1×2，2×3，3×4"
+          ],
+          [
+            "square",
+            "1²，2²，3²"
+          ],
+          [
+            "plus",
+            "1+1，2+2，3+3"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "next",
+          "to": "ruleGuess",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "ruleGuess": {
+      "objectiveId": "O-U6-PATTERN-02",
+      "hints": [
+        "",
+        "十位数是4。",
+        "前部=4×5=20。",
+        "末两位25。",
+        "所以2025。"
+      ],
+      "view": {
+        "title": "先提出规律，再去解释",
+        "prompt": "按刚才规律，45×45应该是多少？",
+        "choices": [
+          [
+            "2025",
+            "2025"
+          ],
+          [
+            "1625",
+            "1625"
+          ],
+          [
+            "4025",
+            "4025"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "2025",
+          "to": "explain",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "4025",
+          "to": "repairAppend",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-PATTERN-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairAppend": {
+      "objectiveId": "O-U6-PATTERN-02",
+      "hints": [
+        "",
+        "末两位25只是规律的一半。",
+        "前部不是原十位照抄。",
+        "3要乘它后面的4。",
+        "所以得到12。"
+      ],
+      "view": {
+        "title": "不能只“前面照抄，再添25”",
+        "prompt": "35×35=1225时，前面的12来自什么？",
+        "choices": [
+          [
+            "next",
+            "3×4"
+          ],
+          [
+            "copy",
+            "把35前面的3直接写过去"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "next",
+          "to": "explain",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-PATTERN-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "ending-five-square-front-rule"
+            }
+          ]
+        }
+      ]
+    },
+    "explain": {
+      "objectiveId": "O-U6-PATTERN-03",
+      "hints": [
+        "",
+        "25×25是(20+5)×(20+5)。",
+        "有20×20、两个20×5和5×5。",
+        "把一个20×5条带搬到另一个方向。",
+        "两个“5”把20延长成30，于是20×30，再加25。"
+      ],
+      "view": {
+        "title": "为什么会这样：把25×25拆开重组",
+        "prompt": "把25看成20＋5。面积拆分重组后，可变成20×30＋25。20×30里的30从哪里来？",
+        "choices": [
+          [
+            "move",
+            "20和原来的两个5合成30"
+          ],
+          [
+            "magic",
+            "只是结果碰巧等于30"
+          ],
+          [
+            "double",
+            "20翻倍得到40再减10"
+          ]
+        ],
+        "renderer": "areaDecomposition",
+        "rendererArgs": {
+          "base": 20,
+          "tail": 5,
+          "label": "25乘25拆分为20乘30加5乘5的面积重组"
+        }
+      },
+      "transitions": [
+        {
+          "when": "move",
+          "to": "generalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "magic",
+          "to": "repairExplain",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-PATTERN-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairExplain": {
+      "objectiveId": "O-U6-PATTERN-03",
+      "hints": [
+        "",
+        "观察只能提出猜想。",
+        "解释说明结构为什么必然成立。",
+        "新例还能继续验证。",
+        "规律不是“看起来像”就够了。"
+      ],
+      "view": {
+        "title": "规律要能说“为什么”",
+        "prompt": "如果只记“前部乘下一个数，末尾25”，你能保证不是前三题巧合吗？",
+        "choices": [
+          [
+            "need",
+            "不能，需要用面积或运算关系解释并用新例验证"
+          ],
+          [
+            "enough",
+            "能，看三题就一定成立"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "need",
+          "to": "generalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-PATTERN-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "pattern-needs-explanation"
+            }
+          ]
+        }
+      ]
+    },
+    "generalize": {
+      "objectiveId": "O-U6-PATTERN-03",
+      "hints": [
+        "",
+        "十位是5。",
+        "前部=5×6=30。",
+        "末两位25。",
+        "得到3025。"
+      ],
+      "view": {
+        "title": "把解释推广到个位是5的数",
+        "prompt": "55×55按规律是多少？",
+        "choices": [
+          [
+            "3025",
+            "3025"
+          ],
+          [
+            "2525",
+            "2525"
+          ],
+          [
+            "5525",
+            "5525"
+          ]
+        ],
+        "renderer": "areaDecomposition",
+        "rendererArgs": {
+          "base": 50,
+          "tail": 5,
+          "label": "55乘55拆分为50乘60加5乘5的面积重组"
+        }
+      },
+      "transitions": [
+        {
+          "when": "3025",
+          "to": "boundary",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "boundary": {
+      "objectiveId": "O-U6-PATTERN-03",
+      "hints": [
+        "",
+        "检查规律从哪些例子得到。",
+        "15、25、35、45、55都以5结尾。",
+        "面积解释也用了“+5”。",
+        "所以不能直接推广到54²。"
+      ],
+      "view": {
+        "title": "规律有适用范围",
+        "prompt": "“前部n×(n+1)，末两位25”能直接用于54×54吗？",
+        "choices": [
+          [
+            "no",
+            "不能，它要求个位是5"
+          ],
+          [
+            "yes",
+            "能，所有两位数平方都这样"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "yes",
+          "to": "repairOver",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-PATTERN-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairOver": {
+      "objectiveId": "O-U6-PATTERN-03",
+      "hints": [
+        "",
+        "规律不是无条件口诀。",
+        "结构依赖原数写成10n+5。",
+        "所以个位必须是5。",
+        "超出范围要重新分析。"
+      ],
+      "view": {
+        "title": "规律必须带适用条件",
+        "prompt": "下面哪类数能直接使用这个规律？",
+        "choices": [
+          [
+            "ending5",
+            "个位是5的整数平方"
+          ],
+          [
+            "all",
+            "所有两位数平方"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "ending5",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-PATTERN-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "pattern-domain-boundary"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U6-PATTERN-03",
+      "hints": [
+        "",
+        "先观察。",
+        "再解释为什么。",
+        "然后用新例验证。",
+        "最后说清规律边界。"
+      ],
+      "view": {
+        "title": "把“发现—解释—验证”说完整",
+        "prompt": "哪种学习规律的方法最可靠？",
+        "choices": [
+          [
+            "rule",
+            "多例计算→提出猜想→用图形/运算解释→换新例验证→说明适用范围"
+          ],
+          [
+            "memorize",
+            "发现三题相像就直接背口诀"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "pattern-observe-explain-verify-boundary"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U6-PATTERN-02",
+      "hints": [
+        "",
+        "十位数6。",
+        "前部6×7=42。",
+        "末两位25。",
+        "得到4225。"
+      ],
+      "view": {
+        "title": "换一个新例独立验证",
+        "prompt": "65×65等于多少？",
+        "choices": [
+          [
+            "4225",
+            "4225"
+          ],
+          [
+            "3625",
+            "3625"
+          ],
+          [
+            "6525",
+            "6525"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "4225",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U6-PATTERN-04",
+      "hints": [
+        "",
+        "一边少1，另一边多1。",
+        "围绕45对称。",
+        "(45－1)(45＋1)=45²－1²。",
+        "所以比45²少1。"
+      ],
+      "view": {
+        "title": "迁移：相邻对称乘积也能用同一图解释",
+        "prompt": "44×46可以看成(45－1)×(45＋1)。它比45×45少多少？",
+        "choices": [
+          [
+            "1",
+            "少1"
+          ],
+          [
+            "2",
+            "少2"
+          ],
+          [
+            "45",
+            "少45"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "1",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U6-PATTERN-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你已经从“看见规律”走到了“解释规律”",
+        "prompt": "可靠的规律不是记住几组答案，而是能说明结构为什么成立、能用新例验证，还知道什么时候不能套用。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

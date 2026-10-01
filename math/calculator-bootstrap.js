@@ -1,0 +1,1 @@
+'use strict';(()=>{const pkg=CoursePackageData['u6.calculator.v2'];if(!pkg)throw new Error('Missing Course Package u6.calculator.v2');const loaded=CoursePackageLoader.register(pkg,{});globalThis.CalculatorPedagogy={...loaded,package:pkg};})();

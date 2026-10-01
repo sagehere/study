@@ -1,0 +1,1 @@
+'use strict';(()=>{const pkg=CoursePackageData['u6.pattern.v2'];if(!pkg)throw new Error('Missing Course Package u6.pattern.v2');const loaded=CoursePackageLoader.register(pkg,DecompositionRenderer);globalThis.PatternPedagogy={...loaded,package:pkg};})();

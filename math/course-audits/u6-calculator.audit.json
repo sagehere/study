@@ -1,0 +1,24 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u6.calculator.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "Textbook calculator use is framed as plan-before-input, bracket-aware computation, CE local correction, and magnitude verification, with fresh independent and method-choice transfer evidence."
+}
