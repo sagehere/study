@@ -1,0 +1,1 @@
+{"type":"procedural","steps":["diagnose","guided","repair","formalize","independent","transfer","complete"],"defaultRenderer":"compareBars","objectiveRoles":["understand","procedure","verify","transfer"],"misconceptionRoles":["concept","procedure","verification"]}

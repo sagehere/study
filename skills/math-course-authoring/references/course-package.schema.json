@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sagehere.github.io/study/course-package.schema.json",
+  "title": "Study Course Package",
+  "type": "object",
+  "required": ["packageVersion","schemaVersion","flowId","flowVersion","courseId","unitId","nodeId","initialStep","steps"],
+  "additionalProperties": false,
+  "properties": {
+    "packageVersion": {"const":"0.1.0"},
+    "schemaVersion": {"type":"string","pattern":"^0\\.[0-9]+$"},
+    "flowId": {"type":"string","pattern":"^[a-z0-9]+(?:[._-][a-z0-9]+)*$"},
+    "flowVersion": {"type":"string","pattern":"^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "courseId": {"type":"string","minLength":1},
+    "unitId": {"type":"string","pattern":"^[a-z0-9][a-z0-9._-]*$"},
+    "nodeId": {"type":"string","pattern":"^[a-z0-9][a-z0-9._-]*$"},
+    "initialStep": {"type":"string","minLength":1},
+    "labels": {"type":"object","additionalProperties":{"type":"string"}},
+    "objectives": {"type":"object","additionalProperties":{"type":"string","pattern":"^O-[A-Z0-9-]+$"}},
+    "misconceptions": {"type":"object","additionalProperties":{"type":"string","pattern":"^M-[A-Z0-9-]+$"}},
+    "meta": {"type":"object"},
+    "steps": {"type":"object","minProperties":1,"additionalProperties":{"$ref":"#/$defs/step"}}
+  },
+  "$defs": {
+    "choice": {"type":"array","prefixItems":[{"type":"string"},{"type":"string"}],"minItems":2,"maxItems":2},
+    "rendererCall": {"type":"object","required":["renderer"],"additionalProperties":false,"properties":{"renderer":{"type":"string","minLength":1},"args":{}}},
+    "view": {"type":"object","required":["title"],"additionalProperties":false,"properties":{"title":{"type":"string"},"prompt":{"type":"string"},"promptTemplate":{"type":"string"},"choices":{"type":"array","items":{"$ref":"#/$defs/choice"}},"renderer":{"type":"string"},"rendererArgs":{},"visuals":{"type":"array","items":{"$ref":"#/$defs/rendererCall"}}},"oneOf":[{"required":["prompt"]},{"required":["promptTemplate"]}]},
+    "effect": {"type":"object","required":["type"],"properties":{"type":{"enum":["emit","markObjective","markMisconception","resolveMisconception","scheduleReview","assignVariant","clearVariant","setFlag"]},"event":{"type":"string"},"result":{"type":"object"},"objectiveId":{"type":"string"},"stage":{"type":"string"},"id":{"type":"string"},"confidence":{"enum":["low","medium","high"]},"reason":{"type":"string"},"tier":{"type":"string"},"key":{"type":"string"},"value":{}},"additionalProperties":false},
+    "transition": {"type":"object","required":["when","to"],"additionalProperties":false,"properties":{"when":{"type":"string"},"to":{"type":"string"},"lane":{"enum":["standard","fast","repair"]},"effects":{"type":"array","items":{"$ref":"#/$defs/effect"}}}},
+    "variant": {"type":"object","required":["id","answer"],"properties":{"id":{"type":"string","minLength":1},"answer":{}},"additionalProperties":true},
+    "step": {"type":"object","required":["objectiveId","view","transitions"],"additionalProperties":false,"properties":{"objectiveId":{"type":"string","pattern":"^O-[A-Z0-9-]+$"},"hints":{"type":"array","minItems":5,"maxItems":5,"items":{"type":"string"}},"view":{"$ref":"#/$defs/view"},"transitions":{"type":"array","items":{"$ref":"#/$defs/transition"}},"variants":{"type":"array","items":{"$ref":"#/$defs/variant"}},"reviewOnH4":{"type":"boolean"}}}
+  }
+}

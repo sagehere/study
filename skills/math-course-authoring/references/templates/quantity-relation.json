@@ -1,0 +1,1 @@
+{"type":"quantity-relation","steps":["diagnose","model","repair","inverse","formalize","composite","transfer","complete"],"defaultRenderer":"relation","objectiveRoles":["meaning","direct","inverse","composite","transfer"],"misconceptionRoles":["unit-meaning","operator","inverse-role","composite"]}
