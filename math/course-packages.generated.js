@@ -1552,6 +1552,920 @@ globalThis.CoursePackageData={
       "compareNumber": "M-U2-MEANING-03"
     }
   },
+  "u2.units.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u2.units.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u2",
+    "nodeId": "units",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "概念表征正式课",
+      "title": "面积单位与换算",
+      "description": "先看单位正方形，再从10×10铺排理解面积单位进率100。"
+    },
+    "objectives": {
+      "unit": "O-U2-UNITS-01",
+      "square": "O-U2-UNITS-02",
+      "convert": "O-U2-UNITS-03",
+      "transfer": "O-U2-UNITS-04"
+    },
+    "misconceptions": {
+      "lengthRate": "M-U2-UNITS-01",
+      "linear": "M-U2-UNITS-02",
+      "direction": "M-U2-UNITS-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "concept-representation",
+      "sourcePages": "28,34-36",
+      "sourceNote": "教材先用不同大小单位正方形测量面积，强调统一面积单位；再从1分米=10厘米、1平方分米由10×10个1平方厘米组成，推得1平方分米=100平方厘米，并进一步推1平方米与平方分米关系。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U2-UNITS-01",
+        "hints": [
+          "",
+          "先问：被测图形有没有变。",
+          "变的是单位正方形的大小。",
+          "单位越小，需要的格数越多。",
+          "面积没变，数值差异来自面积单位不同。"
+        ],
+        "view": {
+          "title": "同一面积，为什么量出的数会不同",
+          "prompt": "同一个长方形，用较大的正方形量得8格，用较小的正方形量得32格。为什么结果不同？",
+          "choices": [
+            [
+              "unit",
+              "因为面积单位大小不同"
+            ],
+            [
+              "area",
+              "因为长方形面积变了"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "unit",
+            "to": "squareRelation",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "area",
+            "to": "repairUnit",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U2-UNITS-03",
+                "confidence": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      "repairUnit": {
+        "objectiveId": "O-U2-UNITS-01",
+        "hints": [
+          "",
+          "同一面积可以被不同大小方格覆盖。",
+          "数值要能直接比较，单位必须相同。",
+          "教材明确提出“要用统一的面积单位”。",
+          "所以先统一单位，再比较数值。"
+        ],
+        "view": {
+          "title": "面积没变，变的是“每1格多大”",
+          "prompt": "要公平比较面积，最重要先统一什么？",
+          "choices": [
+            [
+              "unit",
+              "面积单位"
+            ],
+            [
+              "shape",
+              "图形颜色"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "unit",
+            "to": "squareRelation",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U2-UNITS-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "area-unit-meaning"
+              }
+            ]
+          }
+        ]
+      },
+      "squareRelation": {
+        "objectiveId": "O-U2-UNITS-02",
+        "hints": [
+          "",
+          "面积是二维覆盖。",
+          "一边能排10个，另一边也能排10个。",
+          "总格数=10×10。",
+          "所以1 dm²=100 cm²。"
+        ],
+        "view": {
+          "title": "为什么不是10，而是100",
+          "prompt": "1分米=10厘米。边长1分米的正方形里，能铺多少个1平方厘米的小正方形？",
+          "choices": [
+            [
+              "100",
+              "100个"
+            ],
+            [
+              "10",
+              "10个"
+            ],
+            [
+              "20",
+              "20个"
+            ]
+          ],
+          "renderer": "tileRows",
+          "rendererArgs": {
+            "rows": 10,
+            "cols": 10,
+            "label": "1平方分米 = 10×10 个1平方厘米"
+          }
+        },
+        "transitions": [
+          {
+            "when": "100",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "10",
+            "to": "repairLinear",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U2-UNITS-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairLinear": {
+        "objectiveId": "O-U2-UNITS-02",
+        "hints": [
+          "",
+          "平方单位来自正方形。",
+          "边长从1 dm变成10 cm。",
+          "长、宽两个方向都各有10。",
+          "所以方格数量是10×10=100。"
+        ],
+        "view": {
+          "title": "只修“把长度进率直接搬到面积”",
+          "prompt": "为什么1 dm²不是10 cm²？",
+          "choices": [
+            [
+              "two",
+              "因为面积有两个方向，10×10=100"
+            ],
+            [
+              "same",
+              "因为面积单位和长度单位进率总相同"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "two",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U2-UNITS-02"
+              },
+              {
+                "type": "resolveMisconception",
+                "id": "M-U2-UNITS-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "square-unit-two-dimensions"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U2-UNITS-03",
+        "hints": [
+          "",
+          "回到10×10铺排。",
+          "面积单位换算反映的是两个方向同时缩放。",
+          "1 dm²=100 cm²。",
+          "同理1 m²=100 dm²。"
+        ],
+        "view": {
+          "title": "现在再形成换算规则",
+          "prompt": "哪一句正确？",
+          "choices": [
+            [
+              "rule",
+              "相邻长度单位进率是10时，对应面积单位进率是100"
+            ],
+            [
+              "ten",
+              "面积单位也只乘10"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "square-scale"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U2-UNITS-03",
+        "hints": [
+          "",
+          "平方米到平方分米是相邻面积单位。",
+          "每1平方米=100平方分米。",
+          "9×100。",
+          "结果900平方分米。"
+        ],
+        "view": {
+          "title": "换一道教材换算题独立做",
+          "prompt": "9平方米等于多少平方分米？",
+          "choices": [
+            [
+              "900",
+              "900平方分米"
+            ],
+            [
+              "90",
+              "90平方分米"
+            ],
+            [
+              "9",
+              "9平方分米"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "900",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U2-UNITS-04",
+        "hints": [
+          "",
+          "这次从小单位换成大单位。",
+          "100平方厘米=1平方分米。",
+          "700里有7个100。",
+          "所以700 cm²=7 dm²。"
+        ],
+        "view": {
+          "title": "迁移到逆向换算",
+          "prompt": "700平方厘米等于多少平方分米？",
+          "choices": [
+            [
+              "7",
+              "7平方分米"
+            ],
+            [
+              "70",
+              "70平方分米"
+            ],
+            [
+              "70000",
+              "70000平方分米"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "7",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U2-UNITS-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你已经把面积单位和二维结构连起来了",
+          "prompt": "面积单位的进率不是背出来的：边长缩放10倍，覆盖格数在两个方向同时变化，所以面积缩放100倍。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
+  "u3.inverse.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u3.inverse.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u3",
+    "nodeId": "inverse",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "数量关系正式课",
+      "title": "乘除法意义与互逆",
+      "description": "从乘法意义出发，把同一数量关系改写成两个反求除法。"
+    },
+    "objectives": {
+      "meaning": "O-U3-INVERSE-01",
+      "inverse": "O-U3-INVERSE-02",
+      "unknown": "O-U3-INVERSE-03",
+      "transfer": "O-U3-INVERSE-04"
+    },
+    "misconceptions": {
+      "add": "M-U3-INVERSE-01",
+      "divideRole": "M-U3-INVERSE-02",
+      "multiplyBack": "M-U3-INVERSE-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "quantity-relation",
+      "sourcePages": "45-47",
+      "sourceNote": "教材由3组、每组4人得到4×3=12，明确“乘数×乘数=积”；再把原问题改成12÷3=4和12÷4=3，明确除法是乘法的逆运算，并用416÷□=16、□÷34=25要求利用乘除关系反求。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U3-INVERSE-01",
+        "hints": [
+          "",
+          "题目说“3组，每组4人”。",
+          "这是3个4相加。",
+          "求几个相同加数的和，用乘法。",
+          "4×3=12。"
+        ],
+        "view": {
+          "title": "先抓住乘法表示的关系",
+          "prompt": "3组同学，每组4人，一共有多少人？哪一个算式直接表示这个关系？",
+          "choices": [
+            [
+              "mul",
+              "4×3=12"
+            ],
+            [
+              "add",
+              "4+3=7"
+            ],
+            [
+              "div",
+              "12÷3=4"
+            ]
+          ],
+          "renderer": "relation",
+          "rendererArgs": {
+            "unit": "每组人数",
+            "quantity": "组数",
+            "total": "总人数",
+            "unitValue": "4人",
+            "quantityValue": "3组",
+            "totalValue": "12人"
+          }
+        },
+        "transitions": [
+          {
+            "when": "mul",
+            "to": "inversePair",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "add",
+            "to": "repairMeaning",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-INVERSE-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairMeaning": {
+        "objectiveId": "O-U3-INVERSE-01",
+        "hints": [
+          "",
+          "3个4不是4和3相加。",
+          "它是4+4+4。",
+          "乘法就是求几个相同加数和的简便运算。",
+          "所以用4×3。"
+        ],
+        "view": {
+          "title": "先修“相同加数的和”",
+          "prompt": "“3个4相加”最简便用什么运算？",
+          "choices": [
+            [
+              "mul",
+              "乘法"
+            ],
+            [
+              "add",
+              "只允许写4+3"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "mul",
+            "to": "inversePair",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-INVERSE-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "multiplication-meaning"
+              }
+            ]
+          }
+        ]
+      },
+      "inversePair": {
+        "objectiveId": "O-U3-INVERSE-02",
+        "hints": [
+          "",
+          "原关系是4×3=12。",
+          "现在知道积12和一个乘数3。",
+          "求另一个乘数。",
+          "12÷3=4。"
+        ],
+        "view": {
+          "title": "把同一关系改成“反求”",
+          "prompt": "已知一共有12人、平均分成3组，每组多少人？",
+          "choices": [
+            [
+              "4",
+              "12÷3=4"
+            ],
+            [
+              "36",
+              "12×3=36"
+            ],
+            [
+              "9",
+              "12-3=9"
+            ]
+          ],
+          "renderer": "relation",
+          "rendererArgs": {
+            "unit": "每组人数",
+            "quantity": "组数",
+            "total": "总人数",
+            "unitValue": "?人",
+            "quantityValue": "3组",
+            "totalValue": "12人"
+          }
+        },
+        "transitions": [
+          {
+            "when": "4",
+            "to": "otherInverse",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "36",
+            "to": "repairRole",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-INVERSE-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairRole": {
+        "objectiveId": "O-U3-INVERSE-02",
+        "hints": [
+          "",
+          "把乘法关系写成□×3=12。",
+          "问的是□。",
+          "用积÷已知乘数。",
+          "12÷3=4。"
+        ],
+        "view": {
+          "title": "只修“知道积和一个乘数怎么办”",
+          "prompt": "已知积12和乘数3，求另一个乘数，应该用什么？",
+          "choices": [
+            [
+              "divide",
+              "12÷3"
+            ],
+            [
+              "multiply",
+              "12×3"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "divide",
+            "to": "otherInverse",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-INVERSE-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "inverse-operation-role"
+              }
+            ]
+          }
+        ]
+      },
+      "otherInverse": {
+        "objectiveId": "O-U3-INVERSE-02",
+        "hints": [
+          "",
+          "还是4×3=12这条关系。",
+          "现在知道积12和另一个乘数4。",
+          "12÷4。",
+          "得到3组。"
+        ],
+        "view": {
+          "title": "同一个积还能反求另一个量",
+          "prompt": "12人，每组4人，可以分成几组？",
+          "choices": [
+            [
+              "3",
+              "12÷4=3"
+            ],
+            [
+              "48",
+              "12×4=48"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "3",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U3-INVERSE-03",
+        "hints": [
+          "",
+          "除法是乘法的逆运算。",
+          "知道积和一个乘数。",
+          "求另一个乘数用除法。",
+          "c÷a=b，c÷b=a。"
+        ],
+        "view": {
+          "title": "现在再总结互逆关系",
+          "prompt": "根据a×b=c，哪组反求关系正确？",
+          "choices": [
+            [
+              "rule",
+              "c÷a=b，c÷b=a"
+            ],
+            [
+              "mul",
+              "c×a=b，c×b=a"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "multiply-divide-inverse"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U3-INVERSE-03",
+        "hints": [
+          "",
+          "把除法式看成乘法关系。",
+          "16×□=416。",
+          "□=416÷16。",
+          "结果26。"
+        ],
+        "view": {
+          "title": "教材反求：未知除数",
+          "prompt": "416÷□=16，□是多少？",
+          "choices": [
+            [
+              "26",
+              "26"
+            ],
+            [
+              "6656",
+              "6656"
+            ],
+            [
+              "400",
+              "400"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "26",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          },
+          {
+            "when": "6656",
+            "to": "repairBack",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-INVERSE-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairBack": {
+        "objectiveId": "O-U3-INVERSE-03",
+        "hints": [
+          "",
+          "除法中的商×除数=被除数。",
+          "商是16，被除数416。",
+          "所以16×□=416。",
+          "再用416÷16求□。"
+        ],
+        "view": {
+          "title": "反求不是把两个已知数随便相乘",
+          "prompt": "416÷□=16 可以改写成哪条乘法关系？",
+          "choices": [
+            [
+              "relation",
+              "16×□=416"
+            ],
+            [
+              "wrong",
+              "416×16=□"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "relation",
+            "to": "freshIndependent",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-INVERSE-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "division-back-to-multiplication"
+              }
+            ]
+          }
+        ]
+      },
+      "freshIndependent": {
+        "objectiveId": "O-U3-INVERSE-03",
+        "hints": [
+          "",
+          "这次未知的是被除数。",
+          "除数×商=被除数。",
+          "34×25。",
+          "得到850。"
+        ],
+        "view": {
+          "title": "换一道新题确认",
+          "prompt": "□÷34=25，□是多少？",
+          "choices": [
+            [
+              "850",
+              "850"
+            ],
+            [
+              "59",
+              "59"
+            ],
+            [
+              "1360",
+              "1360"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "850",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U3-INVERSE-04",
+        "hints": [
+          "",
+          "12是“2倍后的总量”。",
+          "拍球人数×2=12。",
+          "求原来的1份。",
+          "12÷2=6人。"
+        ],
+        "view": {
+          "title": "迁移到实际数量关系",
+          "prompt": "跳绳有12人，是拍球人数的2倍。拍球有多少人？",
+          "choices": [
+            [
+              "6",
+              "6人"
+            ],
+            [
+              "24",
+              "24人"
+            ],
+            [
+              "14",
+              "14人"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "6",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U3-INVERSE-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "乘除互逆已经连起来了",
+          "prompt": "先写清乘法关系，再根据未知的是哪个量选择除法或乘法反求；互逆关系比“见到未知就猜运算”更可靠。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
   "u3.price.v2": {
     "schemaVersion": "0.2",
     "flowId": "u3.price.v2",
@@ -3296,6 +4210,499 @@ globalThis.CoursePackageData={
             ]
           }
         ]
+      }
+    }
+  },
+  "u5.compare.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u5.compare.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u5",
+    "nodeId": "compare",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "概念表征正式课",
+      "title": "比较与改写",
+      "description": "先比较数的大小，再区分“等值改写”和“近似表示”的符号语义。"
+    },
+    "objectives": {
+      "compare": "O-U5-COMPARE-01",
+      "rewrite": "O-U5-COMPARE-02",
+      "approx": "O-U5-COMPARE-03",
+      "transfer": "O-U5-COMPARE-04"
+    },
+    "misconceptions": {
+      "digit": "M-U5-COMPARE-01",
+      "symbol": "M-U5-COMPARE-02",
+      "rewriteApprox": "M-U5-COMPARE-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "concept-representation",
+      "sourcePages": "78-79,84-88",
+      "sourceNote": "教材79页要求大数比较；78页要求整万/整亿数改写成以万或亿为单位；84-88页复习明确区分把多位数改写成万/亿单位与用万/亿作单位写近似数，并使用约等号表示近似。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U5-COMPARE-01",
+        "hints": [
+          "",
+          "先数位数。",
+          "九位数一定大于八位数。",
+          "151900000是九位数，99500000是八位数。",
+          "所以前者更大。"
+        ],
+        "view": {
+          "title": "大数比较先看哪里",
+          "prompt": "151900000和99500000，哪个更大？",
+          "choices": [
+            [
+              "first",
+              "151900000更大"
+            ],
+            [
+              "second",
+              "99500000更大"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "first",
+            "to": "sameDigits",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "second",
+            "to": "repairDigits",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-COMPARE-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairDigits": {
+        "objectiveId": "O-U5-COMPARE-01",
+        "hints": [
+          "",
+          "正整数位数越多通常数量级越大。",
+          "先判断是否同位数。",
+          "不同位数可直接比较。",
+          "位数相同才从最高位逐位比。"
+        ],
+        "view": {
+          "title": "位数不同，不必逐位纠缠",
+          "prompt": "比较正整数大小，位数不同时先看什么？",
+          "choices": [
+            [
+              "digits",
+              "位数"
+            ],
+            [
+              "last",
+              "个位"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "digits",
+            "to": "sameDigits",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-COMPARE-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "compare-digit-count"
+              }
+            ]
+          }
+        ]
+      },
+      "sameDigits": {
+        "objectiveId": "O-U5-COMPARE-01",
+        "hints": [
+          "",
+          "两数位数相同。",
+          "从最高位开始。",
+          "前两位相同，到千位比较2和3。",
+          "3更大，所以783400更大。"
+        ],
+        "view": {
+          "title": "同位数再逐位比",
+          "prompt": "782600和783400，哪个更大？",
+          "choices": [
+            [
+              "second",
+              "783400更大"
+            ],
+            [
+              "first",
+              "782600更大"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "second",
+            "to": "rewrite",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "rewrite": {
+        "objectiveId": "O-U5-COMPARE-02",
+        "hints": [
+          "",
+          "7500000正好包含750个万。",
+          "没有舍去任何尾数。",
+          "数的大小没有改变。",
+          "所以用等号：7500000=750万。"
+        ],
+        "view": {
+          "title": "改写不是近似",
+          "prompt": "7500000改写成以“万”为单位的数，正确的是哪一个？",
+          "choices": [
+            [
+              "equal",
+              "7500000=750万"
+            ],
+            [
+              "approx",
+              "7500000≈750万"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "equal",
+            "to": "approx",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "approx",
+            "to": "repairSymbol",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-COMPARE-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairSymbol": {
+        "objectiveId": "O-U5-COMPARE-02",
+        "hints": [
+          "",
+          "问有没有舍去信息。",
+          "精确改写没有改变大小。",
+          "等值关系用“=”。",
+          "近似才用“≈”。"
+        ],
+        "view": {
+          "title": "只修“＝和≈”",
+          "prompt": "如果只是换一种单位写法、数值完全相等，用什么符号？",
+          "choices": [
+            [
+              "eq",
+              "="
+            ],
+            [
+              "approx",
+              "≈"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "eq",
+            "to": "approx",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-COMPARE-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "rewrite-equality-symbol"
+              }
+            ]
+          }
+        ]
+      },
+      "approx": {
+        "objectiveId": "O-U5-COMPARE-03",
+        "hints": [
+          "",
+          "这里明确“省略尾数”。",
+          "省略后大小通常不再完全相等。",
+          "近似关系用约等号。",
+          "所以写≈，不是=。"
+        ],
+        "view": {
+          "title": "近似数才用约等号",
+          "prompt": "21893095省略“万”后面的尾数，写成以“万”为单位的近似数，哪种符号正确？",
+          "choices": [
+            [
+              "approx",
+              "21893095≈2189万"
+            ],
+            [
+              "equal",
+              "21893095=2189万"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "approx",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "equal",
+            "to": "repairApprox",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-COMPARE-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairApprox": {
+        "objectiveId": "O-U5-COMPARE-03",
+        "hints": [
+          "",
+          "把原数和2189万换回完整数比较。",
+          "2189万=21890000。",
+          "它和21893095不完全相等。",
+          "所以只能用≈。"
+        ],
+        "view": {
+          "title": "改写和近似不是一回事",
+          "prompt": "“省略万后面的尾数”会不会丢掉原数的一部分信息？",
+          "choices": [
+            [
+              "yes",
+              "会，所以是近似"
+            ],
+            [
+              "no",
+              "不会，仍完全相等"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "yes",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-COMPARE-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "rewrite-vs-approx"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U5-COMPARE-03",
+        "hints": [
+          "",
+          "三个动作解决三种不同问题。",
+          "比较问谁大谁小。",
+          "改写保持大小不变。",
+          "近似允许舍去部分信息。"
+        ],
+        "view": {
+          "title": "把三条规则分开",
+          "prompt": "哪组总结正确？",
+          "choices": [
+            [
+              "rule",
+              "比较：先位数再逐位；精确改写用=；近似表示用≈"
+            ],
+            [
+              "mix",
+              "改写和近似都用≈"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "compare-rewrite-approx"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U5-COMPARE-02",
+        "hints": [
+          "",
+          "1亿=100000000。",
+          "28亿=2800000000。",
+          "两个数完全相等。",
+          "所以用=。"
+        ],
+        "view": {
+          "title": "换一道教材式混合判断",
+          "prompt": "2800000000与28亿的关系应该写什么？",
+          "choices": [
+            [
+              "eq",
+              "="
+            ],
+            [
+              "gt",
+              ">"
+            ],
+            [
+              "approx",
+              "≈"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "eq",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U5-COMPARE-04",
+        "hints": [
+          "",
+          "先统一写法。",
+          "56万=560000。",
+          "560000>559950。",
+          "所以56万更大。"
+        ],
+        "view": {
+          "title": "迁移：比较中混入单位改写",
+          "prompt": "56万和559950，哪个更大？",
+          "choices": [
+            [
+              "first",
+              "56万更大"
+            ],
+            [
+              "second",
+              "559950更大"
+            ],
+            [
+              "same",
+              "一样大"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "first",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U5-COMPARE-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "比较、改写、近似已经分清了",
+          "prompt": "先统一单位和数量级，再比较；精确改写保持数值不变用“=”，舍去尾数得到近似数用“≈”。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
       }
     }
   },

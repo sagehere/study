@@ -1,0 +1,531 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u3.inverse.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u3",
+  "nodeId": "inverse",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "数量关系正式课",
+    "title": "乘除法意义与互逆",
+    "description": "从乘法意义出发，把同一数量关系改写成两个反求除法。"
+  },
+  "objectives": {
+    "meaning": "O-U3-INVERSE-01",
+    "inverse": "O-U3-INVERSE-02",
+    "unknown": "O-U3-INVERSE-03",
+    "transfer": "O-U3-INVERSE-04"
+  },
+  "misconceptions": {
+    "add": "M-U3-INVERSE-01",
+    "divideRole": "M-U3-INVERSE-02",
+    "multiplyBack": "M-U3-INVERSE-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "quantity-relation",
+    "sourcePages": "45-47",
+    "sourceNote": "教材由3组、每组4人得到4×3=12，明确“乘数×乘数=积”；再把原问题改成12÷3=4和12÷4=3，明确除法是乘法的逆运算，并用416÷□=16、□÷34=25要求利用乘除关系反求。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U3-INVERSE-01",
+      "hints": [
+        "",
+        "题目说“3组，每组4人”。",
+        "这是3个4相加。",
+        "求几个相同加数的和，用乘法。",
+        "4×3=12。"
+      ],
+      "view": {
+        "title": "先抓住乘法表示的关系",
+        "prompt": "3组同学，每组4人，一共有多少人？哪一个算式直接表示这个关系？",
+        "choices": [
+          [
+            "mul",
+            "4×3=12"
+          ],
+          [
+            "add",
+            "4+3=7"
+          ],
+          [
+            "div",
+            "12÷3=4"
+          ]
+        ],
+        "renderer": "relation",
+        "rendererArgs": {
+          "unit": "每组人数",
+          "quantity": "组数",
+          "total": "总人数",
+          "unitValue": "4人",
+          "quantityValue": "3组",
+          "totalValue": "12人"
+        }
+      },
+      "transitions": [
+        {
+          "when": "mul",
+          "to": "inversePair",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "add",
+          "to": "repairMeaning",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U3-INVERSE-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairMeaning": {
+      "objectiveId": "O-U3-INVERSE-01",
+      "hints": [
+        "",
+        "3个4不是4和3相加。",
+        "它是4+4+4。",
+        "乘法就是求几个相同加数和的简便运算。",
+        "所以用4×3。"
+      ],
+      "view": {
+        "title": "先修“相同加数的和”",
+        "prompt": "“3个4相加”最简便用什么运算？",
+        "choices": [
+          [
+            "mul",
+            "乘法"
+          ],
+          [
+            "add",
+            "只允许写4+3"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "mul",
+          "to": "inversePair",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U3-INVERSE-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "multiplication-meaning"
+            }
+          ]
+        }
+      ]
+    },
+    "inversePair": {
+      "objectiveId": "O-U3-INVERSE-02",
+      "hints": [
+        "",
+        "原关系是4×3=12。",
+        "现在知道积12和一个乘数3。",
+        "求另一个乘数。",
+        "12÷3=4。"
+      ],
+      "view": {
+        "title": "把同一关系改成“反求”",
+        "prompt": "已知一共有12人、平均分成3组，每组多少人？",
+        "choices": [
+          [
+            "4",
+            "12÷3=4"
+          ],
+          [
+            "36",
+            "12×3=36"
+          ],
+          [
+            "9",
+            "12-3=9"
+          ]
+        ],
+        "renderer": "relation",
+        "rendererArgs": {
+          "unit": "每组人数",
+          "quantity": "组数",
+          "total": "总人数",
+          "unitValue": "?人",
+          "quantityValue": "3组",
+          "totalValue": "12人"
+        }
+      },
+      "transitions": [
+        {
+          "when": "4",
+          "to": "otherInverse",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "36",
+          "to": "repairRole",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U3-INVERSE-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairRole": {
+      "objectiveId": "O-U3-INVERSE-02",
+      "hints": [
+        "",
+        "把乘法关系写成□×3=12。",
+        "问的是□。",
+        "用积÷已知乘数。",
+        "12÷3=4。"
+      ],
+      "view": {
+        "title": "只修“知道积和一个乘数怎么办”",
+        "prompt": "已知积12和乘数3，求另一个乘数，应该用什么？",
+        "choices": [
+          [
+            "divide",
+            "12÷3"
+          ],
+          [
+            "multiply",
+            "12×3"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "divide",
+          "to": "otherInverse",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U3-INVERSE-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "inverse-operation-role"
+            }
+          ]
+        }
+      ]
+    },
+    "otherInverse": {
+      "objectiveId": "O-U3-INVERSE-02",
+      "hints": [
+        "",
+        "还是4×3=12这条关系。",
+        "现在知道积12和另一个乘数4。",
+        "12÷4。",
+        "得到3组。"
+      ],
+      "view": {
+        "title": "同一个积还能反求另一个量",
+        "prompt": "12人，每组4人，可以分成几组？",
+        "choices": [
+          [
+            "3",
+            "12÷4=3"
+          ],
+          [
+            "48",
+            "12×4=48"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "3",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U3-INVERSE-03",
+      "hints": [
+        "",
+        "除法是乘法的逆运算。",
+        "知道积和一个乘数。",
+        "求另一个乘数用除法。",
+        "c÷a=b，c÷b=a。"
+      ],
+      "view": {
+        "title": "现在再总结互逆关系",
+        "prompt": "根据a×b=c，哪组反求关系正确？",
+        "choices": [
+          [
+            "rule",
+            "c÷a=b，c÷b=a"
+          ],
+          [
+            "mul",
+            "c×a=b，c×b=a"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "multiply-divide-inverse"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U3-INVERSE-03",
+      "hints": [
+        "",
+        "把除法式看成乘法关系。",
+        "16×□=416。",
+        "□=416÷16。",
+        "结果26。"
+      ],
+      "view": {
+        "title": "教材反求：未知除数",
+        "prompt": "416÷□=16，□是多少？",
+        "choices": [
+          [
+            "26",
+            "26"
+          ],
+          [
+            "6656",
+            "6656"
+          ],
+          [
+            "400",
+            "400"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "26",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        },
+        {
+          "when": "6656",
+          "to": "repairBack",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U3-INVERSE-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairBack": {
+      "objectiveId": "O-U3-INVERSE-03",
+      "hints": [
+        "",
+        "除法中的商×除数=被除数。",
+        "商是16，被除数416。",
+        "所以16×□=416。",
+        "再用416÷16求□。"
+      ],
+      "view": {
+        "title": "反求不是把两个已知数随便相乘",
+        "prompt": "416÷□=16 可以改写成哪条乘法关系？",
+        "choices": [
+          [
+            "relation",
+            "16×□=416"
+          ],
+          [
+            "wrong",
+            "416×16=□"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "relation",
+          "to": "freshIndependent",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U3-INVERSE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "division-back-to-multiplication"
+            }
+          ]
+        }
+      ]
+    },
+    "freshIndependent": {
+      "objectiveId": "O-U3-INVERSE-03",
+      "hints": [
+        "",
+        "这次未知的是被除数。",
+        "除数×商=被除数。",
+        "34×25。",
+        "得到850。"
+      ],
+      "view": {
+        "title": "换一道新题确认",
+        "prompt": "□÷34=25，□是多少？",
+        "choices": [
+          [
+            "850",
+            "850"
+          ],
+          [
+            "59",
+            "59"
+          ],
+          [
+            "1360",
+            "1360"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "850",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "fresh": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U3-INVERSE-04",
+      "hints": [
+        "",
+        "12是“2倍后的总量”。",
+        "拍球人数×2=12。",
+        "求原来的1份。",
+        "12÷2=6人。"
+      ],
+      "view": {
+        "title": "迁移到实际数量关系",
+        "prompt": "跳绳有12人，是拍球人数的2倍。拍球有多少人？",
+        "choices": [
+          [
+            "6",
+            "6人"
+          ],
+          [
+            "24",
+            "24人"
+          ],
+          [
+            "14",
+            "14人"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "6",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U3-INVERSE-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "乘除互逆已经连起来了",
+        "prompt": "先写清乘法关系，再根据未知的是哪个量选择除法或乘法反求；互逆关系比“见到未知就猜运算”更可靠。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

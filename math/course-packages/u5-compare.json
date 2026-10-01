@@ -1,0 +1,493 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u5.compare.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u5",
+  "nodeId": "compare",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "概念表征正式课",
+    "title": "比较与改写",
+    "description": "先比较数的大小，再区分“等值改写”和“近似表示”的符号语义。"
+  },
+  "objectives": {
+    "compare": "O-U5-COMPARE-01",
+    "rewrite": "O-U5-COMPARE-02",
+    "approx": "O-U5-COMPARE-03",
+    "transfer": "O-U5-COMPARE-04"
+  },
+  "misconceptions": {
+    "digit": "M-U5-COMPARE-01",
+    "symbol": "M-U5-COMPARE-02",
+    "rewriteApprox": "M-U5-COMPARE-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "78-79,84-88",
+    "sourceNote": "教材79页要求大数比较；78页要求整万/整亿数改写成以万或亿为单位；84-88页复习明确区分把多位数改写成万/亿单位与用万/亿作单位写近似数，并使用约等号表示近似。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U5-COMPARE-01",
+      "hints": [
+        "",
+        "先数位数。",
+        "九位数一定大于八位数。",
+        "151900000是九位数，99500000是八位数。",
+        "所以前者更大。"
+      ],
+      "view": {
+        "title": "大数比较先看哪里",
+        "prompt": "151900000和99500000，哪个更大？",
+        "choices": [
+          [
+            "first",
+            "151900000更大"
+          ],
+          [
+            "second",
+            "99500000更大"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "first",
+          "to": "sameDigits",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "second",
+          "to": "repairDigits",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-COMPARE-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairDigits": {
+      "objectiveId": "O-U5-COMPARE-01",
+      "hints": [
+        "",
+        "正整数位数越多通常数量级越大。",
+        "先判断是否同位数。",
+        "不同位数可直接比较。",
+        "位数相同才从最高位逐位比。"
+      ],
+      "view": {
+        "title": "位数不同，不必逐位纠缠",
+        "prompt": "比较正整数大小，位数不同时先看什么？",
+        "choices": [
+          [
+            "digits",
+            "位数"
+          ],
+          [
+            "last",
+            "个位"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "digits",
+          "to": "sameDigits",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-COMPARE-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "compare-digit-count"
+            }
+          ]
+        }
+      ]
+    },
+    "sameDigits": {
+      "objectiveId": "O-U5-COMPARE-01",
+      "hints": [
+        "",
+        "两数位数相同。",
+        "从最高位开始。",
+        "前两位相同，到千位比较2和3。",
+        "3更大，所以783400更大。"
+      ],
+      "view": {
+        "title": "同位数再逐位比",
+        "prompt": "782600和783400，哪个更大？",
+        "choices": [
+          [
+            "second",
+            "783400更大"
+          ],
+          [
+            "first",
+            "782600更大"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "second",
+          "to": "rewrite",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "rewrite": {
+      "objectiveId": "O-U5-COMPARE-02",
+      "hints": [
+        "",
+        "7500000正好包含750个万。",
+        "没有舍去任何尾数。",
+        "数的大小没有改变。",
+        "所以用等号：7500000=750万。"
+      ],
+      "view": {
+        "title": "改写不是近似",
+        "prompt": "7500000改写成以“万”为单位的数，正确的是哪一个？",
+        "choices": [
+          [
+            "equal",
+            "7500000=750万"
+          ],
+          [
+            "approx",
+            "7500000≈750万"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "equal",
+          "to": "approx",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "approx",
+          "to": "repairSymbol",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-COMPARE-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairSymbol": {
+      "objectiveId": "O-U5-COMPARE-02",
+      "hints": [
+        "",
+        "问有没有舍去信息。",
+        "精确改写没有改变大小。",
+        "等值关系用“=”。",
+        "近似才用“≈”。"
+      ],
+      "view": {
+        "title": "只修“＝和≈”",
+        "prompt": "如果只是换一种单位写法、数值完全相等，用什么符号？",
+        "choices": [
+          [
+            "eq",
+            "="
+          ],
+          [
+            "approx",
+            "≈"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "eq",
+          "to": "approx",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-COMPARE-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "rewrite-equality-symbol"
+            }
+          ]
+        }
+      ]
+    },
+    "approx": {
+      "objectiveId": "O-U5-COMPARE-03",
+      "hints": [
+        "",
+        "这里明确“省略尾数”。",
+        "省略后大小通常不再完全相等。",
+        "近似关系用约等号。",
+        "所以写≈，不是=。"
+      ],
+      "view": {
+        "title": "近似数才用约等号",
+        "prompt": "21893095省略“万”后面的尾数，写成以“万”为单位的近似数，哪种符号正确？",
+        "choices": [
+          [
+            "approx",
+            "21893095≈2189万"
+          ],
+          [
+            "equal",
+            "21893095=2189万"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "approx",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "equal",
+          "to": "repairApprox",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-COMPARE-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairApprox": {
+      "objectiveId": "O-U5-COMPARE-03",
+      "hints": [
+        "",
+        "把原数和2189万换回完整数比较。",
+        "2189万=21890000。",
+        "它和21893095不完全相等。",
+        "所以只能用≈。"
+      ],
+      "view": {
+        "title": "改写和近似不是一回事",
+        "prompt": "“省略万后面的尾数”会不会丢掉原数的一部分信息？",
+        "choices": [
+          [
+            "yes",
+            "会，所以是近似"
+          ],
+          [
+            "no",
+            "不会，仍完全相等"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "yes",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-COMPARE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "rewrite-vs-approx"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U5-COMPARE-03",
+      "hints": [
+        "",
+        "三个动作解决三种不同问题。",
+        "比较问谁大谁小。",
+        "改写保持大小不变。",
+        "近似允许舍去部分信息。"
+      ],
+      "view": {
+        "title": "把三条规则分开",
+        "prompt": "哪组总结正确？",
+        "choices": [
+          [
+            "rule",
+            "比较：先位数再逐位；精确改写用=；近似表示用≈"
+          ],
+          [
+            "mix",
+            "改写和近似都用≈"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "compare-rewrite-approx"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U5-COMPARE-02",
+      "hints": [
+        "",
+        "1亿=100000000。",
+        "28亿=2800000000。",
+        "两个数完全相等。",
+        "所以用=。"
+      ],
+      "view": {
+        "title": "换一道教材式混合判断",
+        "prompt": "2800000000与28亿的关系应该写什么？",
+        "choices": [
+          [
+            "eq",
+            "="
+          ],
+          [
+            "gt",
+            ">"
+          ],
+          [
+            "approx",
+            "≈"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "eq",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U5-COMPARE-04",
+      "hints": [
+        "",
+        "先统一写法。",
+        "56万=560000。",
+        "560000>559950。",
+        "所以56万更大。"
+      ],
+      "view": {
+        "title": "迁移：比较中混入单位改写",
+        "prompt": "56万和559950，哪个更大？",
+        "choices": [
+          [
+            "first",
+            "56万更大"
+          ],
+          [
+            "second",
+            "559950更大"
+          ],
+          [
+            "same",
+            "一样大"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "first",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U5-COMPARE-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "比较、改写、近似已经分清了",
+        "prompt": "先统一单位和数量级，再比较；精确改写保持数值不变用“=”，舍去尾数得到近似数用“≈”。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

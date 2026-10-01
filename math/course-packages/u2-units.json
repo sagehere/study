@@ -1,0 +1,383 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u2.units.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u2",
+  "nodeId": "units",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "概念表征正式课",
+    "title": "面积单位与换算",
+    "description": "先看单位正方形，再从10×10铺排理解面积单位进率100。"
+  },
+  "objectives": {
+    "unit": "O-U2-UNITS-01",
+    "square": "O-U2-UNITS-02",
+    "convert": "O-U2-UNITS-03",
+    "transfer": "O-U2-UNITS-04"
+  },
+  "misconceptions": {
+    "lengthRate": "M-U2-UNITS-01",
+    "linear": "M-U2-UNITS-02",
+    "direction": "M-U2-UNITS-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "28,34-36",
+    "sourceNote": "教材先用不同大小单位正方形测量面积，强调统一面积单位；再从1分米=10厘米、1平方分米由10×10个1平方厘米组成，推得1平方分米=100平方厘米，并进一步推1平方米与平方分米关系。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U2-UNITS-01",
+      "hints": [
+        "",
+        "先问：被测图形有没有变。",
+        "变的是单位正方形的大小。",
+        "单位越小，需要的格数越多。",
+        "面积没变，数值差异来自面积单位不同。"
+      ],
+      "view": {
+        "title": "同一面积，为什么量出的数会不同",
+        "prompt": "同一个长方形，用较大的正方形量得8格，用较小的正方形量得32格。为什么结果不同？",
+        "choices": [
+          [
+            "unit",
+            "因为面积单位大小不同"
+          ],
+          [
+            "area",
+            "因为长方形面积变了"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "unit",
+          "to": "squareRelation",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "area",
+          "to": "repairUnit",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-UNITS-03",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairUnit": {
+      "objectiveId": "O-U2-UNITS-01",
+      "hints": [
+        "",
+        "同一面积可以被不同大小方格覆盖。",
+        "数值要能直接比较，单位必须相同。",
+        "教材明确提出“要用统一的面积单位”。",
+        "所以先统一单位，再比较数值。"
+      ],
+      "view": {
+        "title": "面积没变，变的是“每1格多大”",
+        "prompt": "要公平比较面积，最重要先统一什么？",
+        "choices": [
+          [
+            "unit",
+            "面积单位"
+          ],
+          [
+            "shape",
+            "图形颜色"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "unit",
+          "to": "squareRelation",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-UNITS-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "area-unit-meaning"
+            }
+          ]
+        }
+      ]
+    },
+    "squareRelation": {
+      "objectiveId": "O-U2-UNITS-02",
+      "hints": [
+        "",
+        "面积是二维覆盖。",
+        "一边能排10个，另一边也能排10个。",
+        "总格数=10×10。",
+        "所以1 dm²=100 cm²。"
+      ],
+      "view": {
+        "title": "为什么不是10，而是100",
+        "prompt": "1分米=10厘米。边长1分米的正方形里，能铺多少个1平方厘米的小正方形？",
+        "choices": [
+          [
+            "100",
+            "100个"
+          ],
+          [
+            "10",
+            "10个"
+          ],
+          [
+            "20",
+            "20个"
+          ]
+        ],
+        "renderer": "tileRows",
+        "rendererArgs": {
+          "rows": 10,
+          "cols": 10,
+          "label": "1平方分米 = 10×10 个1平方厘米"
+        }
+      },
+      "transitions": [
+        {
+          "when": "100",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "10",
+          "to": "repairLinear",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-UNITS-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairLinear": {
+      "objectiveId": "O-U2-UNITS-02",
+      "hints": [
+        "",
+        "平方单位来自正方形。",
+        "边长从1 dm变成10 cm。",
+        "长、宽两个方向都各有10。",
+        "所以方格数量是10×10=100。"
+      ],
+      "view": {
+        "title": "只修“把长度进率直接搬到面积”",
+        "prompt": "为什么1 dm²不是10 cm²？",
+        "choices": [
+          [
+            "two",
+            "因为面积有两个方向，10×10=100"
+          ],
+          [
+            "same",
+            "因为面积单位和长度单位进率总相同"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "two",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-UNITS-02"
+            },
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-UNITS-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "square-unit-two-dimensions"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U2-UNITS-03",
+      "hints": [
+        "",
+        "回到10×10铺排。",
+        "面积单位换算反映的是两个方向同时缩放。",
+        "1 dm²=100 cm²。",
+        "同理1 m²=100 dm²。"
+      ],
+      "view": {
+        "title": "现在再形成换算规则",
+        "prompt": "哪一句正确？",
+        "choices": [
+          [
+            "rule",
+            "相邻长度单位进率是10时，对应面积单位进率是100"
+          ],
+          [
+            "ten",
+            "面积单位也只乘10"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "square-scale"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U2-UNITS-03",
+      "hints": [
+        "",
+        "平方米到平方分米是相邻面积单位。",
+        "每1平方米=100平方分米。",
+        "9×100。",
+        "结果900平方分米。"
+      ],
+      "view": {
+        "title": "换一道教材换算题独立做",
+        "prompt": "9平方米等于多少平方分米？",
+        "choices": [
+          [
+            "900",
+            "900平方分米"
+          ],
+          [
+            "90",
+            "90平方分米"
+          ],
+          [
+            "9",
+            "9平方分米"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "900",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U2-UNITS-04",
+      "hints": [
+        "",
+        "这次从小单位换成大单位。",
+        "100平方厘米=1平方分米。",
+        "700里有7个100。",
+        "所以700 cm²=7 dm²。"
+      ],
+      "view": {
+        "title": "迁移到逆向换算",
+        "prompt": "700平方厘米等于多少平方分米？",
+        "choices": [
+          [
+            "7",
+            "7平方分米"
+          ],
+          [
+            "70",
+            "70平方分米"
+          ],
+          [
+            "70000",
+            "70000平方分米"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "7",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U2-UNITS-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你已经把面积单位和二维结构连起来了",
+        "prompt": "面积单位的进率不是背出来的：边长缩放10倍，覆盖格数在两个方向同时变化，所以面积缩放100倍。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}
