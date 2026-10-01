@@ -1,0 +1,483 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u2.change.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u2",
+  "nodeId": "change",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "变化规律正式课",
+    "title": "周长与面积的变化",
+    "description": "固定面积看周长，固定周长看面积；通过多个长方形比较发现“越接近正方形越优”。"
+  },
+  "objectives": {
+    "distinguish": "O-U2-CHANGE-01",
+    "fixedArea": "O-U2-CHANGE-02",
+    "fixedPerimeter": "O-U2-CHANGE-03",
+    "transfer": "O-U2-CHANGE-04"
+  },
+  "misconceptions": {
+    "confuse": "M-U2-CHANGE-01",
+    "biggerSide": "M-U2-CHANGE-02",
+    "singleExample": "M-U2-CHANGE-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "42-43",
+    "sourceNote": "教材“周长与面积的变化”通过6个单位正方形拼图、36个单位正方形拼成长方形/正方形、固定周长16/24厘米画图比较，明确面积相等时周长不一定相等、周长相等时面积不一定相等，并发现长宽越接近周长越短/面积越大。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U2-CHANGE-01",
+      "hints": [
+        "",
+        "小正方形总数没有变。",
+        "每个面积1平方厘米。",
+        "所以总面积固定为6平方厘米。",
+        "外边界形状变化，周长可能改变。"
+      ],
+      "view": {
+        "title": "先分清现在固定的是谁",
+        "prompt": "用6个边长1厘米的小正方形拼不同图形。无论怎样拼，哪一个量一定不变？",
+        "choices": [
+          [
+            "area",
+            "面积都是6平方厘米"
+          ],
+          [
+            "perimeter",
+            "周长都一样"
+          ],
+          [
+            "both",
+            "面积和周长都一样"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "area",
+          "to": "fixedArea",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "both",
+          "to": "repairConfuse",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-CHANGE-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairConfuse": {
+      "objectiveId": "O-U2-CHANGE-01",
+      "hints": [
+        "",
+        "面积都等于6。",
+        "1×6周长14。",
+        "2×3周长10。",
+        "所以同面积可以有不同周长。"
+      ],
+      "view": {
+        "title": "面积相同，不代表周长相同",
+        "prompt": "同样6个小正方形，排成1×6和2×3两个长方形，周长会一样吗？",
+        "choices": [
+          [
+            "no",
+            "不一样"
+          ],
+          [
+            "yes",
+            "一样"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "fixedArea",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-CHANGE-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "area-perimeter-not-coupled"
+            }
+          ]
+        }
+      ]
+    },
+    "fixedArea": {
+      "objectiveId": "O-U2-CHANGE-02",
+      "hints": [
+        "",
+        "面积都固定为36。",
+        "比较长宽差距。",
+        "6和6最接近。",
+        "教材实验发现越接近正方形，周长越短。"
+      ],
+      "view": {
+        "title": "面积固定时，长宽越接近，周长怎样",
+        "prompt": "面积都是36平方厘米。下面哪一个长方形周长最短？",
+        "choices": [
+          [
+            "square",
+            "6×6"
+          ],
+          [
+            "long",
+            "36×1"
+          ],
+          [
+            "mid",
+            "12×3"
+          ]
+        ],
+        "renderer": "rect",
+        "rendererArgs": {
+          "w": 6,
+          "h": 6,
+          "mode": "both",
+          "label": "面积36平方厘米的6乘6正方形，长宽最接近"
+        }
+      },
+      "transitions": [
+        {
+          "when": "square",
+          "to": "fixedPerimeter",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "long",
+          "to": "repairBiggerSide",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-CHANGE-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairBiggerSide": {
+      "objectiveId": "O-U2-CHANGE-02",
+      "hints": [
+        "",
+        "算或比较外边界。",
+        "36×1周长74。",
+        "6×6周长24。",
+        "长宽越接近，周长越短。"
+      ],
+      "view": {
+        "title": "不是“最长边越长越好”",
+        "prompt": "同面积下，36×1和6×6谁的周长更短？",
+        "choices": [
+          [
+            "square",
+            "6×6"
+          ],
+          [
+            "long",
+            "36×1"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "square",
+          "to": "fixedPerimeter",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-CHANGE-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "fixed-area-shape-efficiency"
+            }
+          ]
+        }
+      ]
+    },
+    "fixedPerimeter": {
+      "objectiveId": "O-U2-CHANGE-03",
+      "hints": [
+        "",
+        "周长16，所以长+宽=8。",
+        "比较1×7、2×6、3×5、4×4。",
+        "乘积在4×4时最大。",
+        "长宽越接近，面积越大。"
+      ],
+      "view": {
+        "title": "周长固定时，长宽越接近，面积怎样",
+        "prompt": "周长都是16厘米。下面哪个长方形面积最大？",
+        "choices": [
+          [
+            "square",
+            "4×4"
+          ],
+          [
+            "thin",
+            "1×7"
+          ],
+          [
+            "mid",
+            "3×5"
+          ]
+        ],
+        "renderer": "rect",
+        "rendererArgs": {
+          "w": 4,
+          "h": 4,
+          "mode": "both",
+          "label": "周长16厘米的4乘4正方形，面积最大"
+        }
+      },
+      "transitions": [
+        {
+          "when": "square",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "thin",
+          "to": "repairSingle",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-CHANGE-03",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairSingle": {
+      "objectiveId": "O-U2-CHANGE-03",
+      "hints": [
+        "",
+        "周长条件相同。",
+        "直接比较面积。",
+        "3×5=15，1×7=7。",
+        "更接近时面积更大。"
+      ],
+      "view": {
+        "title": "不要只看一组，要比较整组",
+        "prompt": "周长16时，3×5和1×7哪个面积更大？",
+        "choices": [
+          [
+            "mid",
+            "3×5"
+          ],
+          [
+            "thin",
+            "1×7"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "mid",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-CHANGE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "compare-multiple-fixed-perimeter-cases"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U2-CHANGE-03",
+      "hints": [
+        "",
+        "先看固定条件。",
+        "固定面积比较周长。",
+        "固定周长比较面积。",
+        "两个结论方向不同，但都指向长宽更接近。"
+      ],
+      "view": {
+        "title": "把两个实验的规律分开说",
+        "prompt": "哪组总结正确？",
+        "choices": [
+          [
+            "rule",
+            "同面积时长宽越接近周长越短；同周长时长宽越接近面积越大"
+          ],
+          [
+            "mix",
+            "面积越大周长一定越大"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "rectangle-balance-under-fixed-constraint"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U2-CHANGE-02",
+      "hints": [
+        "",
+        "面积固定。",
+        "比较长宽接近程度。",
+        "4和6最接近。",
+        "所以4×6周长最短。"
+      ],
+      "view": {
+        "title": "换一个固定面积的新比较",
+        "prompt": "面积都是24平方厘米，哪一个长方形周长最短？",
+        "choices": [
+          [
+            "fourSix",
+            "4×6"
+          ],
+          [
+            "threeEight",
+            "3×8"
+          ],
+          [
+            "twoTwelve",
+            "2×12"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "fourSix",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U2-CHANGE-04",
+      "hints": [
+        "",
+        "周长20，所以长+宽=10。",
+        "比较乘积。",
+        "5×5=25最大。",
+        "长宽最接近时面积最大。"
+      ],
+      "view": {
+        "title": "迁移到固定周长",
+        "prompt": "长方形周长20厘米，下面哪组长宽面积最大？",
+        "choices": [
+          [
+            "fiveFive",
+            "5和5"
+          ],
+          [
+            "fourSix",
+            "4和6"
+          ],
+          [
+            "twoEight",
+            "2和8"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "fiveFive",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U2-CHANGE-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你会先看“固定条件”，再比较变化了",
+        "prompt": "周长和面积是不同量：同面积时形状越接近正方形周长越短；同周长时越接近正方形面积越大。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

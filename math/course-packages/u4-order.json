@@ -1,0 +1,461 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u4.order.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u4",
+  "nodeId": "order",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "运算顺序正式课",
+    "title": "同级与两级运算",
+    "description": "先判断运算是否同级，再决定从左往右还是先乘除后加减。"
+  },
+  "objectives": {
+    "classify": "O-U4-ORDER-01",
+    "sameLevel": "O-U4-ORDER-02",
+    "twoLevel": "O-U4-ORDER-03",
+    "transfer": "O-U4-ORDER-04"
+  },
+  "misconceptions": {
+    "multiplyAlways": "M-U4-ORDER-01",
+    "addAlways": "M-U4-ORDER-02",
+    "leftAll": "M-U4-ORDER-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "procedural",
+    "sourcePages": "59",
+    "sourceNote": "教材第59页明确：无括号算式中有乘除和加减时先乘除后加减；同级运算按从左往右顺序。教材改错题还直接暴露“乘除同级并非先乘后除”的典型误区。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U4-ORDER-01",
+      "hints": [
+        "",
+        "先看有没有括号。",
+        "没有括号时，先分运算级别。",
+        "乘除高于加减。",
+        "所以先处理240÷6和2×17。"
+      ],
+      "view": {
+        "title": "先判断是不是同一级",
+        "prompt": "240÷6－2×17 里，哪类运算要先处理？",
+        "choices": [
+          [
+            "muldiv",
+            "乘除"
+          ],
+          [
+            "left",
+            "最左边的运算，不分级"
+          ],
+          [
+            "sub",
+            "减法"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "muldiv",
+          "to": "sameLevel",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "left",
+          "to": "repairLeftAll",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-ORDER-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairLeftAll": {
+      "objectiveId": "O-U4-ORDER-01",
+      "hints": [
+        "",
+        "从左往右只适用于同级运算。",
+        "乘除和加减属于两级。",
+        "两级时先乘除。",
+        "之后再处理加减。"
+      ],
+      "view": {
+        "title": "不是所有算式都机械从左往右",
+        "prompt": "无括号、同时出现乘除和加减时，应该先做哪一类？",
+        "choices": [
+          [
+            "muldiv",
+            "乘除"
+          ],
+          [
+            "left",
+            "最左边"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "muldiv",
+          "to": "sameLevel",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-ORDER-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "two-level-precedence"
+            }
+          ]
+        }
+      ]
+    },
+    "sameLevel": {
+      "objectiveId": "O-U4-ORDER-02",
+      "hints": [
+        "",
+        "乘法和除法同级。",
+        "同级按从左往右。",
+        "80÷2在前。",
+        "所以先算80÷2。"
+      ],
+      "view": {
+        "title": "乘和除同级，没有“先乘后除”",
+        "prompt": "80÷2×5 的第一步应该是什么？",
+        "choices": [
+          [
+            "divide",
+            "80÷2"
+          ],
+          [
+            "multiply",
+            "2×5"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "divide",
+          "to": "addSubLevel",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "multiply",
+          "to": "repairMultiply",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-ORDER-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairMultiply": {
+      "objectiveId": "O-U4-ORDER-02",
+      "hints": [
+        "",
+        "乘除同级。",
+        "看位置，不看名称。",
+        "左边45÷5先出现。",
+        "所以先除。"
+      ],
+      "view": {
+        "title": "只修“先乘后除”的错规则",
+        "prompt": "45÷5×3 应该先算哪一步？",
+        "choices": [
+          [
+            "divide",
+            "45÷5"
+          ],
+          [
+            "multiply",
+            "5×3"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "divide",
+          "to": "addSubLevel",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-ORDER-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "multiply-divide-same-level"
+            }
+          ]
+        }
+      ]
+    },
+    "addSubLevel": {
+      "objectiveId": "O-U4-ORDER-02",
+      "hints": [
+        "",
+        "加法和减法同级。",
+        "没有“先加后减”。",
+        "同级从左往右。",
+        "所以先30－8。"
+      ],
+      "view": {
+        "title": "加和减同样是同级",
+        "prompt": "30－8＋5 的第一步应该是什么？",
+        "choices": [
+          [
+            "subtract",
+            "30－8"
+          ],
+          [
+            "add",
+            "8＋5"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "subtract",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "add",
+          "to": "repairAdd",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-ORDER-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairAdd": {
+      "objectiveId": "O-U4-ORDER-02",
+      "hints": [
+        "",
+        "这和数的大小无关。",
+        "规则看运算级别和位置。",
+        "加减同级。",
+        "所以从左向右。"
+      ],
+      "view": {
+        "title": "也没有“先加后减”",
+        "prompt": "50－12＋7 为什么不能先算12＋7？",
+        "choices": [
+          [
+            "level",
+            "加减同级，要从左往右"
+          ],
+          [
+            "bigger",
+            "因为50比较大"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "level",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-ORDER-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "add-subtract-same-level"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U4-ORDER-03",
+      "hints": [
+        "",
+        "先判断级别。",
+        "同级才从左往右。",
+        "两级时先完成乘除。",
+        "不能把四种运算硬排成固定“乘除加减”顺序。"
+      ],
+      "view": {
+        "title": "现在总结无括号运算顺序",
+        "prompt": "哪一句最准确？",
+        "choices": [
+          [
+            "rule",
+            "无括号：同级从左往右；有乘除和加减两级时先乘除后加减"
+          ],
+          [
+            "wrong",
+            "永远先乘，再除，再加，再减"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "same-level-left-to-right-two-level-precedence"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U4-ORDER-03",
+      "hints": [
+        "",
+        "先除法。",
+        "84÷7=12。",
+        "再按加减同级从左往右：28+12－13。",
+        "结果27。"
+      ],
+      "view": {
+        "title": "换一道新题独立做",
+        "prompt": "28＋84÷7－13 的结果是多少？",
+        "choices": [
+          [
+            "27",
+            "27"
+          ],
+          [
+            "3",
+            "3"
+          ],
+          [
+            "83",
+            "83"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "27",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U4-ORDER-04",
+      "hints": [
+        "",
+        "全是乘除，同一级。",
+        "从左往右。",
+        "96÷4=24，24×3=72。",
+        "72÷6=12。"
+      ],
+      "view": {
+        "title": "迁移：同级规则换一种组合",
+        "prompt": "96÷4×3÷6 的结果是多少？",
+        "choices": [
+          [
+            "12",
+            "12"
+          ],
+          [
+            "2",
+            "2"
+          ],
+          [
+            "72",
+            "72"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "12",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U4-ORDER-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你会先分级，再决定顺序了",
+        "prompt": "无括号算式先判断运算级别：同级从左往右；两级先乘除后加减。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

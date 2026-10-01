@@ -1988,6 +1988,489 @@ globalThis.CoursePackageData={
       }
     }
   },
+  "u2.change.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u2.change.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u2",
+    "nodeId": "change",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "变化规律正式课",
+      "title": "周长与面积的变化",
+      "description": "固定面积看周长，固定周长看面积；通过多个长方形比较发现“越接近正方形越优”。"
+    },
+    "objectives": {
+      "distinguish": "O-U2-CHANGE-01",
+      "fixedArea": "O-U2-CHANGE-02",
+      "fixedPerimeter": "O-U2-CHANGE-03",
+      "transfer": "O-U2-CHANGE-04"
+    },
+    "misconceptions": {
+      "confuse": "M-U2-CHANGE-01",
+      "biggerSide": "M-U2-CHANGE-02",
+      "singleExample": "M-U2-CHANGE-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "concept-representation",
+      "sourcePages": "42-43",
+      "sourceNote": "教材“周长与面积的变化”通过6个单位正方形拼图、36个单位正方形拼成长方形/正方形、固定周长16/24厘米画图比较，明确面积相等时周长不一定相等、周长相等时面积不一定相等，并发现长宽越接近周长越短/面积越大。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U2-CHANGE-01",
+        "hints": [
+          "",
+          "小正方形总数没有变。",
+          "每个面积1平方厘米。",
+          "所以总面积固定为6平方厘米。",
+          "外边界形状变化，周长可能改变。"
+        ],
+        "view": {
+          "title": "先分清现在固定的是谁",
+          "prompt": "用6个边长1厘米的小正方形拼不同图形。无论怎样拼，哪一个量一定不变？",
+          "choices": [
+            [
+              "area",
+              "面积都是6平方厘米"
+            ],
+            [
+              "perimeter",
+              "周长都一样"
+            ],
+            [
+              "both",
+              "面积和周长都一样"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "area",
+            "to": "fixedArea",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "both",
+            "to": "repairConfuse",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U2-CHANGE-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairConfuse": {
+        "objectiveId": "O-U2-CHANGE-01",
+        "hints": [
+          "",
+          "面积都等于6。",
+          "1×6周长14。",
+          "2×3周长10。",
+          "所以同面积可以有不同周长。"
+        ],
+        "view": {
+          "title": "面积相同，不代表周长相同",
+          "prompt": "同样6个小正方形，排成1×6和2×3两个长方形，周长会一样吗？",
+          "choices": [
+            [
+              "no",
+              "不一样"
+            ],
+            [
+              "yes",
+              "一样"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "no",
+            "to": "fixedArea",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U2-CHANGE-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "area-perimeter-not-coupled"
+              }
+            ]
+          }
+        ]
+      },
+      "fixedArea": {
+        "objectiveId": "O-U2-CHANGE-02",
+        "hints": [
+          "",
+          "面积都固定为36。",
+          "比较长宽差距。",
+          "6和6最接近。",
+          "教材实验发现越接近正方形，周长越短。"
+        ],
+        "view": {
+          "title": "面积固定时，长宽越接近，周长怎样",
+          "prompt": "面积都是36平方厘米。下面哪一个长方形周长最短？",
+          "choices": [
+            [
+              "square",
+              "6×6"
+            ],
+            [
+              "long",
+              "36×1"
+            ],
+            [
+              "mid",
+              "12×3"
+            ]
+          ],
+          "renderer": "rect",
+          "rendererArgs": {
+            "w": 6,
+            "h": 6,
+            "mode": "both",
+            "label": "面积36平方厘米的6乘6正方形，长宽最接近"
+          }
+        },
+        "transitions": [
+          {
+            "when": "square",
+            "to": "fixedPerimeter",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "long",
+            "to": "repairBiggerSide",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U2-CHANGE-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairBiggerSide": {
+        "objectiveId": "O-U2-CHANGE-02",
+        "hints": [
+          "",
+          "算或比较外边界。",
+          "36×1周长74。",
+          "6×6周长24。",
+          "长宽越接近，周长越短。"
+        ],
+        "view": {
+          "title": "不是“最长边越长越好”",
+          "prompt": "同面积下，36×1和6×6谁的周长更短？",
+          "choices": [
+            [
+              "square",
+              "6×6"
+            ],
+            [
+              "long",
+              "36×1"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "square",
+            "to": "fixedPerimeter",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U2-CHANGE-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "fixed-area-shape-efficiency"
+              }
+            ]
+          }
+        ]
+      },
+      "fixedPerimeter": {
+        "objectiveId": "O-U2-CHANGE-03",
+        "hints": [
+          "",
+          "周长16，所以长+宽=8。",
+          "比较1×7、2×6、3×5、4×4。",
+          "乘积在4×4时最大。",
+          "长宽越接近，面积越大。"
+        ],
+        "view": {
+          "title": "周长固定时，长宽越接近，面积怎样",
+          "prompt": "周长都是16厘米。下面哪个长方形面积最大？",
+          "choices": [
+            [
+              "square",
+              "4×4"
+            ],
+            [
+              "thin",
+              "1×7"
+            ],
+            [
+              "mid",
+              "3×5"
+            ]
+          ],
+          "renderer": "rect",
+          "rendererArgs": {
+            "w": 4,
+            "h": 4,
+            "mode": "both",
+            "label": "周长16厘米的4乘4正方形，面积最大"
+          }
+        },
+        "transitions": [
+          {
+            "when": "square",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "thin",
+            "to": "repairSingle",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U2-CHANGE-03",
+                "confidence": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      "repairSingle": {
+        "objectiveId": "O-U2-CHANGE-03",
+        "hints": [
+          "",
+          "周长条件相同。",
+          "直接比较面积。",
+          "3×5=15，1×7=7。",
+          "更接近时面积更大。"
+        ],
+        "view": {
+          "title": "不要只看一组，要比较整组",
+          "prompt": "周长16时，3×5和1×7哪个面积更大？",
+          "choices": [
+            [
+              "mid",
+              "3×5"
+            ],
+            [
+              "thin",
+              "1×7"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "mid",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U2-CHANGE-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "compare-multiple-fixed-perimeter-cases"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U2-CHANGE-03",
+        "hints": [
+          "",
+          "先看固定条件。",
+          "固定面积比较周长。",
+          "固定周长比较面积。",
+          "两个结论方向不同，但都指向长宽更接近。"
+        ],
+        "view": {
+          "title": "把两个实验的规律分开说",
+          "prompt": "哪组总结正确？",
+          "choices": [
+            [
+              "rule",
+              "同面积时长宽越接近周长越短；同周长时长宽越接近面积越大"
+            ],
+            [
+              "mix",
+              "面积越大周长一定越大"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "rectangle-balance-under-fixed-constraint"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U2-CHANGE-02",
+        "hints": [
+          "",
+          "面积固定。",
+          "比较长宽接近程度。",
+          "4和6最接近。",
+          "所以4×6周长最短。"
+        ],
+        "view": {
+          "title": "换一个固定面积的新比较",
+          "prompt": "面积都是24平方厘米，哪一个长方形周长最短？",
+          "choices": [
+            [
+              "fourSix",
+              "4×6"
+            ],
+            [
+              "threeEight",
+              "3×8"
+            ],
+            [
+              "twoTwelve",
+              "2×12"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "fourSix",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U2-CHANGE-04",
+        "hints": [
+          "",
+          "周长20，所以长+宽=10。",
+          "比较乘积。",
+          "5×5=25最大。",
+          "长宽最接近时面积最大。"
+        ],
+        "view": {
+          "title": "迁移到固定周长",
+          "prompt": "长方形周长20厘米，下面哪组长宽面积最大？",
+          "choices": [
+            [
+              "fiveFive",
+              "5和5"
+            ],
+            [
+              "fourSix",
+              "4和6"
+            ],
+            [
+              "twoEight",
+              "2和8"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "fiveFive",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U2-CHANGE-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你会先看“固定条件”，再比较变化了",
+          "prompt": "周长和面积是不同量：同面积时形状越接近正方形周长越短；同周长时越接近正方形面积越大。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
   "u2.cut.v2": {
     "packageVersion": "0.1.0",
     "schemaVersion": "0.2",
@@ -7132,6 +7615,467 @@ globalThis.CoursePackageData={
       }
     }
   },
+  "u4.order.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u4.order.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u4",
+    "nodeId": "order",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "运算顺序正式课",
+      "title": "同级与两级运算",
+      "description": "先判断运算是否同级，再决定从左往右还是先乘除后加减。"
+    },
+    "objectives": {
+      "classify": "O-U4-ORDER-01",
+      "sameLevel": "O-U4-ORDER-02",
+      "twoLevel": "O-U4-ORDER-03",
+      "transfer": "O-U4-ORDER-04"
+    },
+    "misconceptions": {
+      "multiplyAlways": "M-U4-ORDER-01",
+      "addAlways": "M-U4-ORDER-02",
+      "leftAll": "M-U4-ORDER-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "procedural",
+      "sourcePages": "59",
+      "sourceNote": "教材第59页明确：无括号算式中有乘除和加减时先乘除后加减；同级运算按从左往右顺序。教材改错题还直接暴露“乘除同级并非先乘后除”的典型误区。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U4-ORDER-01",
+        "hints": [
+          "",
+          "先看有没有括号。",
+          "没有括号时，先分运算级别。",
+          "乘除高于加减。",
+          "所以先处理240÷6和2×17。"
+        ],
+        "view": {
+          "title": "先判断是不是同一级",
+          "prompt": "240÷6－2×17 里，哪类运算要先处理？",
+          "choices": [
+            [
+              "muldiv",
+              "乘除"
+            ],
+            [
+              "left",
+              "最左边的运算，不分级"
+            ],
+            [
+              "sub",
+              "减法"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "muldiv",
+            "to": "sameLevel",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "left",
+            "to": "repairLeftAll",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-ORDER-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairLeftAll": {
+        "objectiveId": "O-U4-ORDER-01",
+        "hints": [
+          "",
+          "从左往右只适用于同级运算。",
+          "乘除和加减属于两级。",
+          "两级时先乘除。",
+          "之后再处理加减。"
+        ],
+        "view": {
+          "title": "不是所有算式都机械从左往右",
+          "prompt": "无括号、同时出现乘除和加减时，应该先做哪一类？",
+          "choices": [
+            [
+              "muldiv",
+              "乘除"
+            ],
+            [
+              "left",
+              "最左边"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "muldiv",
+            "to": "sameLevel",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-ORDER-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "two-level-precedence"
+              }
+            ]
+          }
+        ]
+      },
+      "sameLevel": {
+        "objectiveId": "O-U4-ORDER-02",
+        "hints": [
+          "",
+          "乘法和除法同级。",
+          "同级按从左往右。",
+          "80÷2在前。",
+          "所以先算80÷2。"
+        ],
+        "view": {
+          "title": "乘和除同级，没有“先乘后除”",
+          "prompt": "80÷2×5 的第一步应该是什么？",
+          "choices": [
+            [
+              "divide",
+              "80÷2"
+            ],
+            [
+              "multiply",
+              "2×5"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "divide",
+            "to": "addSubLevel",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "multiply",
+            "to": "repairMultiply",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-ORDER-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairMultiply": {
+        "objectiveId": "O-U4-ORDER-02",
+        "hints": [
+          "",
+          "乘除同级。",
+          "看位置，不看名称。",
+          "左边45÷5先出现。",
+          "所以先除。"
+        ],
+        "view": {
+          "title": "只修“先乘后除”的错规则",
+          "prompt": "45÷5×3 应该先算哪一步？",
+          "choices": [
+            [
+              "divide",
+              "45÷5"
+            ],
+            [
+              "multiply",
+              "5×3"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "divide",
+            "to": "addSubLevel",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-ORDER-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "multiply-divide-same-level"
+              }
+            ]
+          }
+        ]
+      },
+      "addSubLevel": {
+        "objectiveId": "O-U4-ORDER-02",
+        "hints": [
+          "",
+          "加法和减法同级。",
+          "没有“先加后减”。",
+          "同级从左往右。",
+          "所以先30－8。"
+        ],
+        "view": {
+          "title": "加和减同样是同级",
+          "prompt": "30－8＋5 的第一步应该是什么？",
+          "choices": [
+            [
+              "subtract",
+              "30－8"
+            ],
+            [
+              "add",
+              "8＋5"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "subtract",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "add",
+            "to": "repairAdd",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-ORDER-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairAdd": {
+        "objectiveId": "O-U4-ORDER-02",
+        "hints": [
+          "",
+          "这和数的大小无关。",
+          "规则看运算级别和位置。",
+          "加减同级。",
+          "所以从左向右。"
+        ],
+        "view": {
+          "title": "也没有“先加后减”",
+          "prompt": "50－12＋7 为什么不能先算12＋7？",
+          "choices": [
+            [
+              "level",
+              "加减同级，要从左往右"
+            ],
+            [
+              "bigger",
+              "因为50比较大"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "level",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-ORDER-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "add-subtract-same-level"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U4-ORDER-03",
+        "hints": [
+          "",
+          "先判断级别。",
+          "同级才从左往右。",
+          "两级时先完成乘除。",
+          "不能把四种运算硬排成固定“乘除加减”顺序。"
+        ],
+        "view": {
+          "title": "现在总结无括号运算顺序",
+          "prompt": "哪一句最准确？",
+          "choices": [
+            [
+              "rule",
+              "无括号：同级从左往右；有乘除和加减两级时先乘除后加减"
+            ],
+            [
+              "wrong",
+              "永远先乘，再除，再加，再减"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "same-level-left-to-right-two-level-precedence"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U4-ORDER-03",
+        "hints": [
+          "",
+          "先除法。",
+          "84÷7=12。",
+          "再按加减同级从左往右：28+12－13。",
+          "结果27。"
+        ],
+        "view": {
+          "title": "换一道新题独立做",
+          "prompt": "28＋84÷7－13 的结果是多少？",
+          "choices": [
+            [
+              "27",
+              "27"
+            ],
+            [
+              "3",
+              "3"
+            ],
+            [
+              "83",
+              "83"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "27",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U4-ORDER-04",
+        "hints": [
+          "",
+          "全是乘除，同一级。",
+          "从左往右。",
+          "96÷4=24，24×3=72。",
+          "72÷6=12。"
+        ],
+        "view": {
+          "title": "迁移：同级规则换一种组合",
+          "prompt": "96÷4×3÷6 的结果是多少？",
+          "choices": [
+            [
+              "12",
+              "12"
+            ],
+            [
+              "2",
+              "2"
+            ],
+            [
+              "72",
+              "72"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "12",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U4-ORDER-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你会先分级，再决定顺序了",
+          "prompt": "无括号算式先判断运算级别：同级从左往右；两级先乘除后加减。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
   "u4.reverse.v2": {
     "packageVersion": "0.1.0",
     "schemaVersion": "0.2",
@@ -8664,6 +9608,490 @@ globalThis.CoursePackageData={
         "view": {
           "title": "比较、改写、近似已经分清了",
           "prompt": "先统一单位和数量级，再比较；精确改写保持数值不变用“=”，舍去尾数得到近似数用“≈”。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
+  "u5.place.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u5.place.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u5",
+    "nodeId": "place",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "数位结构正式课",
+      "title": "数位、数级与十进制",
+      "description": "同一个数字因数位不同表示不同数量；相邻计数单位满十进一，每四位组成一级。"
+    },
+    "objectives": {
+      "position": "O-U5-PLACE-01",
+      "unit": "O-U5-PLACE-02",
+      "group": "O-U5-PLACE-03",
+      "transfer": "O-U5-PLACE-04"
+    },
+    "misconceptions": {
+      "digitEqualsValue": "M-U5-PLACE-01",
+      "groupThree": "M-U5-PLACE-02",
+      "rateHundred": "M-U5-PLACE-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "concept-representation",
+      "sourcePages": "69-71,77-78",
+      "sourceNote": "教材用10000建立万位，再扩展万、十万、百万、千万；明确从右起每四个数位一级，并在十进制计数法中说明每相邻两个计数单位进率都是10。教材还强调数字写在不同数位上表示不同数量。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U5-PLACE-01",
+        "hints": [
+          "",
+          "先确定3所在的数位。",
+          "305000里3在十万位。",
+          "十万位上的3表示3个十万。",
+          "数字本身相同，数位决定它代表多少。"
+        ],
+        "view": {
+          "title": "同一个数字，位置一变，数量就变",
+          "prompt": "数305000里，数字3表示什么？",
+          "choices": [
+            [
+              "hundredThousand",
+              "3个十万"
+            ],
+            [
+              "three",
+              "就是3"
+            ],
+            [
+              "million",
+              "3个百万"
+            ]
+          ],
+          "renderer": "placeValueGroups",
+          "rendererArgs": {
+            "value": "305000",
+            "label": "305000按四位一级分组，数字3位于十万位"
+          }
+        },
+        "transitions": [
+          {
+            "when": "hundredThousand",
+            "to": "unitRate",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "three",
+            "to": "repairPosition",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-PLACE-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairPosition": {
+        "objectiveId": "O-U5-PLACE-01",
+        "hints": [
+          "",
+          "数字符号没有变。",
+          "但所在计数单位变了。",
+          "个位5是5个一，万位5是5个万。",
+          "所以数量不同。"
+        ],
+        "view": {
+          "title": "数字和它表示的数量不是一回事",
+          "prompt": "数字5放在个位和万位，表示的数量一样吗？",
+          "choices": [
+            [
+              "different",
+              "不一样，数位不同"
+            ],
+            [
+              "same",
+              "一样，都是5"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "different",
+            "to": "unitRate",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-PLACE-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "digit-position-value"
+              }
+            ]
+          }
+        ]
+      },
+      "unitRate": {
+        "objectiveId": "O-U5-PLACE-02",
+        "hints": [
+          "",
+          "相邻计数单位满十进一。",
+          "10个一万组成1个十万。",
+          "不是跨两级进100。",
+          "所以是1十万。"
+        ],
+        "view": {
+          "title": "相邻计数单位为什么叫“十进制”",
+          "prompt": "10个一万等于多少？",
+          "choices": [
+            [
+              "tenThousand",
+              "10万"
+            ],
+            [
+              "hundredThousand",
+              "1十万"
+            ],
+            [
+              "million",
+              "1百万"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "hundredThousand",
+            "to": "groups",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "million",
+            "to": "repairRate",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-PLACE-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairRate": {
+        "objectiveId": "O-U5-PLACE-02",
+        "hints": [
+          "",
+          "看“相邻”二字。",
+          "每向左一位，计数单位扩大10倍。",
+          "万→十万只移动一位。",
+          "所以进率10。"
+        ],
+        "view": {
+          "title": "相邻单位只跨一位",
+          "prompt": "从万到十万，进率是多少？",
+          "choices": [
+            [
+              "10",
+              "10"
+            ],
+            [
+              "100",
+              "100"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "10",
+            "to": "groups",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-PLACE-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "decimal-adjacent-unit-rate"
+              }
+            ]
+          }
+        ]
+      },
+      "groups": {
+        "objectiveId": "O-U5-PLACE-03",
+        "hints": [
+          "",
+          "个级包含个、十、百、千。",
+          "正好四位。",
+          "万级也有万、十万、百万、千万四位。",
+          "所以每四位一级。"
+        ],
+        "view": {
+          "title": "数级是为了组织大数结构",
+          "prompt": "按照我国计数习惯，从右边起每几个数位是一级？",
+          "choices": [
+            [
+              "four",
+              "4个"
+            ],
+            [
+              "three",
+              "3个"
+            ],
+            [
+              "five",
+              "5个"
+            ]
+          ],
+          "renderer": "placeValueGroups",
+          "rendererArgs": {
+            "value": "123456789",
+            "label": "123456789按四位一级分为亿级、万级、个级"
+          }
+        },
+        "transitions": [
+          {
+            "when": "four",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "three",
+            "to": "repairGroup",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-PLACE-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairGroup": {
+        "objectiveId": "O-U5-PLACE-03",
+        "hints": [
+          "",
+          "列出个级。",
+          "个位、十位、百位、千位。",
+          "一共4位。",
+          "因此从右起四位一级。"
+        ],
+        "view": {
+          "title": "不要把“三位一节”习惯带进来",
+          "prompt": "个级一共有几个数位？",
+          "choices": [
+            [
+              "four",
+              "4个"
+            ],
+            [
+              "three",
+              "3个"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "four",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-PLACE-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "four-digits-per-group"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U5-PLACE-03",
+        "hints": [
+          "",
+          "四个概念要分清。",
+          "数字是符号。",
+          "数位决定它对应哪个计数单位。",
+          "相邻单位十进制，每四位组成数级。"
+        ],
+        "view": {
+          "title": "把数位、计数单位和数级连起来",
+          "prompt": "哪句最准确？",
+          "choices": [
+            [
+              "rule",
+              "数字所在位置叫数位；对应的个、十、百、千、万等是计数单位；相邻单位进率10；每四位一级"
+            ],
+            [
+              "wrong",
+              "每个数字自己决定大小，位置不重要"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "place-unit-group-decimal"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U5-PLACE-01",
+        "hints": [
+          "",
+          "从右边数位。",
+          "47050000中7在百万位。",
+          "百万位上的7表示7个百万。",
+          "不要只看数字7本身。"
+        ],
+        "view": {
+          "title": "换一个大数独立判断",
+          "prompt": "47050000里的7表示什么？",
+          "choices": [
+            [
+              "sevenMillion",
+              "7个百万"
+            ],
+            [
+              "sevenHundredThousand",
+              "7个十万"
+            ],
+            [
+              "sevenTenMillion",
+              "7个千万"
+            ]
+          ],
+          "renderer": "placeValueGroups",
+          "rendererArgs": {
+            "value": "47050000",
+            "label": "47050000按四位一级分组，数字7位于百万位"
+          }
+        },
+        "transitions": [
+          {
+            "when": "sevenMillion",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U5-PLACE-04",
+        "hints": [
+          "",
+          "亿和千万是相邻计数单位。",
+          "相邻单位进率10。",
+          "1亿=10千万。",
+          "所以有10个千万。"
+        ],
+        "view": {
+          "title": "迁移到相邻单位关系",
+          "prompt": "1亿里面有多少个千万？",
+          "choices": [
+            [
+              "10",
+              "10个"
+            ],
+            [
+              "100",
+              "100个"
+            ],
+            [
+              "4",
+              "4个"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "10",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U5-PLACE-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你已经把数字、位置和数量连起来了",
+          "prompt": "大数结构靠数位组织：同一数字因位置不同表示不同数量；相邻计数单位十进一；从右起每四位组成一级。",
           "choices": []
         },
         "transitions": [],

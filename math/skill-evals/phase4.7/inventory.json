@@ -1,10 +1,10 @@
 {
   "summary": {
     "total": 26,
-    "production": 21,
-    "readyAudited": 15,
+    "production": 24,
+    "readyAudited": 18,
     "unauditedProduction": 6,
-    "remaining": 5
+    "remaining": 2
   },
   "rows": [
     {
@@ -107,13 +107,13 @@
       "key": "u2.change",
       "unit": "u2",
       "node": "change",
-      "status": "尚未迁移",
+      "status": "正式迁移 + ready audit",
       "type": "concept-representation",
       "renderer": "rect / sideSum（预计可复用）",
-      "grounding": "待最终核页；legacy 指向教材42—43页",
-      "batch": "Final-A",
-      "pkg": "",
-      "audit": ""
+      "grounding": "已在正式包记录",
+      "batch": "—",
+      "pkg": "u2-change.json",
+      "audit": "u2-change.audit.json"
     },
     {
       "key": "u3.inverse",
@@ -167,13 +167,13 @@
       "key": "u4.order",
       "unit": "u4",
       "node": "order",
-      "status": "尚未迁移",
+      "status": "正式迁移 + ready audit",
       "type": "procedural",
       "renderer": "无必要",
-      "grounding": "教材58—59页；与 bracket/reverse 同单元，需独立审计",
-      "batch": "Final-A",
-      "pkg": "",
-      "audit": ""
+      "grounding": "已在正式包记录",
+      "batch": "—",
+      "pkg": "u4-order.json",
+      "audit": "u4-order.audit.json"
     },
     {
       "key": "u4.bracket",
@@ -215,13 +215,13 @@
       "key": "u5.place",
       "unit": "u5",
       "node": "place",
-      "status": "尚未迁移",
+      "status": "正式迁移 + ready audit",
       "type": "concept-representation",
       "renderer": "placeValueGroups（预计可复用）",
-      "grounding": "教材68—78页；需核十进制计数单位/数级边界",
-      "batch": "Final-A",
-      "pkg": "",
-      "audit": ""
+      "grounding": "已在正式包记录",
+      "batch": "—",
+      "pkg": "u5-place.json",
+      "audit": "u5-place.audit.json"
     },
     {
       "key": "u5.read",

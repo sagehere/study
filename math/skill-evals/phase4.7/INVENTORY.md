@@ -3,10 +3,10 @@
 ## Summary
 
 - Total legacy knowledge nodes: **26**
-- Production Course Packages: **21**
-- Production packages with ready audit: **15**
+- Production Course Packages: **24**
+- Production packages with ready audit: **18**
 - Production packages missing formal audit: **6**
-- Nodes not yet migrated: **5**
+- Nodes not yet migrated: **2**
 
 ## 26-node inventory
 
@@ -20,16 +20,16 @@
 | `u2.formula` | 正式包存在，但缺正式 audit | 待补 | 已接入/由现有包定义 | 待核 | — |
 | `u2.units` | 正式迁移 + ready audit | concept-representation | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u2.cut` | 正式迁移 + ready audit | concept-representation | 已接入/由现有包定义 | 已在正式包记录 | — |
-| `u2.change` | 尚未迁移 | concept-representation | rect / sideSum（预计可复用） | 待最终核页；legacy 指向教材42—43页 | Final-A |
+| `u2.change` | 正式迁移 + ready audit | concept-representation | rect / sideSum（预计可复用） | 已在正式包记录 | — |
 | `u3.inverse` | 正式迁移 + ready audit | quantity-relation | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u3.price` | 正式包存在，但缺正式 audit | 待补 | 已接入/由现有包定义 | 待核 | — |
 | `u3.speed` | 正式迁移 + ready audit | quantity-relation | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u3.one` | 正式迁移 + ready audit | quantity-relation | 已接入/由现有包定义 | 已在正式包记录 | — |
-| `u4.order` | 尚未迁移 | procedural | 无必要 | 教材58—59页；与 bracket/reverse 同单元，需独立审计 | Final-A |
+| `u4.order` | 正式迁移 + ready audit | procedural | 无必要 | 已在正式包记录 | — |
 | `u4.bracket` | 正式迁移 + ready audit | procedural | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u4.model` | 正式迁移 + ready audit | quantity-relation | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u4.reverse` | 正式迁移 + ready audit | procedural | 已接入/由现有包定义 | 已在正式包记录 | — |
-| `u5.place` | 尚未迁移 | concept-representation | placeValueGroups（预计可复用） | 教材68—78页；需核十进制计数单位/数级边界 | Final-A |
+| `u5.place` | 正式迁移 + ready audit | concept-representation | placeValueGroups（预计可复用） | 已在正式包记录 | — |
 | `u5.read` | 正式迁移 + ready audit | concept-representation | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u5.compare` | 正式迁移 + ready audit | concept-representation | 已接入/由现有包定义 | 已在正式包记录 | — |
 | `u5.round` | 正式包存在，但缺正式 audit | 待补 | 已接入/由现有包定义 | 待核 | — |
@@ -41,16 +41,10 @@
 
 ## Remaining migration plan
 
-### Final-A — low infrastructure risk
+### Final-B
 
-1. `u4.order` — procedural order rules; no new renderer expected.
-2. `u5.place` — reuse `placeValueGroups`; validates place-value structure beyond reading.
-3. `u2.change` — likely reuse `rect` / `sideSum`; validate fixed-perimeter/fixed-area comparison without adding engine logic.
-
-### Final-B — last capability checks
-
-4. `u6.calculator` — focus on input correctness, relation-first calculation, and verification; avoid turning calculator use into button memorization.
-5. `u6.pattern` — migrate last because it is the most likely node to expose a representation gap for pattern explanation / area decomposition. If existing `rect` / `tileRows` cannot explain the pattern cleanly, add one generic renderer rather than course-specific drawing code.
+1. `u6.calculator` — teach relation-first input and verification, not button memorization
+2. `u6.pattern` — try rect/tileRows first; add only a generic decomposition renderer if required
 
 ## Audit backfill before Phase 5
 

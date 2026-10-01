@@ -1,0 +1,484 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u5.place.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u5",
+  "nodeId": "place",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "数位结构正式课",
+    "title": "数位、数级与十进制",
+    "description": "同一个数字因数位不同表示不同数量；相邻计数单位满十进一，每四位组成一级。"
+  },
+  "objectives": {
+    "position": "O-U5-PLACE-01",
+    "unit": "O-U5-PLACE-02",
+    "group": "O-U5-PLACE-03",
+    "transfer": "O-U5-PLACE-04"
+  },
+  "misconceptions": {
+    "digitEqualsValue": "M-U5-PLACE-01",
+    "groupThree": "M-U5-PLACE-02",
+    "rateHundred": "M-U5-PLACE-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "69-71,77-78",
+    "sourceNote": "教材用10000建立万位，再扩展万、十万、百万、千万；明确从右起每四个数位一级，并在十进制计数法中说明每相邻两个计数单位进率都是10。教材还强调数字写在不同数位上表示不同数量。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U5-PLACE-01",
+      "hints": [
+        "",
+        "先确定3所在的数位。",
+        "305000里3在十万位。",
+        "十万位上的3表示3个十万。",
+        "数字本身相同，数位决定它代表多少。"
+      ],
+      "view": {
+        "title": "同一个数字，位置一变，数量就变",
+        "prompt": "数305000里，数字3表示什么？",
+        "choices": [
+          [
+            "hundredThousand",
+            "3个十万"
+          ],
+          [
+            "three",
+            "就是3"
+          ],
+          [
+            "million",
+            "3个百万"
+          ]
+        ],
+        "renderer": "placeValueGroups",
+        "rendererArgs": {
+          "value": "305000",
+          "label": "305000按四位一级分组，数字3位于十万位"
+        }
+      },
+      "transitions": [
+        {
+          "when": "hundredThousand",
+          "to": "unitRate",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "three",
+          "to": "repairPosition",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-PLACE-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairPosition": {
+      "objectiveId": "O-U5-PLACE-01",
+      "hints": [
+        "",
+        "数字符号没有变。",
+        "但所在计数单位变了。",
+        "个位5是5个一，万位5是5个万。",
+        "所以数量不同。"
+      ],
+      "view": {
+        "title": "数字和它表示的数量不是一回事",
+        "prompt": "数字5放在个位和万位，表示的数量一样吗？",
+        "choices": [
+          [
+            "different",
+            "不一样，数位不同"
+          ],
+          [
+            "same",
+            "一样，都是5"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "different",
+          "to": "unitRate",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-PLACE-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "digit-position-value"
+            }
+          ]
+        }
+      ]
+    },
+    "unitRate": {
+      "objectiveId": "O-U5-PLACE-02",
+      "hints": [
+        "",
+        "相邻计数单位满十进一。",
+        "10个一万组成1个十万。",
+        "不是跨两级进100。",
+        "所以是1十万。"
+      ],
+      "view": {
+        "title": "相邻计数单位为什么叫“十进制”",
+        "prompt": "10个一万等于多少？",
+        "choices": [
+          [
+            "tenThousand",
+            "10万"
+          ],
+          [
+            "hundredThousand",
+            "1十万"
+          ],
+          [
+            "million",
+            "1百万"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "hundredThousand",
+          "to": "groups",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "million",
+          "to": "repairRate",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-PLACE-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairRate": {
+      "objectiveId": "O-U5-PLACE-02",
+      "hints": [
+        "",
+        "看“相邻”二字。",
+        "每向左一位，计数单位扩大10倍。",
+        "万→十万只移动一位。",
+        "所以进率10。"
+      ],
+      "view": {
+        "title": "相邻单位只跨一位",
+        "prompt": "从万到十万，进率是多少？",
+        "choices": [
+          [
+            "10",
+            "10"
+          ],
+          [
+            "100",
+            "100"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "10",
+          "to": "groups",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-PLACE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "decimal-adjacent-unit-rate"
+            }
+          ]
+        }
+      ]
+    },
+    "groups": {
+      "objectiveId": "O-U5-PLACE-03",
+      "hints": [
+        "",
+        "个级包含个、十、百、千。",
+        "正好四位。",
+        "万级也有万、十万、百万、千万四位。",
+        "所以每四位一级。"
+      ],
+      "view": {
+        "title": "数级是为了组织大数结构",
+        "prompt": "按照我国计数习惯，从右边起每几个数位是一级？",
+        "choices": [
+          [
+            "four",
+            "4个"
+          ],
+          [
+            "three",
+            "3个"
+          ],
+          [
+            "five",
+            "5个"
+          ]
+        ],
+        "renderer": "placeValueGroups",
+        "rendererArgs": {
+          "value": "123456789",
+          "label": "123456789按四位一级分为亿级、万级、个级"
+        }
+      },
+      "transitions": [
+        {
+          "when": "four",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "three",
+          "to": "repairGroup",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-PLACE-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairGroup": {
+      "objectiveId": "O-U5-PLACE-03",
+      "hints": [
+        "",
+        "列出个级。",
+        "个位、十位、百位、千位。",
+        "一共4位。",
+        "因此从右起四位一级。"
+      ],
+      "view": {
+        "title": "不要把“三位一节”习惯带进来",
+        "prompt": "个级一共有几个数位？",
+        "choices": [
+          [
+            "four",
+            "4个"
+          ],
+          [
+            "three",
+            "3个"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "four",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-PLACE-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "four-digits-per-group"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U5-PLACE-03",
+      "hints": [
+        "",
+        "四个概念要分清。",
+        "数字是符号。",
+        "数位决定它对应哪个计数单位。",
+        "相邻单位十进制，每四位组成数级。"
+      ],
+      "view": {
+        "title": "把数位、计数单位和数级连起来",
+        "prompt": "哪句最准确？",
+        "choices": [
+          [
+            "rule",
+            "数字所在位置叫数位；对应的个、十、百、千、万等是计数单位；相邻单位进率10；每四位一级"
+          ],
+          [
+            "wrong",
+            "每个数字自己决定大小，位置不重要"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "place-unit-group-decimal"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U5-PLACE-01",
+      "hints": [
+        "",
+        "从右边数位。",
+        "47050000中7在百万位。",
+        "百万位上的7表示7个百万。",
+        "不要只看数字7本身。"
+      ],
+      "view": {
+        "title": "换一个大数独立判断",
+        "prompt": "47050000里的7表示什么？",
+        "choices": [
+          [
+            "sevenMillion",
+            "7个百万"
+          ],
+          [
+            "sevenHundredThousand",
+            "7个十万"
+          ],
+          [
+            "sevenTenMillion",
+            "7个千万"
+          ]
+        ],
+        "renderer": "placeValueGroups",
+        "rendererArgs": {
+          "value": "47050000",
+          "label": "47050000按四位一级分组，数字7位于百万位"
+        }
+      },
+      "transitions": [
+        {
+          "when": "sevenMillion",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U5-PLACE-04",
+      "hints": [
+        "",
+        "亿和千万是相邻计数单位。",
+        "相邻单位进率10。",
+        "1亿=10千万。",
+        "所以有10个千万。"
+      ],
+      "view": {
+        "title": "迁移到相邻单位关系",
+        "prompt": "1亿里面有多少个千万？",
+        "choices": [
+          [
+            "10",
+            "10个"
+          ],
+          [
+            "100",
+            "100个"
+          ],
+          [
+            "4",
+            "4个"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "10",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U5-PLACE-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你已经把数字、位置和数量连起来了",
+        "prompt": "大数结构靠数位组织：同一数字因位置不同表示不同数量；相邻计数单位十进一；从右起每四位组成一级。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

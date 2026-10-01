@@ -1,0 +1,1 @@
+'use strict';(()=>{const pkg=CoursePackageData['u5.place.v2'];if(!pkg)throw new Error('Missing Course Package u5.place.v2');const loaded=CoursePackageLoader.register(pkg,PlaceValueRenderer);globalThis.PlacePedagogy={...loaded,package:pkg};})();

@@ -1,0 +1,1 @@
+'use strict';(()=>{const pkg=CoursePackageData['u4.order.v2'];if(!pkg)throw new Error('Missing Course Package u4.order.v2');const loaded=CoursePackageLoader.register(pkg,{});globalThis.OrderPedagogy={...loaded,package:pkg};})();
