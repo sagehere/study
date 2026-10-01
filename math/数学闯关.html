@@ -300,6 +300,8 @@ globalThis.QuestData={COURSE,FINAL,ACTIVITIES,SOURCES};
 <script src="round-bootstrap.js"></script>
 <script src="multiply-renderer.js"></script>
 <script src="multiply-bootstrap.js"></script>
+<script src="estimate-renderer.js"></script>
+<script src="estimate-bootstrap.js"></script>
 <script id="quest-app">
 'use strict';
 const M=MathQuest,D=QuestData,allUnits=[...D.COURSE,D.FINAL],unitById=Object.fromEntries(allUnits.map(u=>[u.id,u])),questions=Object.fromEntries(allUnits.flatMap(u=>u.questions).map(q=>[q.id,q]));

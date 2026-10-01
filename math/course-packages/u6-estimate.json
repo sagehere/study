@@ -1,0 +1,677 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u6.estimate.v2",
+  "flowVersion": "0.2.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u6",
+  "nodeId": "estimate",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "估算判断正式课",
+    "title": "估算与情境判断",
+    "description": "先判断估计方向能否保证结论，再决定是否需要精算。"
+  },
+  "objectives": {
+    "direction": "O-U6-ESTIMATE-01",
+    "bound": "O-U6-ESTIMATE-02",
+    "boundary": "O-U6-ESTIMATE-03",
+    "verify": "O-U6-ESTIMATE-04",
+    "transfer": "O-U6-ESTIMATE-05"
+  },
+  "misconceptions": {
+    "nearest": "M-U6-ESTIMATE-01",
+    "wrongDirection": "M-U6-ESTIMATE-02",
+    "estimateAsExact": "M-U6-ESTIMATE-03",
+    "unit": "M-U6-ESTIMATE-04"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "boundary-concept",
+    "sourcePages": "96,99,102",
+    "sourceNote": "教材96页第7题（6300字，115字/分，45分钟）、99页第5题（50台计算器，3928元/台，20万元预算）、102页第2(3)题（800米，58米/分，12分钟）均要求用估算或合适方法作情境判断。本课程用“估计界/阈值”作为这些教材情境的数学归纳表达，不声称这是教材原术语。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U6-ESTIMATE-01",
+      "hints": [
+        "",
+        "先问：你要证明“够”，还是只想得到一个接近值？",
+        "证明“够”时，需要一个不会低估总价的界。",
+        "3928<4000，所以50×3928<50×4000。",
+        "50×4000=200000，上界都不超预算，实际总价一定更低。"
+      ],
+      "view": {
+        "title": "教材99页：先选“能保证结论”的估法",
+        "prompt": "学校买50台计算器，每台3928元，预算20万元。若要快速确认“预算够”，哪种估法最有力？",
+        "choices": [
+          [
+            "up",
+            "把3928往大估成4000"
+          ],
+          [
+            "down",
+            "把3928往小估成3900"
+          ],
+          [
+            "nearest",
+            "只要四舍五入到最近整百即可"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "up",
+          "to": "budgetBound",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "down",
+          "to": "repairDirection",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-02",
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "when": "nearest",
+          "to": "repairDirection",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairDirection": {
+      "objectiveId": "O-U6-ESTIMATE-01",
+      "hints": [
+        "",
+        "比较“估计总价”和“实际总价”谁更大。",
+        "3900<3928。",
+        "50×3900低于真实总价。",
+        "偏小估计即使低于预算，也不能保证真实总价低于预算。"
+      ],
+      "view": {
+        "title": "估算方向要跟结论配套",
+        "prompt": "为什么把3928估成3900不能直接证明20万元一定够？",
+        "choices": [
+          [
+            "lower",
+            "3900得到的是偏小的总价，真实总价可能更高"
+          ],
+          [
+            "close",
+            "因为3900离3928不够近"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "lower",
+          "to": "budgetBound",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-02"
+            },
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "estimate-direction-for-proof"
+            }
+          ]
+        }
+      ]
+    },
+    "budgetBound": {
+      "objectiveId": "O-U6-ESTIMATE-02",
+      "hints": [
+        "",
+        "4000是把实际单价往大估。",
+        "所以200000是实际总价的上界。",
+        "真实总价不会超过这个上界。",
+        "上界≤预算，所以实际总价一定≤预算。"
+      ],
+      "view": {
+        "title": "教材99页：上界都够，所以一定够",
+        "prompt": "50×4000=200000元，而实际单价3928<4000。可以据此确认预算够吗？",
+        "choices": [
+          [
+            "yes",
+            "可以确认够"
+          ],
+          [
+            "no",
+            "不能确认，必须精算"
+          ]
+        ],
+        "renderer": "thresholdBound",
+        "rendererArgs": {
+          "estimate": 200000,
+          "threshold": 200000,
+          "relation": "≤",
+          "estimateLabel": "总价上界",
+          "thresholdLabel": "预算",
+          "unit": "元",
+          "conclusion": "一定够"
+        }
+      },
+      "transitions": [
+        {
+          "when": "yes",
+          "to": "capacityBound",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "no",
+          "to": "repairBound",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-03",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairBound": {
+      "objectiveId": "O-U6-ESTIMATE-02",
+      "hints": [
+        "",
+        "真实单价是3928，不是4000。",
+        "200000来自50×4000。",
+        "它的作用是给真实总价设一个不会被超过的上限。",
+        "证明“够”不要求这个数就是准确账单。"
+      ],
+      "view": {
+        "title": "界不是准确值，但可以证明结论",
+        "prompt": "200000元是不是50台计算器的准确总价？",
+        "choices": [
+          [
+            "upper",
+            "不是，是往大估得到的上界"
+          ],
+          [
+            "exact",
+            "是准确总价"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "upper",
+          "to": "capacityBound",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "bound-vs-exact"
+            }
+          ]
+        }
+      ]
+    },
+    "capacityBound": {
+      "objectiveId": "O-U6-ESTIMATE-02",
+      "hints": [
+        "",
+        "这次比较的是“最多能完成多少”和“任务目标”。",
+        "把速度、时间都往大估，得到完成量的上界。",
+        "120×50=6000。",
+        "连上界6000都小于6300，真实完成量只会更小，所以一定不能录完。"
+      ],
+      "view": {
+        "title": "教材96页：连“往大估的能力”都不够",
+        "prompt": "一份稿件有6300字，每分钟录入115字，45分钟能录完吗？若把115往大估成120、45往大估成50，最多估成6000字。能否直接判断？",
+        "choices": [
+          [
+            "cannot",
+            "不能录完"
+          ],
+          [
+            "unknown",
+            "仍不能确定"
+          ],
+          [
+            "can",
+            "能录完"
+          ]
+        ],
+        "renderer": "thresholdBound",
+        "rendererArgs": {
+          "estimate": 6000,
+          "threshold": 6300,
+          "relation": "<",
+          "estimateLabel": "完成量上界",
+          "thresholdLabel": "稿件字数",
+          "unit": "字",
+          "conclusion": "一定录不完"
+        }
+      },
+      "transitions": [
+        {
+          "when": "cannot",
+          "to": "walkBound",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "unknown",
+          "to": "repairCapacity",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-02",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairCapacity": {
+      "objectiveId": "O-U6-ESTIMATE-02",
+      "hints": [
+        "",
+        "115估成120，45估成50，两个都变大。",
+        "乘积也会变大。",
+        "所以6000不会小于真实可完成量。",
+        "连这个更大的数都不到6300，实际更不可能达到。"
+      ],
+      "view": {
+        "title": "同样是上界，但比较对象变了",
+        "prompt": "6000是“45分钟实际能录入字数”的哪一种界？",
+        "choices": [
+          [
+            "upper",
+            "上界"
+          ],
+          [
+            "lower",
+            "下界"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "upper",
+          "to": "walkBound",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "capacity-upper-bound"
+            }
+          ]
+        }
+      ]
+    },
+    "walkBound": {
+      "objectiveId": "O-U6-ESTIMATE-03",
+      "hints": [
+        "",
+        "60比58大。",
+        "所以720是12分钟路程的上界。",
+        "真实路程<720。",
+        "720<800，因此真实路程更不可能达到800。"
+      ],
+      "view": {
+        "title": "教材102页：再次用界判断",
+        "prompt": "到图书馆800米，速度58米/分，12分钟能走到吗？把58往大估成60，60×12=720。能直接判断吗？",
+        "choices": [
+          [
+            "cannot",
+            "能判断：不能走到"
+          ],
+          [
+            "unknown",
+            "不能判断"
+          ],
+          [
+            "can",
+            "能判断：可以走到"
+          ]
+        ],
+        "renderer": "thresholdBound",
+        "rendererArgs": {
+          "estimate": 720,
+          "threshold": 800,
+          "relation": "<",
+          "estimateLabel": "12分钟路程上界",
+          "thresholdLabel": "到校路程",
+          "unit": "米",
+          "conclusion": "一定走不到"
+        }
+      },
+      "transitions": [
+        {
+          "when": "cannot",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        },
+        {
+          "when": "unknown",
+          "to": "repairWalk",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairWalk": {
+      "objectiveId": "O-U6-ESTIMATE-03",
+      "hints": [
+        "",
+        "上界表示真实值不会超过它。",
+        "真实路程≤大约720。",
+        "而720<800。",
+        "所以真实路程不可能达到800。"
+      ],
+      "view": {
+        "title": "临界判断看“能否推出”，不是看接不接近",
+        "prompt": "如果路程上界720都小于800，真实路程可能达到800吗？",
+        "choices": [
+          [
+            "no",
+            "不可能"
+          ],
+          [
+            "yes",
+            "可能"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "threshold-proof"
+            },
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true,
+                "afterRepair": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U6-ESTIMATE-04",
+      "hints": [
+        "",
+        "把前三道教材题放在一起看。",
+        "关键不是“近似得多准”，而是估计值与真实值的大小方向。",
+        "能保证真实值仍在阈值同一侧，就能直接判断。",
+        "如果估计不能保证结论，就必须换更精细的估计或精算。"
+      ],
+      "view": {
+        "title": "现在才把“有方向的估算”说成规则",
+        "prompt": "哪一句最准确？",
+        "choices": [
+          [
+            "rule",
+            "估算要看方向：若构造出的界已经足以跨过/不跨过阈值，就能直接判断；否则再精算"
+          ],
+          [
+            "nearest",
+            "所有情境都只需四舍五入到最近整十或整百"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "boundaryCase",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "directional-bound-threshold"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "boundaryCase": {
+      "objectiveId": "O-U6-ESTIMATE-04",
+      "hints": [
+        "",
+        "160<165。",
+        "所以4960低于真实需求。",
+        "偏小的需求低于库存，不能推出真实需求也低于库存。",
+        "精算165×31=5115>5000，所以实际不够。"
+      ],
+      "view": {
+        "title": "边界附近：估计不能保证时就精算",
+        "prompt": "每天吃165千克，5000千克食物要吃31天。把165往小估成160，160×31=4960<5000。能据此确认“够”吗？",
+        "choices": [
+          [
+            "exact",
+            "不能；这个方向不能保证，应该精算"
+          ],
+          [
+            "enough",
+            "能，4960<5000所以够"
+          ]
+        ],
+        "renderer": "thresholdBound",
+        "rendererArgs": {
+          "estimate": 4960,
+          "threshold": 5000,
+          "relation": "<",
+          "estimateLabel": "需求下界",
+          "thresholdLabel": "库存",
+          "unit": "千克",
+          "conclusion": "仅凭此不能判“够”"
+        }
+      },
+      "transitions": [
+        {
+          "when": "exact",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        },
+        {
+          "when": "enough",
+          "to": "repairBoundary",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U6-ESTIMATE-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairBoundary": {
+      "objectiveId": "O-U6-ESTIMATE-04",
+      "hints": [
+        "",
+        "每天165被估成160。",
+        "31天不变。",
+        "因此160×31小于165×31。",
+        "下界低于库存不够证明“够”，要精算。"
+      ],
+      "view": {
+        "title": "为什么4960不能当结论",
+        "prompt": "4960与真实31天需求是什么关系？",
+        "choices": [
+          [
+            "lower",
+            "4960是偏小的下界，真实需求更大"
+          ],
+          [
+            "exact",
+            "4960就是准确需求"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "lower",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U6-ESTIMATE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "inconclusive-bound-needs-exact"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U6-ESTIMATE-05",
+      "hints": [
+        "",
+        "两个正数量都往大估。",
+        "50×200是实际总价的上界。",
+        "上界刚好等于预算。",
+        "实际总价≤上界=预算，所以一定够。"
+      ],
+      "view": {
+        "title": "迁移：换成新的预算阈值",
+        "prompt": "学校买48件每件198元的物品，预算10000元。把48往大估成50、198往大估成200，得到10000元。可以确认预算够吗？",
+        "choices": [
+          [
+            "yes",
+            "可以确认够"
+          ],
+          [
+            "no",
+            "不能确认"
+          ]
+        ],
+        "renderer": "thresholdBound",
+        "rendererArgs": {
+          "estimate": 10000,
+          "threshold": 10000,
+          "relation": "≤",
+          "estimateLabel": "总价上界",
+          "thresholdLabel": "预算",
+          "unit": "元",
+          "conclusion": "一定够"
+        }
+      },
+      "transitions": [
+        {
+          "when": "yes",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U6-ESTIMATE-05",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你会用“界”判断，而不是只求一个大约数",
+        "prompt": "估算可以用来证明结论：先看估计方向与真实值的大小关系，再看这个界与阈值的位置；若推不出结论，就切换更精细估计或精算。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

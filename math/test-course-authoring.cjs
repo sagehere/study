@@ -20,6 +20,6 @@ try{
  x=run(['--type','procedural','--course','Demo Course','--unit','u1','--node','x','--out',tmp]);assert.notEqual(x.status,0);assert((x.stderr+x.stdout).includes('identifier rules'));
  x=run(['--type','procedural','--course','demo-course','--unit','u1','--node','publish-test','--publish']);assert.notEqual(x.status,0);assert((x.stderr+x.stdout).includes('Refusing --publish for a draft'));
  // Official package set remains exactly the five real packages; drafts are not picked up by packer/validator.
- const official=validateAll(path.join(__dirname,'course-packages'));assert.equal(official.files.length,8);assert.deepEqual(official.errors,[]);
+ const official=validateAll(path.join(__dirname,'course-packages'));assert.equal(official.files.length,9);assert.deepEqual(official.errors,[]);
  console.log(`COURSE AUTHORING TEST PASS: ${types.length} templates, stable IDs, overwrite/publish/input gates.`);
 } finally {fs.rmSync(tmp,{recursive:true,force:true});}
