@@ -2209,6 +2209,1096 @@ globalThis.CoursePackageData={
       "skipSubtotal": "M-U3-PRICE-04"
     }
   },
+  "u3.speed.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u3.speed.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u3",
+    "nodeId": "speed",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "数量关系正式课",
+      "title": "速度、时间、路程",
+      "description": "先比较同时间/同路程，再形成单位时间路程与三量关系。"
+    },
+    "objectives": {
+      "compare": "O-U3-SPEED-01",
+      "meaning": "O-U3-SPEED-02",
+      "relation": "O-U3-SPEED-03",
+      "inverse": "O-U3-SPEED-04",
+      "transfer": "O-U3-SPEED-05"
+    },
+    "misconceptions": {
+      "distanceOnly": "M-U3-SPEED-01",
+      "timeOnly": "M-U3-SPEED-02",
+      "unitRate": "M-U3-SPEED-03",
+      "inverse": "M-U3-SPEED-04"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "quantity-relation",
+      "sourcePages": "50-51",
+      "sourceNote": "教材先比较4分钟280米与4分钟240米，再比较240米用时4分与3分；时间和路程都不同则转为平均每分钟路程，并定义速度。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U3-SPEED-01",
+        "hints": [
+          "",
+          "先看两人的时间是否相同。",
+          "同样都是4分钟，可以直接比较路程。",
+          "280米比240米多。",
+          "同时间内走得更远的人更快。"
+        ],
+        "view": {
+          "title": "先看能不能直接比较",
+          "prompt": "小明4分钟走280米，小红4分钟走240米。谁走得快？",
+          "choices": [
+            [
+              "ming",
+              "小明"
+            ],
+            [
+              "red",
+              "小红"
+            ],
+            [
+              "cannot",
+              "不能比较"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "ming",
+            "to": "sameDistance",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "red",
+            "to": "repairDistance",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-SPEED-01",
+                "confidence": "high"
+              }
+            ]
+          },
+          {
+            "when": "cannot",
+            "to": "repairDistance",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-SPEED-01",
+                "confidence": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      "repairDistance": {
+        "objectiveId": "O-U3-SPEED-01",
+        "hints": [
+          "",
+          "固定住相同的量。",
+          "时间已经相同。",
+          "只需要看4分钟内各走了多远。",
+          "同时间：路程更长者更快。"
+        ],
+        "view": {
+          "title": "只修“同时间怎么比”",
+          "prompt": "两个人都走4分钟。这时比较什么最直接？",
+          "choices": [
+            [
+              "distance",
+              "比较路程"
+            ],
+            [
+              "time",
+              "比较时间"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "distance",
+            "to": "sameDistance",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-SPEED-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "same-time-comparison"
+              }
+            ]
+          }
+        ]
+      },
+      "sameDistance": {
+        "objectiveId": "O-U3-SPEED-01",
+        "hints": [
+          "",
+          "这次路程相同。",
+          "同样240米，比较谁用时更少。",
+          "3分钟比4分钟少。",
+          "同路程：用时更少者更快。"
+        ],
+        "view": {
+          "title": "换一种公平比较",
+          "prompt": "小红4分钟走240米，小刚3分钟也走240米。谁走得快？",
+          "choices": [
+            [
+              "gang",
+              "小刚"
+            ],
+            [
+              "red",
+              "小红"
+            ],
+            [
+              "distance",
+              "路程一样所以一样快"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "gang",
+            "to": "unitRate",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "distance",
+            "to": "repairTime",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-SPEED-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairTime": {
+        "objectiveId": "O-U3-SPEED-01",
+        "hints": [
+          "",
+          "固定住路程。",
+          "路程已经一样。",
+          "比较完成同样路程用了多久。",
+          "同路程：时间越少，速度越快。"
+        ],
+        "view": {
+          "title": "只修“同路程怎么比”",
+          "prompt": "都走240米时，判断快慢应该比较什么？",
+          "choices": [
+            [
+              "time",
+              "比较时间"
+            ],
+            [
+              "distance",
+              "比较路程"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "time",
+            "to": "unitRate",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-SPEED-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "same-distance-comparison"
+              }
+            ]
+          }
+        ]
+      },
+      "unitRate": {
+        "objectiveId": "O-U3-SPEED-02",
+        "hints": [
+          "",
+          "需要把比较标准统一。",
+          "可以把两个人都换算成“1分钟”。",
+          "280÷4=70，240÷3=80。",
+          "单位时间行驶的路程叫速度。"
+        ],
+        "view": {
+          "title": "时间、路程都不同怎么办",
+          "prompt": "小明4分钟280米，小刚3分钟240米。怎样公平比较？",
+          "choices": [
+            [
+              "perMinute",
+              "分别求每分钟走多少米"
+            ],
+            [
+              "distance",
+              "只比280和240"
+            ],
+            [
+              "time",
+              "只比4和3"
+            ]
+          ],
+          "renderer": "relation",
+          "rendererArgs": {
+            "unit": "速度",
+            "quantity": "时间",
+            "total": "路程",
+            "unitValue": "? 米/分",
+            "quantityValue": "? 分",
+            "totalValue": "? 米"
+          }
+        },
+        "transitions": [
+          {
+            "when": "perMinute",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "distance",
+            "to": "repairUnitRate",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-SPEED-03",
+                "confidence": "high"
+              }
+            ]
+          },
+          {
+            "when": "time",
+            "to": "repairUnitRate",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-SPEED-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairUnitRate": {
+        "objectiveId": "O-U3-SPEED-02",
+        "hints": [
+          "",
+          "问：两个人比较路程时，时间条件一样吗？",
+          "时间不同，原路程不能直接说明快慢。",
+          "都除以各自时间，得到每1分钟路程。",
+          "70米/分与80米/分才是同一标准。"
+        ],
+        "view": {
+          "title": "统一到“每1分钟”",
+          "prompt": "为什么不能只比较280米和240米？",
+          "choices": [
+            [
+              "differentTime",
+              "因为所用时间不同"
+            ],
+            [
+              "moreDistance",
+              "因为280更大"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "differentTime",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-SPEED-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "unit-rate-meaning"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U3-SPEED-03",
+        "hints": [
+          "",
+          "速度表示单位时间的路程。",
+          "求每1份通常用除法。",
+          "路程÷时间=速度。",
+          "由此可得路程=速度×时间，时间=路程÷速度。"
+        ],
+        "view": {
+          "title": "现在再形成三量关系",
+          "prompt": "哪组关系与教材定义一致？",
+          "choices": [
+            [
+              "rule",
+              "速度=路程÷时间；路程=速度×时间"
+            ],
+            [
+              "swap",
+              "速度=路程×时间"
+            ]
+          ],
+          "renderer": "relation",
+          "rendererArgs": {
+            "unit": "速度",
+            "quantity": "时间",
+            "total": "路程",
+            "unitValue": "70米/分",
+            "quantityValue": "8分",
+            "totalValue": "560米"
+          }
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "inverse",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "relation": "distance-speed-time"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "inverse": {
+        "objectiveId": "O-U3-SPEED-04",
+        "hints": [
+          "",
+          "已知路程和速度。",
+          "时间=路程÷速度。",
+          "840÷70。",
+          "840÷70=12分钟。"
+        ],
+        "view": {
+          "title": "换一个未知量",
+          "prompt": "晓棠家到学校840米，速度70米/分，需要多少分钟？",
+          "choices": [
+            [
+              "12",
+              "12分钟"
+            ],
+            [
+              "58800",
+              "58800分钟"
+            ],
+            [
+              "10",
+              "10分钟"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "12",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          },
+          {
+            "when": "58800",
+            "to": "repairInverse",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U3-SPEED-04",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairInverse": {
+        "objectiveId": "O-U3-SPEED-04",
+        "hints": [
+          "",
+          "70米/分表示每1分钟70米。",
+          "840米里包含多少个70米？",
+          "用总路程÷每分钟路程。",
+          "840÷70=12。"
+        ],
+        "view": {
+          "title": "只修未知量角色",
+          "prompt": "为什么这里不是840×70？",
+          "choices": [
+            [
+              "divide",
+              "要算“有几个70米”，所以用除法"
+            ],
+            [
+              "multiply",
+              "速度总要乘"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "divide",
+            "to": "freshInverse",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U3-SPEED-04"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "inverse-relation"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U3-SPEED-05",
+        "hints": [
+          "",
+          "先认清速度单位是米/秒。",
+          "5秒就是5个340米。",
+          "路程=速度×时间。",
+          "340×5=1700米。"
+        ],
+        "view": {
+          "title": "迁移到新单位",
+          "prompt": "声音速度340米/秒，5秒传播多少米？",
+          "choices": [
+            [
+              "1700",
+              "1700米"
+            ],
+            [
+              "68",
+              "68米"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "1700",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U3-SPEED-05",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "速度关系已经连起来了",
+          "prompt": "你已经能在同时间、同路程和不同条件下公平比较，并能在速度、时间、路程之间切换未知量。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      },
+      "freshInverse": {
+        "objectiveId": "O-U3-SPEED-04",
+        "hints": [
+          "",
+          "先认清已知的是路程和速度。",
+          "时间=路程÷速度。",
+          "560÷80。",
+          "560÷80=7分钟。"
+        ],
+        "view": {
+          "title": "换一道新题确认反求时间",
+          "prompt": "一段路程560米，速度80米/分，需要多少分钟？",
+          "choices": [
+            [
+              "7",
+              "7分钟"
+            ],
+            [
+              "44800",
+              "44800分钟"
+            ],
+            [
+              "8",
+              "8分钟"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "7",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true,
+                  "fresh": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "u4.reverse.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u4.reverse.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u4",
+    "nodeId": "reverse",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "程序改错正式课",
+      "title": "改错与逆向检查",
+      "description": "先定位第一处错误，再修正后续；用逆运算或代回检查。"
+    },
+    "objectives": {
+      "order": "O-U4-REVERSE-01",
+      "firstError": "O-U4-REVERSE-02",
+      "repair": "O-U4-REVERSE-03",
+      "transfer": "O-U4-REVERSE-04"
+    },
+    "misconceptions": {
+      "leftToRight": "M-U4-REVERSE-01",
+      "fixLast": "M-U4-REVERSE-02",
+      "trustWrong": "M-U4-REVERSE-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "procedural",
+      "sourcePages": "59,62-63",
+      "sourceNote": "教材59页要求先说运算顺序并把错误计算改正；62-63页继续用括号/混合运算和实际问题检验运算顺序与数量关系。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U4-REVERSE-01",
+        "hints": [
+          "",
+          "没有括号。",
+          "乘除先于加减。",
+          "乘除同级从左到右。",
+          "所以第一步是200÷5。"
+        ],
+        "view": {
+          "title": "先找第一步，不急着算到底",
+          "prompt": "算式440－200÷5×8，第一步应该算什么？",
+          "choices": [
+            [
+              "divide",
+              "200÷5"
+            ],
+            [
+              "subtract",
+              "440－200"
+            ],
+            [
+              "multiply",
+              "5×8"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "divide",
+            "to": "firstError",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "subtract",
+            "to": "repairOrder",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-REVERSE-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairOrder": {
+        "objectiveId": "O-U4-REVERSE-01",
+        "hints": [
+          "",
+          "先辨运算级别。",
+          "乘法和除法同级。",
+          "它们比加减优先。",
+          "同级再从左到右。"
+        ],
+        "view": {
+          "title": "只修运算顺序",
+          "prompt": "没有括号且有乘除、加减时，哪类先算？",
+          "choices": [
+            [
+              "muldiv",
+              "乘除先算"
+            ],
+            [
+              "left",
+              "从最左边开始不管符号"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "muldiv",
+            "to": "firstError",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-REVERSE-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "mixed-operation-order"
+              }
+            ]
+          }
+        ]
+      },
+      "firstError": {
+        "objectiveId": "O-U4-REVERSE-02",
+        "hints": [
+          "",
+          "逐步和正确规则对照。",
+          "200÷5应该先得到40。",
+          "然后40×8=320。",
+          "第一处错误一旦出现，后面的数都不能继续信。"
+        ],
+        "view": {
+          "title": "教材找错：第一处错在哪里",
+          "prompt": "错误过程：440－200÷5×8 → 440－200÷40 → 440－5 → 435。第一处错误是哪一步？",
+          "choices": [
+            [
+              "first",
+              "把200÷5×8错误合成200÷40"
+            ],
+            [
+              "last",
+              "最后440－5"
+            ],
+            [
+              "answer",
+              "只看答案435"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "first",
+            "to": "repairFlow",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "last",
+            "to": "repairFirstError",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-REVERSE-02",
+                "confidence": "high"
+              }
+            ]
+          },
+          {
+            "when": "answer",
+            "to": "repairFirstError",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-REVERSE-02",
+                "confidence": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      "repairFirstError": {
+        "objectiveId": "O-U4-REVERSE-02",
+        "hints": [
+          "",
+          "后续步骤依赖前一步结果。",
+          "输入错了，后面的计算对象也变了。",
+          "应从第一个错误点重新生成后续结果。",
+          "正确应为200÷5=40，40×8=320，440－320=120。"
+        ],
+        "view": {
+          "title": "为什么不能只改最后一步",
+          "prompt": "如果第二行已经错了，后面的435还能当作有效中间结果吗？",
+          "choices": [
+            [
+              "no",
+              "不能，必须从第一处错误重新算"
+            ],
+            [
+              "yes",
+              "能，只改最后答案"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "no",
+            "to": "repairFlow",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-REVERSE-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "first-error-repair"
+              }
+            ]
+          }
+        ]
+      },
+      "repairFlow": {
+        "objectiveId": "O-U4-REVERSE-03",
+        "hints": [
+          "",
+          "先200÷5。",
+          "40×8=320。",
+          "最后440－320。",
+          "结果120。"
+        ],
+        "view": {
+          "title": "修正以后要重新走后续",
+          "prompt": "正确结果是多少？",
+          "choices": [
+            [
+              "120",
+              "120"
+            ],
+            [
+              "435",
+              "435"
+            ],
+            [
+              "55",
+              "55"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "120",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          },
+          {
+            "when": "435",
+            "to": "repairTrust",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-REVERSE-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairTrust": {
+        "objectiveId": "O-U4-REVERSE-03",
+        "hints": [
+          "",
+          "错误结果可以帮助定位误区。",
+          "但不能作为新题目的正确条件。",
+          "修正首错后，后续全部重新计算。",
+          "证据链要从正确步骤重新建立。"
+        ],
+        "view": {
+          "title": "错误结果只能当线索",
+          "prompt": "435来自错误链条，应该怎样处理？",
+          "choices": [
+            [
+              "discard",
+              "保留它作为错误线索，但重新从首错处计算"
+            ],
+            [
+              "reuse",
+              "把435当正确条件继续推"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "discard",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-REVERSE-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "do-not-trust-wrong-result"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U4-REVERSE-03",
+        "hints": [
+          "",
+          "改错不是猜答案。",
+          "先定位最早违背规则的步骤。",
+          "修复后后续结果全部重算。",
+          "最后用另一条关系检查。"
+        ],
+        "view": {
+          "title": "形成改错流程",
+          "prompt": "哪套流程最可靠？",
+          "choices": [
+            [
+              "rule",
+              "先判运算顺序→逐步找首错→从首错处重算→用逆运算/代回检查"
+            ],
+            [
+              "last",
+              "只对照最终答案，不同就改最后一步"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "first-error-then-recompute"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U4-REVERSE-04",
+        "hints": [
+          "",
+          "先分别写第一步。",
+          "无括号：120÷6=20，再×5=100。",
+          "有括号：6×5=30，再120÷30=4。",
+          "250>154，所以第一个更大。"
+        ],
+        "view": {
+          "title": "迁移：括号改变顺序",
+          "prompt": "比较150＋120÷6×5与150＋120÷(6×5)。哪一个更大？",
+          "choices": [
+            [
+              "first",
+              "第一个更大"
+            ],
+            [
+              "second",
+              "第二个更大"
+            ],
+            [
+              "same",
+              "一样大"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "first",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U4-REVERSE-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "你已经会“从首错修复”",
+          "prompt": "先判断规则，再定位第一处错误；错误结果只保留为诊断线索，修正后要重建后续计算并检查。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      },
+      "independent": {
+        "objectiveId": "O-U4-REVERSE-03",
+        "hints": [
+          "",
+          "先判乘法和加减的先后。",
+          "20×5=100。",
+          "110－100=10，再加25。",
+          "正确结果35；这是新题，不能沿用前题中间数。"
+        ],
+        "view": {
+          "title": "换一道教材找错题，独立完成",
+          "prompt": "110－20×5＋25 的正确结果是多少？",
+          "choices": [
+            [
+              "35",
+              "35"
+            ],
+            [
+              "2700",
+              "2700"
+            ],
+            [
+              "115",
+              "115"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "35",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
   "u5.round.v2": {
     "schemaVersion": "0.2",
     "flowId": "u5.round.v2",

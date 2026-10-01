@@ -1,0 +1,32 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u4.reverse.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "evidenceIntegrity",
+      "severity": "major",
+      "issue": "The first blind draft moved too directly from repaired textbook work to transfer.",
+      "revision": "Add fresh textbook item 110－20×5＋25 as independent evidence before transfer.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "The repaired draft now contains fresh independent evidence and a changed-order transfer task; all ready-gate requirements are satisfied."
+}

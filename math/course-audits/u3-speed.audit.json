@@ -1,0 +1,39 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u3.speed.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "evidenceIntegrity",
+      "severity": "major",
+      "issue": "The Phase 3.3 draft marked inverse success without an explicit INDEPENDENT_PASS event and the repair path reused the repaired item before transfer.",
+      "revision": "Emit INDEPENDENT_PASS on direct independent success and route repaired learners through a fresh 560÷80 inverse item before transfer.",
+      "resolved": true
+    },
+    {
+      "dimension": "rendererFit",
+      "severity": "major",
+      "issue": "The shared relation renderer previously had a price-specific accessibility label.",
+      "revision": "Use the corrected dynamic aria-label so speed/time/distance semantics are announced correctly.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "Auto-revision closed the machine-evidence and renderer-semantics gaps; the package now satisfies the ready gate at 14/14."
+}

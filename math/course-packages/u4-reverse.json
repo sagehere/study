@@ -1,0 +1,481 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u4.reverse.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u4",
+  "nodeId": "reverse",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "程序改错正式课",
+    "title": "改错与逆向检查",
+    "description": "先定位第一处错误，再修正后续；用逆运算或代回检查。"
+  },
+  "objectives": {
+    "order": "O-U4-REVERSE-01",
+    "firstError": "O-U4-REVERSE-02",
+    "repair": "O-U4-REVERSE-03",
+    "transfer": "O-U4-REVERSE-04"
+  },
+  "misconceptions": {
+    "leftToRight": "M-U4-REVERSE-01",
+    "fixLast": "M-U4-REVERSE-02",
+    "trustWrong": "M-U4-REVERSE-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "procedural",
+    "sourcePages": "59,62-63",
+    "sourceNote": "教材59页要求先说运算顺序并把错误计算改正；62-63页继续用括号/混合运算和实际问题检验运算顺序与数量关系。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U4-REVERSE-01",
+      "hints": [
+        "",
+        "没有括号。",
+        "乘除先于加减。",
+        "乘除同级从左到右。",
+        "所以第一步是200÷5。"
+      ],
+      "view": {
+        "title": "先找第一步，不急着算到底",
+        "prompt": "算式440－200÷5×8，第一步应该算什么？",
+        "choices": [
+          [
+            "divide",
+            "200÷5"
+          ],
+          [
+            "subtract",
+            "440－200"
+          ],
+          [
+            "multiply",
+            "5×8"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "divide",
+          "to": "firstError",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "subtract",
+          "to": "repairOrder",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-REVERSE-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairOrder": {
+      "objectiveId": "O-U4-REVERSE-01",
+      "hints": [
+        "",
+        "先辨运算级别。",
+        "乘法和除法同级。",
+        "它们比加减优先。",
+        "同级再从左到右。"
+      ],
+      "view": {
+        "title": "只修运算顺序",
+        "prompt": "没有括号且有乘除、加减时，哪类先算？",
+        "choices": [
+          [
+            "muldiv",
+            "乘除先算"
+          ],
+          [
+            "left",
+            "从最左边开始不管符号"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "muldiv",
+          "to": "firstError",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-REVERSE-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "mixed-operation-order"
+            }
+          ]
+        }
+      ]
+    },
+    "firstError": {
+      "objectiveId": "O-U4-REVERSE-02",
+      "hints": [
+        "",
+        "逐步和正确规则对照。",
+        "200÷5应该先得到40。",
+        "然后40×8=320。",
+        "第一处错误一旦出现，后面的数都不能继续信。"
+      ],
+      "view": {
+        "title": "教材找错：第一处错在哪里",
+        "prompt": "错误过程：440－200÷5×8 → 440－200÷40 → 440－5 → 435。第一处错误是哪一步？",
+        "choices": [
+          [
+            "first",
+            "把200÷5×8错误合成200÷40"
+          ],
+          [
+            "last",
+            "最后440－5"
+          ],
+          [
+            "answer",
+            "只看答案435"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "first",
+          "to": "repairFlow",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "last",
+          "to": "repairFirstError",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-REVERSE-02",
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "when": "answer",
+          "to": "repairFirstError",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-REVERSE-02",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairFirstError": {
+      "objectiveId": "O-U4-REVERSE-02",
+      "hints": [
+        "",
+        "后续步骤依赖前一步结果。",
+        "输入错了，后面的计算对象也变了。",
+        "应从第一个错误点重新生成后续结果。",
+        "正确应为200÷5=40，40×8=320，440－320=120。"
+      ],
+      "view": {
+        "title": "为什么不能只改最后一步",
+        "prompt": "如果第二行已经错了，后面的435还能当作有效中间结果吗？",
+        "choices": [
+          [
+            "no",
+            "不能，必须从第一处错误重新算"
+          ],
+          [
+            "yes",
+            "能，只改最后答案"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "repairFlow",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-REVERSE-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "first-error-repair"
+            }
+          ]
+        }
+      ]
+    },
+    "repairFlow": {
+      "objectiveId": "O-U4-REVERSE-03",
+      "hints": [
+        "",
+        "先200÷5。",
+        "40×8=320。",
+        "最后440－320。",
+        "结果120。"
+      ],
+      "view": {
+        "title": "修正以后要重新走后续",
+        "prompt": "正确结果是多少？",
+        "choices": [
+          [
+            "120",
+            "120"
+          ],
+          [
+            "435",
+            "435"
+          ],
+          [
+            "55",
+            "55"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "120",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        },
+        {
+          "when": "435",
+          "to": "repairTrust",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-REVERSE-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairTrust": {
+      "objectiveId": "O-U4-REVERSE-03",
+      "hints": [
+        "",
+        "错误结果可以帮助定位误区。",
+        "但不能作为新题目的正确条件。",
+        "修正首错后，后续全部重新计算。",
+        "证据链要从正确步骤重新建立。"
+      ],
+      "view": {
+        "title": "错误结果只能当线索",
+        "prompt": "435来自错误链条，应该怎样处理？",
+        "choices": [
+          [
+            "discard",
+            "保留它作为错误线索，但重新从首错处计算"
+          ],
+          [
+            "reuse",
+            "把435当正确条件继续推"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "discard",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-REVERSE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "do-not-trust-wrong-result"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U4-REVERSE-03",
+      "hints": [
+        "",
+        "改错不是猜答案。",
+        "先定位最早违背规则的步骤。",
+        "修复后后续结果全部重算。",
+        "最后用另一条关系检查。"
+      ],
+      "view": {
+        "title": "形成改错流程",
+        "prompt": "哪套流程最可靠？",
+        "choices": [
+          [
+            "rule",
+            "先判运算顺序→逐步找首错→从首错处重算→用逆运算/代回检查"
+          ],
+          [
+            "last",
+            "只对照最终答案，不同就改最后一步"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "first-error-then-recompute"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U4-REVERSE-04",
+      "hints": [
+        "",
+        "先分别写第一步。",
+        "无括号：120÷6=20，再×5=100。",
+        "有括号：6×5=30，再120÷30=4。",
+        "250>154，所以第一个更大。"
+      ],
+      "view": {
+        "title": "迁移：括号改变顺序",
+        "prompt": "比较150＋120÷6×5与150＋120÷(6×5)。哪一个更大？",
+        "choices": [
+          [
+            "first",
+            "第一个更大"
+          ],
+          [
+            "second",
+            "第二个更大"
+          ],
+          [
+            "same",
+            "一样大"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "first",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U4-REVERSE-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "你已经会“从首错修复”",
+        "prompt": "先判断规则，再定位第一处错误；错误结果只保留为诊断线索，修正后要重建后续计算并检查。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    },
+    "independent": {
+      "objectiveId": "O-U4-REVERSE-03",
+      "hints": [
+        "",
+        "先判乘法和加减的先后。",
+        "20×5=100。",
+        "110－100=10，再加25。",
+        "正确结果35；这是新题，不能沿用前题中间数。"
+      ],
+      "view": {
+        "title": "换一道教材找错题，独立完成",
+        "prompt": "110－20×5＋25 的正确结果是多少？",
+        "choices": [
+          [
+            "35",
+            "35"
+          ],
+          [
+            "2700",
+            "2700"
+          ],
+          [
+            "115",
+            "115"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "35",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
