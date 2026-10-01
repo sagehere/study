@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "External Math Education Review Record",
+  "type": "object",
+  "required": ["reviewSchemaVersion","reviewId","reviewRound","flowId","reviewedFlowVersion","reviewedPackageSha256","reviewer","context","overall","findings","closure"],
+  "additionalProperties": false,
+  "properties": {
+    "reviewSchemaVersion": {"const":"0.1.0"},
+    "reviewId": {"type":"string","pattern":"^ER-[A-Z0-9-]+-R[1-9][0-9]*$"},
+    "reviewRound": {"type":"integer","minimum":1},
+    "flowId": {"type":"string","minLength":1},
+    "reviewedFlowVersion": {"type":"string","pattern":"^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "reviewedPackageSha256": {"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "reviewer": {
+      "type":"object","required":["role"],"additionalProperties":false,
+      "properties": {
+        "role":{"enum":["math-education-expert","frontline-teacher","curriculum-researcher","teaching-researcher","other"]},
+        "label":{"type":"string"},"organization":{"type":"string"}
+      }
+    },
+    "context": {
+      "type":"object","required":["mode"],"additionalProperties":false,
+      "properties": {
+        "date":{"type":"string"},
+        "mode":{"enum":["written-review","interview","lesson-observation","classroom-trial","workshop","other"]},
+        "studentPopulation":{"type":"string"},"notes":{"type":"string"}
+      }
+    },
+    "overall": {
+      "type":"object","required":["status","summary"],"additionalProperties":false,
+      "properties":{"status":{"enum":["draft","submitted","triaged"]},"summary":{"type":"string"}}
+    },
+    "findings": {"type":"array","items":{"$ref":"#/$defs/finding"}},
+    "closure": {
+      "type":"object","required":["status","notes","internalRevalidation"],"additionalProperties":false,
+      "properties": {
+        "status":{"enum":["open","closed"]},"notes":{"type":"string"},
+        "resolvedFlowVersion":{"type":["string","null"]},
+        "resolvedPackageSha256":{"type":["string","null"]},
+        "internalRevalidation": {
+          "type":"object","required":["packageValidation","pedagogyAudit","stateMachine","browserE2E"],"additionalProperties":false,
+          "properties": {
+            "packageValidation":{"type":"boolean"},"pedagogyAudit":{"type":"boolean"},
+            "stateMachine":{"type":"boolean"},"browserE2E":{"type":"boolean"}
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "finding": {
+      "type":"object","required":["findingId","category","severity","target","observation","recommendation","disposition","impact"],"additionalProperties":false,
+      "properties": {
+        "findingId":{"type":"string","pattern":"^F[1-9][0-9]*$"},
+        "category":{"enum":["source-accuracy","concept-sequence","misconception","hint-scaffold","language","representation","evidence","transfer","classroom-feasibility","accessibility","engagement","other"]},
+        "severity":{"enum":["suggestion","minor","major","critical"]},
+        "target": {
+          "type":"object","additionalProperties":false,
+          "properties":{"stepId":{"type":"string"},"objectiveId":{"type":"string"},"misconceptionId":{"type":"string"},"renderer":{"type":"string"},"note":{"type":"string"}}
+        },
+        "observation":{"type":"string","minLength":1},"recommendation":{"type":"string"},
+        "disposition": {
+          "type":"object","required":["status","rationale"],"additionalProperties":false,
+          "properties":{"status":{"enum":["pending","accepted","partially-accepted","rejected","deferred"]},"rationale":{"type":"string"}}
+        },
+        "impact": {
+          "type":"object","required":["flowVersionPolicy","sessionPolicy","requiredChecks"],"additionalProperties":false,
+          "properties": {
+            "flowVersionPolicy":{"enum":["undecided","preserve","bump"]},
+            "sessionPolicy":{"enum":["undecided","preserve","restart","migrate"]},
+            "affectedSteps":{"type":"array","items":{"type":"string"}},
+            "affectedObjectives":{"type":"array","items":{"type":"string"}},
+            "requiredChecks":{"type":"array","items":{"enum":["package-validation","pedagogy-audit","state-machine","browser-e2e","skill-eval","manual-review"]}}
+          }
+        }
+      }
+    }
+  }
+}

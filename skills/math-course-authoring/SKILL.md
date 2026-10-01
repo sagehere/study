@@ -1,6 +1,6 @@
 ---
 name: math-course-authoring
-description: Author, audit, revise, and validate declarative Course Package JSON for offline primary-math learning flows. Use when ChatGPT needs to turn textbook sections, knowledge nodes, lesson goals, or existing math content into the project's Course Package format; classify procedural, concept-representation, quantity-relation, or boundary-concept nodes; design objectives, misconceptions, H0-H4 hints, repair, independent/transfer evidence, variants, and renderer declarations; or review/fix an existing Course Package and produce a scored pedagogy audit. Do not use for runtime tutoring or arbitrary JavaScript generation.
+description: Author, audit, revise, validate, and professionally review declarative Course Package JSON for offline primary-math learning flows. Use when ChatGPT needs to turn textbook sections, knowledge nodes, lesson goals, or existing math content into the project's Course Package format; classify procedural, concept-representation, quantity-relation, or boundary-concept nodes; design objectives, misconceptions, H0-H4 hints, repair, independent/transfer evidence, variants, and renderer declarations; or review/fix an existing Course Package and produce a scored pedagogy audit. Do not use for runtime tutoring or arbitrary JavaScript generation.
 ---
 
 # Math Course Authoring
@@ -24,6 +24,10 @@ Create textbook-grounded, declarative Course Packages for the offline learning e
 13. **Stop rather than hallucinate when `blocked`.** Missing source evidence, an unavailable renderer, or a DSL/runtime capability gap is not solved by inventing facts or misusing a renderer. Keep the package `draft`, describe the gap, and state what external change is needed.
 14. **Promote to `ready` only through the gate.** Set `meta.authoringStatus` to `ready` only after the audit supports it, then run `scripts/validate_audit_report.py <package.json> <audit.json> --require-ready`. If the gate fails, revert to `draft` and revise or report the blocker.
 15. **Return both artifacts.** Return the Course Package JSON and audit JSON, plus a short summary of knowledge type, objectives, misconceptions, independent/transfer evidence, revision rounds, score, and unresolved gaps.
+16. **Keep internal readiness separate from professional review.** `meta.authoringStatus=ready` and a passing 14-point audit mean internally ready only. Never call a package expert-reviewed, teacher-approved, classroom-validated, or professionally endorsed unless a closed external review record covers the current package hash/version.
+17. **Capture external feedback before revising.** When a mathematics-education expert, frontline teacher, curriculum/teaching researcher, or classroom trial provides feedback, read `references/external-review-workflow.md`, scaffold a review record with `scripts/scaffold_external_review.py`, preserve the original observation, and record a disposition plus rationale for every finding.
+18. **Plan compatibility before accepting a change.** For accepted/partially accepted findings, record affected steps/objectives, flow-version policy, learner-session policy, and required checks. Bump `flowVersion` whenever changed teaching semantics could make an in-progress saved session inconsistent.
+19. **Close review only after revalidation.** After revision, rerun package validation, pedagogy audit, state-machine tests, browser E2E, and relevant Skill evals; record the resolved package hash/version and only then close the review. A later package change makes that review stale for the new version.
 
 ## Teaching rules
 
@@ -47,11 +51,15 @@ Read these only as needed:
 - `references/audit-rubric.md` — seven-dimension 14-point pedagogy quality gate and critical failures.
 - `references/audit-report-format.md` — required audit JSON fields and decision semantics.
 - `references/audit-report.schema.json` — machine-readable audit report structure.
+- `references/external-review-workflow.md` — external expert/teacher feedback, disposition, revision, compatibility, and closure workflow.
+- `references/external-review.schema.json` — machine-readable professional review record structure.
 - `references/templates/*.json` — reusable scaffold metadata.
 - `scripts/scaffold_course_package.py` — deterministic scaffold and stable-ID generation.
 - `scripts/validate_course_package.py` — deterministic Course Package validator.
 - `scripts/validate_audit_report.py` — deterministic audit/gate validator.
+- `scripts/scaffold_external_review.py` — bind a new review round to the exact current flow version/package hash.
+- `scripts/validate_external_review.py` — validate review records and whether they still cover the current package.
 
 ## Output expectations
 
-Use the Course Package JSON as the primary artifact and a companion audit JSON. Keep `meta.authoringStatus` as `draft` until source grounding, misconception design, H0-H4, fresh independent evidence, transfer evidence, renderer semantics, deterministic validation, and the audit gate all support `ready`. Never hide a lower score or unresolved gap by changing the audit wording.
+Use the Course Package JSON as the primary artifact and a companion internal audit JSON. Treat external professional review records as a separate evidence layer; absence of external review is not an internal audit failure, but must remain explicit. Keep `meta.authoringStatus` as `draft` until source grounding, misconception design, H0-H4, fresh independent evidence, transfer evidence, renderer semantics, deterministic validation, and the audit gate all support `ready`. Never hide a lower score or unresolved gap by changing the audit wording.

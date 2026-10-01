@@ -22,5 +22,6 @@ try{
  // Official package set is validated as production data; drafts outside course-packages are not picked up by packer/validator.
  const official=validateAll(path.join(__dirname,'course-packages'));assert.equal(official.files.length,26);assert.deepEqual(official.errors,[]);
  const inventory=cp.spawnSync(process.execPath,[path.join(__dirname,'generate-migration-inventory.cjs'),'--check'],{encoding:'utf8'});assert.equal(inventory.status,0,inventory.stderr||inventory.stdout);
+ const externalReviews=cp.spawnSync(process.execPath,[path.join(__dirname,'generate-external-review-status.cjs'),'--check'],{encoding:'utf8'});assert.equal(externalReviews.status,0,externalReviews.stderr||externalReviews.stdout);
  console.log(`COURSE AUTHORING TEST PASS: ${types.length} templates, stable IDs, overwrite/publish/input gates.`);
 } finally {fs.rmSync(tmp,{recursive:true,force:true});}

@@ -38,7 +38,13 @@ Only `{{variant.<field>}}` and `{{course.<field>}}` placeholders are allowed. Te
 
 ## Authoring status
 - `draft`: scaffold or incomplete teaching design; never present it as production-ready.
-- `ready`: source-grounded, fully authored, validated, and reviewed.
+- `ready`: source-grounded, fully authored, deterministically validated, and passed the project's internal pedagogy audit. It does **not** mean external expert/teacher approval.
 
 ## Publication quality gate
 Before marking `ready`, verify: source grounding; stable IDs; no TODO placeholders; targeted misconceptions; H0-H4 quality; independent evidence; transfer evidence; renderer names; all transition targets; no dead ends; and deterministic validation.
+
+## External professional review
+
+External mathematics-education/teacher review is a separate evidence layer from `authoringStatus` and the internal 14-point audit. Bind each review round to the exact `flowVersion` and canonical package SHA-256. Preserve reviewer observations, record disposition/rationale, analyze version/session impact before revision, and close only after required regression gates pass. A later package change makes a previous review stale unless that review closes against the resolved package version/hash.
+
+Never use `ready`, a 14/14 audit, or successful automated tests as evidence that a mathematics-education expert or frontline teacher has approved the current package.

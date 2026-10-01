@@ -23,6 +23,10 @@ Any of these prevents a `pass` decision until fixed:
 - `ready` claimed while source questions, renderer gaps, TODOs, or known major findings remain;
 - executable/unsafe Course Package content or bypass of deterministic validation.
 
+## Scope boundary
+
+This rubric is an **internal design-quality gate**. It does not substitute for mathematics-education expert review, frontline-teacher review, classroom observation, or empirical learning-outcome validation. A 14/14 package may still be `not_reviewed` externally.
+
 ## Ready gate
 
 `ready` requires all of the following:
