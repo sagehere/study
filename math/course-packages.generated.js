@@ -2825,5 +2825,573 @@ globalThis.CoursePackageData={
       "wrongUnit": "M-U5-ROUND-03",
       "reverseInterval": "M-U5-ROUND-04"
     }
+  },
+  "u6.multiply.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u6.multiply.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u6",
+    "nodeId": "multiply",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "程序理解试点",
+      "title": "三位数乘两位数",
+      "description": "先解释两位数的位值和两个部分积，再形成竖式规则；错误只修位值或对齐问题。"
+    },
+    "objectives": {
+      "decompose": "O-U6-MULTIPLY-01",
+      "partialProducts": "O-U6-MULTIPLY-02",
+      "verify": "O-U6-MULTIPLY-03",
+      "transfer": "O-U6-MULTIPLY-04"
+    },
+    "misconceptions": {
+      "tensAsOnes": "M-U6-MULTIPLY-01",
+      "misalignTens": "M-U6-MULTIPLY-02",
+      "zeroHandling": "M-U6-MULTIPLY-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "procedural",
+      "sourcePages": "95-97",
+      "sourceNote": "教材先用128×16说明16=10+6及竖式各部分积意义，再练习90×120与找错。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U6-MULTIPLY-01",
+        "hints": [
+          "",
+          "先看16里十位上的1表示多少。",
+          "16不是1+6，而是10+6。",
+          "把16拆成10和6，再分别与128相乘。",
+          "128×16=128×10+128×6。"
+        ],
+        "view": {
+          "title": "先解释16，不急着列竖式",
+          "prompt": "月星小区有16幢楼，每幢128户。哪一个分解真正表示128×16？",
+          "choices": [
+            [
+              "decompose",
+              "128×10＋128×6"
+            ],
+            [
+              "ones",
+              "128×1＋128×6"
+            ],
+            [
+              "add",
+              "128＋16"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "decompose",
+            "to": "guidedPartial",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "ones",
+            "to": "repairPlaceValue",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-MULTIPLY-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairPlaceValue": {
+        "objectiveId": "O-U6-MULTIPLY-01",
+        "hints": [
+          "",
+          "把16写成十位和个位。",
+          "十位上的1表示1个十，也就是10。",
+          "所以16=10+6。",
+          "128×16应拆成128×10和128×6。"
+        ],
+        "view": {
+          "title": "只修一个点：十位1不是1",
+          "prompt": "16的十位上是1。这个1在这里实际表示多少？",
+          "choices": [
+            [
+              "ten",
+              "10"
+            ],
+            [
+              "one",
+              "1"
+            ],
+            [
+              "sixteen",
+              "16"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "ten",
+            "to": "guidedPartial",
+            "lane": "standard",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-MULTIPLY-01"
+              },
+              {
+                "type": "emit",
+                "event": "REPAIR_SUCCESS",
+                "result": {
+                  "misconception_id": "M-U6-MULTIPLY-01"
+                }
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "tens_place_value"
+              }
+            ]
+          }
+        ]
+      },
+      "guidedPartial": {
+        "objectiveId": "O-U6-MULTIPLY-02",
+        "hints": [
+          "",
+          "竖式第一行部分积来自个位6。",
+          "第二行来自十位1，但这个1表示10。",
+          "128×6=768；128×10=1280。",
+          "第二个部分积表示10幢楼共1280户，因此要从十位对齐。"
+        ],
+        "view": {
+          "title": "竖式里的两行部分积分别是谁？",
+          "prompt": "计算128×16时，第二行部分积应该表示什么？",
+          "choices": [
+            [
+              "tens",
+              "128×10＝1280，表示10幢楼的户数"
+            ],
+            [
+              "one",
+              "128×1＝128，表示1幢楼的户数"
+            ],
+            [
+              "six",
+              "128×6＝768，表示6幢楼的户数"
+            ]
+          ],
+          "renderer": "partialProducts",
+          "rendererArgs": {
+            "a": 128,
+            "b": 16,
+            "onesProduct": 768,
+            "tensProduct": 1280,
+            "total": 2048,
+            "highlight": "tens"
+          }
+        },
+        "transitions": [
+          {
+            "when": "tens",
+            "to": "alignCheck",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "one",
+            "to": "repairAlign",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-MULTIPLY-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairAlign": {
+        "objectiveId": "O-U6-MULTIPLY-02",
+        "hints": [
+          "",
+          "先问这一行是乘个位还是乘十位。",
+          "第二行来自十位1，也就是10。",
+          "128×10的个位必定是0。",
+          "所以1280在竖式中要体现十位价值，不能把128直接与个位对齐。"
+        ],
+        "view": {
+          "title": "为什么第二行要错开一位？",
+          "prompt": "如果第二行写的是128×10，它的个位应该是什么？",
+          "choices": [
+            [
+              "zero",
+              "0，因此部分积要体现十位对齐"
+            ],
+            [
+              "eight",
+              "8，因此和第一行完全对齐"
+            ]
+          ],
+          "renderer": "partialProducts",
+          "rendererArgs": {
+            "a": 128,
+            "b": 16,
+            "onesProduct": 768,
+            "tensProduct": 1280,
+            "total": 2048,
+            "highlight": "alignment"
+          }
+        },
+        "transitions": [
+          {
+            "when": "zero",
+            "to": "alignCheck",
+            "lane": "standard",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-MULTIPLY-02"
+              },
+              {
+                "type": "emit",
+                "event": "REPAIR_SUCCESS",
+                "result": {
+                  "misconception_id": "M-U6-MULTIPLY-02"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "alignCheck": {
+        "objectiveId": "O-U6-MULTIPLY-03",
+        "hints": [
+          "",
+          "教材找错题要先看每一行部分积来自哪一位。",
+          "121×63中，乘6实际上是乘60。",
+          "121×60=7260，不是726。",
+          "如果把726按个位部分积那样对齐，最后得到1089，会小一个数量级。"
+        ],
+        "view": {
+          "title": "找错：算对数字，不等于位置也对",
+          "prompt": "121×63的竖式里，如果第二行把726直接和第一行363的个位对齐，主要错在哪里？",
+          "choices": [
+            [
+              "place",
+              "把十位6当成了6，没有体现×60的位值"
+            ],
+            [
+              "three",
+              "121×3算错了"
+            ],
+            [
+              "add",
+              "两个部分积不能相加"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "place",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U6-MULTIPLY-03",
+        "hints": [
+          "",
+          "把前面三件事合起来：先乘哪一位、那一位表示多少、部分积放在哪里。",
+          "个位数乘出的部分积从个位对齐。",
+          "十位数实际表示几十，乘出的部分积要体现十位价值。",
+          "三位数乘两位数：分别乘个位和十位；十位部分积按十位对齐；最后把部分积相加。"
+        ],
+        "view": {
+          "title": "现在才把竖式规则说完整",
+          "prompt": "哪一句最准确地概括三位数乘两位数的竖式？",
+          "choices": [
+            [
+              "rule",
+              "分别乘个位和十位；十位部分积体现几十并按十位对齐；最后相加"
+            ],
+            [
+              "digits",
+              "只要每行数字算对，写在哪一位都一样"
+            ],
+            [
+              "one",
+              "十位上的1永远按1来乘"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "partial-products-by-place-value"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U6-MULTIPLY-02",
+        "hints": [
+          "",
+          "把65拆成60和5。",
+          "324×5=1620。",
+          "324×60=19440。",
+          "1620+19440=21060。"
+        ],
+        "view": {
+          "title": "撤掉解释支架，独立完成一次",
+          "prompt": "324×65的正确积是多少？",
+          "choices": [
+            [
+              "21060",
+              "21060"
+            ],
+            [
+              "3564",
+              "3564"
+            ],
+            [
+              "19441620",
+              "把两个部分积直接拼接"
+            ]
+          ],
+          "renderer": "partialProducts",
+          "rendererArgs": {
+            "a": 324,
+            "b": 65,
+            "onesProduct": 1620,
+            "tensProduct": 19440,
+            "total": 21060,
+            "highlight": "none"
+          }
+        },
+        "transitions": [
+          {
+            "when": "21060",
+            "to": "zeroCase",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "zeroCase": {
+        "objectiveId": "O-U6-MULTIPLY-03",
+        "hints": [
+          "",
+          "先去掉末尾0，看90和120各带来几个10。",
+          "90=9×10，120=12×10。",
+          "9×12=108，同时还有10×10=100。",
+          "所以90×120=108×100=10800，末尾有两个0。"
+        ],
+        "view": {
+          "title": "教材的特殊情况：乘数末尾有0",
+          "prompt": "90×120为什么可以先算9×12，再在积的末尾添两个0？",
+          "choices": [
+            [
+              "hundred",
+              "因为90=9×10、120=12×10，还要乘10×10=100"
+            ],
+            [
+              "habit",
+              "因为乘法题末尾有几个0就随便添几个0"
+            ],
+            [
+              "onezero",
+              "只需补一个0"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "hundred",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          },
+          {
+            "when": "habit",
+            "to": "repairZero",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U6-MULTIPLY-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairZero": {
+        "objectiveId": "O-U6-MULTIPLY-03",
+        "hints": [
+          "",
+          "把每个末尾0都改写成一个×10。",
+          "90=9×10。",
+          "120=12×10。",
+          "两个×10合起来是×100，所以108要乘100得到10800。"
+        ],
+        "view": {
+          "title": "0不是装饰，它表示10的因子",
+          "prompt": "90×120里一共包含几个“×10”的因子？",
+          "choices": [
+            [
+              "two",
+              "2个"
+            ],
+            [
+              "one",
+              "1个"
+            ],
+            [
+              "zero",
+              "0个"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "two",
+            "to": "transfer",
+            "lane": "standard",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U6-MULTIPLY-03"
+              },
+              {
+                "type": "emit",
+                "event": "REPAIR_SUCCESS",
+                "result": {
+                  "misconception_id": "M-U6-MULTIPLY-03"
+                }
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "trailing_zero_place_value"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U6-MULTIPLY-04",
+        "hints": [
+          "",
+          "把25拆成20和5。",
+          "226×5=1130。",
+          "226×20=4520。",
+          "1130+4520=5650元。"
+        ],
+        "view": {
+          "title": "迁移到新情境：不再提示竖式行数",
+          "prompt": "学校更换226支节能灯管，每支25元。一共需要多少元？",
+          "choices": [
+            [
+              "5650",
+              "5650元"
+            ],
+            [
+              "5876",
+              "5876元"
+            ],
+            [
+              "1130",
+              "1130元"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "5650",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U6-MULTIPLY-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "reviewOnH4": false,
+        "view": {
+          "title": "你已经把竖式和位值连起来了",
+          "prompt": "三位数乘两位数不是记两行位置：每一行部分积都来自一个数位。个位表示几个一，十位表示几个十；部分积必须按它的位值对齐，最后再合并。末尾0同样来自10的因子。",
+          "choices": []
+        },
+        "transitions": []
+      }
+    }
   }
 };

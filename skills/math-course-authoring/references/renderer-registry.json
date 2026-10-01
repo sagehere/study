@@ -1,9 +1,18 @@
 {
   "schemaVersion": "0.1.0",
   "renderers": [
-    "ratioBar", "compareBars",
-    "rect", "sideSum", "tileRows",
-    "items", "relation", "equalParts", "budget",
-    "numberLine", "nearest", "interval"
+    "ratioBar",
+    "compareBars",
+    "rect",
+    "sideSum",
+    "tileRows",
+    "items",
+    "relation",
+    "equalParts",
+    "budget",
+    "numberLine",
+    "nearest",
+    "interval",
+    "partialProducts"
   ]
 }
