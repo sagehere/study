@@ -16,7 +16,7 @@
     for(const [id,s] of Object.entries(pkg.steps)){
       if(!s.objectiveId)errors.push(id+': missing objectiveId'); else if(objectiveIds.size&&!objectiveIds.has(s.objectiveId))errors.push(id+': unknown objectiveId '+s.objectiveId);
       if(!s.view||typeof s.view!=='object'||Array.isArray(s.view))errors.push(id+': view must be data object');
-      if(s.view?.renderer){if(typeof s.view.renderer!=='string')errors.push(id+': renderer must be string');else if(typeof rendererRegistry[s.view.renderer]!=='function')errors.push(id+': unknown renderer '+s.view.renderer);if(s.view.rendererArgs!==undefined&&(!s.view.rendererArgs||typeof s.view.rendererArgs!=='object'))errors.push(id+': rendererArgs must be object or array');}
+      if(s.view?.renderer){if(typeof s.view.renderer!=='string')errors.push(id+': renderer must be string');else if(typeof rendererRegistry[s.view.renderer]!=='function')errors.push(id+': unknown renderer '+s.view.renderer);if(s.view.rendererArgs!==undefined&&(!s.view.rendererArgs||typeof s.view.rendererArgs!=='object'))errors.push(id+': rendererArgs must be object or array');}if(s.view?.visuals){if(!Array.isArray(s.view.visuals))errors.push(id+': visuals must be array');else for(const v of s.view.visuals){if(!v||typeof v.renderer!=='string'||typeof rendererRegistry[v.renderer]!=='function')errors.push(id+': unknown visual renderer '+(v?.renderer||''));if(v?.args!==undefined&&(!v.args||typeof v.args!=='object'))errors.push(id+': visual args must be object or array');}}
       if(s.view?.promptTemplate!==undefined&&typeof s.view.promptTemplate!=='string')errors.push(id+': promptTemplate must be string');
       if(s.hints&&(!Array.isArray(s.hints)||s.hints.length!==5||s.hints.some(x=>typeof x!=='string')))errors.push(id+': hints must be 5 strings');
       if(s.variants&&(!Array.isArray(s.variants)||s.variants.some(v=>!v||typeof v!=='object'||!v.id||v.answer===undefined)))errors.push(id+': variants malformed');
@@ -46,9 +46,9 @@
       def.steps[id].view=({variant,renderers})=>{
         const ctx={variant:variant||{},course:pkg.meta||{}};
         const view=templateDeep(raw,ctx),name=view.renderer,args=view.rendererArgs;
-        delete view.renderer;delete view.rendererArgs;delete view.promptTemplate;
+        delete view.renderer;delete view.rendererArgs;delete view.visuals;delete view.promptTemplate;
         if(raw.promptTemplate)view.prompt=template(raw.promptTemplate,ctx);
-        if(name){const resolved=templateDeep(args||{},ctx);view.visual=Array.isArray(resolved)?renderers[name](...resolved):renderers[name](resolved);}
+        if(name){const resolved=templateDeep(args||{},ctx);view.visual=Array.isArray(resolved)?renderers[name](...resolved):renderers[name](resolved);}else if(raw.visuals){view.visual=raw.visuals.map(v=>{const resolved=templateDeep(v.args||{},ctx);return Array.isArray(resolved)?renderers[v.renderer](...resolved):renderers[v.renderer](resolved);}).join('');}
         return view;
       };
     }

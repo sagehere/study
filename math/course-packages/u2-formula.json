@@ -1,0 +1,480 @@
+{
+  "schemaVersion": "0.2",
+  "flowId": "u2.formula.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u2",
+  "nodeId": "formula",
+  "initialStep": "derivePerimeter",
+  "steps": {
+    "derivePerimeter": {
+      "objectiveId": "O-U2-FORMULA-01",
+      "hints": [
+        "",
+        "沿四条边依次相加。",
+        "长方形有两条长、两条宽。",
+        "5＋3＋5＋3可以整理。",
+        "周长=(长+宽)×2。"
+      ],
+      "transitions": [
+        {
+          "when": "sum",
+          "to": "compressPerimeter",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "area",
+          "to": "repairFormula",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-FORMULA-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ],
+      "view": {
+        "title": "公式先别背：从四条边长出来",
+        "prompt": "长5厘米、宽3厘米的长方形，沿边界走一圈。哪个算式最直接体现“四条边”？",
+        "choices": [
+          [
+            "sum",
+            "5＋3＋5＋3"
+          ],
+          [
+            "area",
+            "5×3"
+          ],
+          [
+            "half",
+            "5＋3"
+          ]
+        ],
+        "renderer": "sideSum",
+        "rendererArgs": [
+          5,
+          3
+        ]
+      }
+    },
+    "repairFormula": {
+      "objectiveId": "O-U2-FORMULA-01",
+      "hints": [
+        "",
+        "5×3是在数几行几列。",
+        "周长必须把四条边都包含进去。",
+        "两条长+两条宽。",
+        "5＋3＋5＋3才描述边界一圈。"
+      ],
+      "transitions": [
+        {
+          "when": "sum",
+          "to": "compressPerimeter",
+          "lane": "standard",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-FORMULA-01"
+            },
+            {
+              "type": "emit",
+              "event": "REPAIR_SUCCESS",
+              "result": {
+                "misconception_id": "M-U2-FORMULA-01"
+              }
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "formula_swap"
+            }
+          ]
+        }
+      ],
+      "view": {
+        "title": "区分“沿边”和“铺格”",
+        "prompt": "现在只沿红色边界走一圈，应该使用哪种关系？",
+        "choices": [
+          [
+            "sum",
+            "把四条边加起来"
+          ],
+          [
+            "multiply",
+            "长×宽"
+          ]
+        ],
+        "renderer": "rect",
+        "rendererArgs": {
+          "w": 5,
+          "h": 3,
+          "mode": "both"
+        }
+      }
+    },
+    "compressPerimeter": {
+      "objectiveId": "O-U2-FORMULA-01",
+      "hints": [
+        "",
+        "把相同的两条长、两条宽配对。",
+        "5＋3＋5＋3=(5＋3)×2。",
+        "括号里是一条长加一条宽，也叫半周长。",
+        "长方形周长=(长+宽)×2。"
+      ],
+      "view": {
+        "title": "把四边相加压缩成公式",
+        "prompt": "5＋3＋5＋3可以等价写成？",
+        "choices": [
+          [
+            "p",
+            "(5＋3)×2"
+          ],
+          [
+            "a",
+            "5×3"
+          ],
+          [
+            "wrong",
+            "5＋3×2"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "p",
+          "to": "deriveArea",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "deriveArea": {
+      "objectiveId": "O-U2-FORMULA-02",
+      "hints": [
+        "",
+        "面积看铺满内部需要多少单位方格。",
+        "每行5格，共3行。",
+        "相同加数5连续出现3次，可写成5×3。",
+        "长方形面积=长×宽。"
+      ],
+      "transitions": [
+        {
+          "when": "a",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        },
+        {
+          "when": "p",
+          "to": "repairArea",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-FORMULA-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ],
+      "view": {
+        "title": "面积公式也从方格长出来",
+        "prompt": "内部每行5个1平方厘米方格，一共3行。面积怎样算？",
+        "choices": [
+          [
+            "a",
+            "5×3"
+          ],
+          [
+            "p",
+            "(5＋3)×2"
+          ],
+          [
+            "edge",
+            "5＋3＋5＋3"
+          ]
+        ],
+        "visuals": [
+          {
+            "renderer": "tileRows",
+            "args": [
+              5,
+              3
+            ]
+          },
+          {
+            "renderer": "rect",
+            "args": {
+              "w": 5,
+              "h": 3,
+              "mode": "area"
+            }
+          }
+        ]
+      }
+    },
+    "repairArea": {
+      "objectiveId": "O-U2-FORMULA-02",
+      "hints": [
+        "",
+        "现在数的是内部小方格。",
+        "每行格数×行数。",
+        "5格一行，有3行。",
+        "5×3=15平方厘米。"
+      ],
+      "transitions": [
+        {
+          "when": "a",
+          "to": "formalize",
+          "lane": "standard",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-FORMULA-01"
+            },
+            {
+              "type": "emit",
+              "event": "REPAIR_SUCCESS",
+              "result": {
+                "misconception_id": "M-U2-FORMULA-01"
+              }
+            }
+          ]
+        }
+      ],
+      "view": {
+        "title": "只看“铺满”这件事",
+        "prompt": "蓝色内部有3行，每行5格。应使用？",
+        "choices": [
+          [
+            "a",
+            "5×3"
+          ],
+          [
+            "p",
+            "(5＋3)×2"
+          ]
+        ],
+        "renderer": "rect",
+        "rendererArgs": {
+          "w": 5,
+          "h": 3,
+          "mode": "area"
+        }
+      }
+    },
+    "formalize": {
+      "objectiveId": "O-U2-MEANING-03",
+      "hints": [
+        "",
+        "一个公式处理边界，一个公式处理平面。",
+        "周长=(长+宽)×2；面积=长×宽。",
+        "别忘了对应单位：厘米 vs 平方厘米。",
+        "公式、测量对象、单位三者要配套。"
+      ],
+      "view": {
+        "title": "把对象、公式、单位配成一套",
+        "prompt": "哪一项全部匹配？",
+        "choices": [
+          [
+            "rule",
+            "周长=(长+宽)×2，用长度单位；面积=长×宽，用面积单位"
+          ],
+          [
+            "swap",
+            "周长=长×宽；面积=(长+宽)×2"
+          ],
+          [
+            "unit",
+            "两个公式最后都用厘米"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "rect-perimeter-area"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "unit",
+          "to": "repairUnit",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U2-FORMULA-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairUnit": {
+      "objectiveId": "O-U2-MEANING-03",
+      "hints": [
+        "",
+        "看单位是不是在描述长度还是平面。",
+        "厘米是长度单位；平方厘米是面积单位。",
+        "面积公式的结果不是一条线的长度。",
+        "15平方厘米才是5×3长方形的面积单位。"
+      ],
+      "view": {
+        "title": "公式对了，单位也要对",
+        "prompt": "5厘米×3厘米的长方形，面积15后面应写？",
+        "choices": [
+          [
+            "sq",
+            "平方厘米"
+          ],
+          [
+            "cm",
+            "厘米"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "sq",
+          "to": "transfer",
+          "lane": "standard",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U2-FORMULA-02"
+            },
+            {
+              "type": "emit",
+              "event": "REPAIR_SUCCESS",
+              "result": {
+                "misconception_id": "M-U2-FORMULA-02"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U2-FORMULA-03",
+      "hints": [
+        "",
+        "先判断题目问边界还是覆盖面积。",
+        "围墙长度看周长；种草面积看面积。",
+        "长8宽4：周长24，面积32。",
+        "同一个长方形可以同时有周长和面积，但解决的是不同问题。"
+      ],
+      "transitions": [
+        {
+          "when": "correct",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ],
+      "view": {
+        "title": "同一个图形，两种真实需求",
+        "prompt": "长8米、宽4米的长方形院子：围一圈围栏要多少米？铺满草坪要多少平方米？",
+        "choices": [
+          [
+            "correct",
+            "24米；32平方米"
+          ],
+          [
+            "swap",
+            "32米；24平方米"
+          ],
+          [
+            "same",
+            "24米；24平方米"
+          ]
+        ],
+        "renderer": "rect",
+        "rendererArgs": {
+          "w": 8,
+          "h": 4,
+          "mode": "both"
+        }
+      }
+    },
+    "complete": {
+      "objectiveId": "O-U2-FORMULA-03",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "reviewOnH4": false,
+      "view": {
+        "title": "公式不再是孤立口诀",
+        "prompt": "先看任务发生在“边”还是“面”，再选择公式和单位。",
+        "choices": []
+      },
+      "transitions": []
+    }
+  },
+  "packageVersion": "0.1.0",
+  "labels": {
+    "badge": "概念教学试点",
+    "description": "先区分测量对象，再形成公式；错误只修当前概念。",
+    "title": "周长与面积 · 公式"
+  },
+  "objectives": {
+    "meaning": "O-U2-MEANING-01",
+    "representation": "O-U2-MEANING-02",
+    "explain": "O-U2-MEANING-03",
+    "formulaP": "O-U2-FORMULA-01",
+    "formulaA": "O-U2-FORMULA-02",
+    "transfer": "O-U2-FORMULA-03"
+  },
+  "misconceptions": {
+    "boundary": "M-U2-MEANING-01",
+    "surface": "M-U2-MEANING-02",
+    "compareNumber": "M-U2-MEANING-03",
+    "formulaSwap": "M-U2-FORMULA-01",
+    "unit": "M-U2-FORMULA-02"
+  }
+}

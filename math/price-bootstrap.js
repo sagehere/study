@@ -1,7 +1,7 @@
-/* Registers u3 price flow with the generic engine. */
+/* Registers u3 price flow from a declarative Course Package. */
 'use strict';
 (() => {
- const C=PriceCourseDefinition;
- const runtime=PedagogyV2.register(C.definition,PriceRenderer,{badge:'数量关系试点',title:'单价 · 数量 · 总价',description:'先理解“每1份”，再切换未知量；复合题先拆关系。'});
- globalThis.PricePedagogy={runtime,definition:C.definition,objectives:C.objectives,misconceptions:C.misconceptions};
+ const pkg=CoursePackageData['u3.price.v2'];if(!pkg)throw new Error('Missing Course Package u3.price.v2');
+ const loaded=CoursePackageLoader.register(pkg,PriceRenderer);
+ globalThis.PricePedagogy={...loaded,package:pkg};
 })();

@@ -1,7 +1,7 @@
-/* Registers u5 rounding flow with the generic engine. */
+/* Registers u5 rounding flow from a declarative Course Package. */
 'use strict';
 (() => {
- const C=RoundCourseDefinition;
- const runtime=PedagogyV2.register(C.definition,RoundRenderer,{badge:'边界概念试点',title:'四舍五入 · 数轴与分界',description:'先看位置和距离，再抽象口诀；最后反推完整区间。'});
- globalThis.RoundPedagogy={runtime,definition:C.definition,objectives:C.objectives,misconceptions:C.misconceptions};
+ const pkg=CoursePackageData['u5.round.v2'];if(!pkg)throw new Error('Missing Course Package u5.round.v2');
+ const loaded=CoursePackageLoader.register(pkg,RoundRenderer);
+ globalThis.RoundPedagogy={...loaded,package:pkg};
 })();

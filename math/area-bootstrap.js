@@ -1,8 +1,8 @@
-/* Registers u2 perimeter/area flows with the generic engine. */
+/* Registers u2 perimeter/area flows from declarative Course Packages. */
 'use strict';
 (() => {
- const C=AreaCourseDefinitions,labels={badge:'概念教学试点',description:'先区分测量对象，再形成公式；错误只修当前概念。'};
- const meaning=PedagogyV2.register(C.meaning,AreaRenderer,{...labels,title:'周长与面积 · 意义'});
- const formula=PedagogyV2.register(C.formula,AreaRenderer,{...labels,title:'周长与面积 · 公式'});
- globalThis.AreaPedagogy={meaning,formula,definitions:C};
+ const meaningPkg=CoursePackageData['u2.meaning.v2'],formulaPkg=CoursePackageData['u2.formula.v2'];
+ if(!meaningPkg||!formulaPkg)throw new Error('Missing u2 Course Packages');
+ const meaningLoaded=CoursePackageLoader.register(meaningPkg,AreaRenderer),formulaLoaded=CoursePackageLoader.register(formulaPkg,AreaRenderer);
+ globalThis.AreaPedagogy={meaning:meaningLoaded.runtime,formula:formulaLoaded.runtime,packages:{meaning:meaningPkg,formula:formulaPkg}};
 })();
