@@ -1,0 +1,32 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u5.read.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "rendererFit",
+      "severity": "major",
+      "issue": "Existing renderers did not expose the four-digits-per-group structure used by Chinese large-number reading.",
+      "revision": "Add generic placeValueGroups renderer with dynamic group labels and accessible semantics.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "Textbook-grounded four-digit grouping, zero-reading repair, fresh cross-group independent evidence, and reading-to-writing transfer satisfy the ready gate."
+}

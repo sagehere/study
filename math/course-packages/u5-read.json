@@ -1,0 +1,501 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u5.read.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u5",
+  "nodeId": "read",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "数级表征正式课",
+    "title": "读数、写数与零",
+    "description": "先按四位一级组织大数，再用级末零与级内零规则读写。"
+  },
+  "objectives": {
+    "group": "O-U5-READ-01",
+    "zero": "O-U5-READ-02",
+    "read": "O-U5-READ-03",
+    "write": "O-U5-READ-04"
+  },
+  "misconceptions": {
+    "ungrouped": "M-U5-READ-01",
+    "readAllZero": "M-U5-READ-02",
+    "skipBridgeZero": "M-U5-READ-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "concept-representation",
+    "sourcePages": "71-76",
+    "sourceNote": "教材从右边起每四个数位分一级，使用万级/个级及亿级位值表；明确“每级末尾不管有几个0都不读，其他数位有一个0或连续几个0都只读一个零”，并用52395239、6004000、300800007等数组织读写和比较活动。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U5-READ-01",
+      "hints": [
+        "",
+        "我国整数数位按“级”组织。",
+        "从右边个位开始数。",
+        "每四个数位一级。",
+        "5239属于个级，前面的5239属于万级。"
+      ],
+      "view": {
+        "title": "先分级，再读数",
+        "prompt": "52395239应该先怎样分组？",
+        "choices": [
+          [
+            "groups",
+            "5239｜5239（万级｜个级）"
+          ],
+          [
+            "three",
+            "52｜395｜239"
+          ],
+          [
+            "none",
+            "不分级直接逐位读"
+          ]
+        ],
+        "renderer": "placeValueGroups",
+        "rendererArgs": {
+          "value": "52395239",
+          "label": "52395239按万级和个级每四位分组"
+        }
+      },
+      "transitions": [
+        {
+          "when": "groups",
+          "to": "zeroRule",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "three",
+          "to": "repairGroup",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-READ-01",
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "when": "none",
+          "to": "repairGroup",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-READ-01",
+              "confidence": "medium"
+            }
+          ]
+        }
+      ]
+    },
+    "repairGroup": {
+      "objectiveId": "O-U5-READ-01",
+      "hints": [
+        "",
+        "看教材整数数位顺序表。",
+        "个、十、百、千组成个级。",
+        "再往左四位组成万级。",
+        "所以从右向左每四位一级。"
+      ],
+      "view": {
+        "title": "只修“四位一级”",
+        "prompt": "从个位起，每多少个数位分一级？",
+        "choices": [
+          [
+            "four",
+            "4位"
+          ],
+          [
+            "three",
+            "3位"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "four",
+          "to": "zeroRule",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-READ-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "four-digits-per-group"
+            }
+          ]
+        }
+      ]
+    },
+    "zeroRule": {
+      "objectiveId": "O-U5-READ-02",
+      "hints": [
+        "",
+        "先分别读万级和个级。",
+        "每级末尾的0不读。",
+        "万级600读“六百万”。",
+        "个级4000读“四千”，合起来“六百万四千”。"
+      ],
+      "view": {
+        "title": "级末尾的零为什么不读",
+        "prompt": "6004000按级写成600｜4000。正确读法是哪一个？",
+        "choices": [
+          [
+            "correct",
+            "六百万四千"
+          ],
+          [
+            "all",
+            "六百零零万四千"
+          ],
+          [
+            "bridge",
+            "六百万零四千"
+          ]
+        ],
+        "renderer": "placeValueGroups",
+        "rendererArgs": {
+          "value": "6004000",
+          "label": "6004000按万级和个级分组，观察每级末尾的零"
+        }
+      },
+      "transitions": [
+        {
+          "when": "correct",
+          "to": "crossZero",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "all",
+          "to": "repairZero",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-READ-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairZero": {
+      "objectiveId": "O-U5-READ-02",
+      "hints": [
+        "",
+        "区分“级末尾”和“级内”。",
+        "级末尾的0只是占位。",
+        "教材明确说级末尾几个0都不读。",
+        "所以不要逐位念零。"
+      ],
+      "view": {
+        "title": "零不是看见一个就读一个",
+        "prompt": "教材对“每级末尾的0”怎么规定？",
+        "choices": [
+          [
+            "silent",
+            "不管有几个都不读"
+          ],
+          [
+            "all",
+            "每个0都读"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "silent",
+          "to": "crossZero",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-READ-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "group-ending-zero"
+            }
+          ]
+        }
+      ]
+    },
+    "crossZero": {
+      "objectiveId": "O-U5-READ-02",
+      "hints": [
+        "",
+        "先分成3｜0080｜0007。",
+        "每一级按个级读法处理，再加“亿”“万”。",
+        "级内缺位造成的一个或连续多个0只读一个“零”。",
+        "所以读“三亿零八十万零七”。"
+      ],
+      "view": {
+        "title": "级内连续零只读一个",
+        "prompt": "300800007正确读法是哪一个？",
+        "choices": [
+          [
+            "correct",
+            "三亿零八十万零七"
+          ],
+          [
+            "skip",
+            "三亿八十万七"
+          ],
+          [
+            "many",
+            "三亿零零八十万零零零七"
+          ]
+        ],
+        "renderer": "placeValueGroups",
+        "rendererArgs": {
+          "value": "300800007",
+          "label": "300800007按亿级万级个级分组，观察跨级缺位零"
+        }
+      },
+      "transitions": [
+        {
+          "when": "correct",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "skip",
+          "to": "repairBridge",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-READ-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairBridge": {
+      "objectiveId": "O-U5-READ-02",
+      "hints": [
+        "",
+        "这些0不全在每级末尾。",
+        "它们出现在本级有效数字之前。",
+        "连续多个0也只读一个零。",
+        "因此需要“三亿零八十万零七”。"
+      ],
+      "view": {
+        "title": "只修“跨级缺位不能直接跳过”",
+        "prompt": "3｜0080｜0007中，万级开头和个级开头缺位时应该怎样读？",
+        "choices": [
+          [
+            "oneZero",
+            "需要用一个“零”连接缺位"
+          ],
+          [
+            "skip",
+            "全部跳过"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "oneZero",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-READ-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "internal-zero-reading"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U5-READ-03",
+      "hints": [
+        "",
+        "先结构，再语音。",
+        "四位一级决定哪里添“万”“亿”。",
+        "零规则在每一级内部处理。",
+        "最后按从高到低的级连接。"
+      ],
+      "view": {
+        "title": "把大数读法整理成步骤",
+        "prompt": "哪套流程最可靠？",
+        "choices": [
+          [
+            "rule",
+            "从右四位一级→从最高级读→每级按个级读法→添万/亿→级末0不读，其他连续0只读一个"
+          ],
+          [
+            "digit",
+            "从最高位开始逐位念数字和0"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "four-digit-groups-zero-reading"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U5-READ-03",
+      "hints": [
+        "",
+        "分成2｜0060｜0000。",
+        "亿级读二亿。",
+        "万级0060读零六十万。",
+        "个级全0不读，所以二亿零六十万。"
+      ],
+      "view": {
+        "title": "换一个跨级零的新数独立读",
+        "prompt": "200600000正确读法是哪一个？",
+        "choices": [
+          [
+            "correct",
+            "二亿零六十万"
+          ],
+          [
+            "skip",
+            "二亿六十万"
+          ],
+          [
+            "many",
+            "二亿零零六十万"
+          ]
+        ],
+        "renderer": "placeValueGroups",
+        "rendererArgs": {
+          "value": "200600000",
+          "label": "200600000按亿级万级个级分组"
+        }
+      },
+      "transitions": [
+        {
+          "when": "correct",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U5-READ-04",
+      "hints": [
+        "",
+        "先按亿级、万级、个级分别填。",
+        "六亿→6｜____｜____。",
+        "四十二万→0042放在万级；五千→5000放在个级。",
+        "合起来6｜0042｜5000=600425000。"
+      ],
+      "view": {
+        "title": "迁移到“听读法写数”",
+        "prompt": "“六亿零四十二万五千”写成数字是哪一个？",
+        "choices": [
+          [
+            "600425000",
+            "600425000"
+          ],
+          [
+            "604205000",
+            "604205000"
+          ],
+          [
+            "600420500",
+            "600420500"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "600425000",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U5-READ-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "大数读写已经有“骨架”了",
+        "prompt": "先四位一级，再按级读写；级末尾的0不读，级内一个或连续多个0只读一个。写数时也按亿级、万级、个级逐级补足四位。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

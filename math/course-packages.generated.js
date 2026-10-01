@@ -612,6 +612,514 @@ globalThis.CoursePackageData={
       }
     }
   },
+  "u1.vertical.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u1.vertical.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u1",
+    "nodeId": "vertical",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "程序竖式正式课",
+      "title": "竖式与余数",
+      "description": "把商位、乘减落和余数约束连成可检查的长除法流程。"
+    },
+    "objectives": {
+      "place": "O-U1-VERTICAL-01",
+      "cycle": "O-U1-VERTICAL-02",
+      "remainder": "O-U1-VERTICAL-03",
+      "transfer": "O-U1-VERTICAL-04"
+    },
+    "misconceptions": {
+      "place": "M-U1-VERTICAL-01",
+      "bringDown": "M-U1-VERTICAL-02",
+      "remainder": "M-U1-VERTICAL-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "procedural",
+      "sourcePages": "8-9",
+      "sourceNote": "教材以156÷12说明先把1百5十看作15个十，商1写在十位；并总结“除到被除数的哪一位，商就写在那一位上面”“每次除后的余数都比除数小”，再安排593÷28、680÷17及729÷27等竖式练习。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U1-VERTICAL-01",
+        "hints": [
+          "",
+          "先看当前实际除到被除数的哪一位。",
+          "15表示15个十。",
+          "15个十÷12，每份先得到1个十。",
+          "所以商1写在十位。"
+        ],
+        "view": {
+          "title": "商的第一位为什么写在十位",
+          "prompt": "156÷12，先用15个十除以12，商1。这个1应该写在哪一位上？",
+          "choices": [
+            [
+              "tens",
+              "十位"
+            ],
+            [
+              "ones",
+              "个位"
+            ],
+            [
+              "hundreds",
+              "百位"
+            ]
+          ],
+          "renderer": "longDivision",
+          "rendererArgs": {
+            "dividend": 156,
+            "divisor": 12,
+            "quotient": "1_",
+            "current": 15,
+            "product": 12,
+            "remainder": 3,
+            "bringDown": 6,
+            "highlight": "current",
+            "label": "156除以12，先用15个十除以12，商1写十位"
+          }
+        },
+        "transitions": [
+          {
+            "when": "tens",
+            "to": "bringDown",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "ones",
+            "to": "repairPlace",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U1-VERTICAL-01",
+                "confidence": "high"
+              }
+            ]
+          },
+          {
+            "when": "hundreds",
+            "to": "repairPlace",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U1-VERTICAL-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairPlace": {
+        "objectiveId": "O-U1-VERTICAL-01",
+        "hints": [
+          "",
+          "15来自百位和十位组成的15个十。",
+          "除法分的是“十”这个单位。",
+          "得到1份十。",
+          "因此商位必须在十位。"
+        ],
+        "view": {
+          "title": "只修“商位跟着当前被除数”",
+          "prompt": "如果当前拿15个“十”去除，商得到的1表示什么？",
+          "choices": [
+            [
+              "oneTen",
+              "1个十"
+            ],
+            [
+              "one",
+              "1个一"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "oneTen",
+            "to": "bringDown",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U1-VERTICAL-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "quotient-place-value"
+              }
+            ]
+          }
+        ]
+      },
+      "bringDown": {
+        "objectiveId": "O-U1-VERTICAL-02",
+        "hints": [
+          "",
+          "检查被除数还有没有没处理的数位。",
+          "个位6还没有参与。",
+          "把6落到当前余数3后面。",
+          "组成36，再继续36÷12。"
+        ],
+        "view": {
+          "title": "减完以后为什么还不能停",
+          "prompt": "15－12=3。156还有个位6没有处理，下一步应该做什么？",
+          "choices": [
+            [
+              "bring",
+              "把个位6落下来，组成36继续除"
+            ],
+            [
+              "stop",
+              "把3当最终余数直接停"
+            ]
+          ],
+          "renderer": "longDivision",
+          "rendererArgs": {
+            "dividend": 156,
+            "divisor": 12,
+            "quotient": "1_",
+            "current": 15,
+            "product": 12,
+            "remainder": 3,
+            "bringDown": 6,
+            "highlight": "bringDown",
+            "label": "156除以12，减后余3，再落下个位6组成36"
+          }
+        },
+        "transitions": [
+          {
+            "when": "bring",
+            "to": "remainderCheck",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "stop",
+            "to": "repairBring",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U1-VERTICAL-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairBring": {
+        "objectiveId": "O-U1-VERTICAL-02",
+        "hints": [
+          "",
+          "竖式要从高位依次处理到个位。",
+          "还有一位没处理就不能结束。",
+          "3个十加上落下来的6个一，得到36个一。",
+          "继续36÷12。"
+        ],
+        "view": {
+          "title": "余数只有在最后一位处理完后才可能是最终余数",
+          "prompt": "3后面还有被除数的个位6，应该怎样处理？",
+          "choices": [
+            [
+              "bring",
+              "落下6组成36"
+            ],
+            [
+              "ignore",
+              "忽略6"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "bring",
+            "to": "remainderCheck",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U1-VERTICAL-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "division-bring-down"
+              }
+            ]
+          }
+        ]
+      },
+      "remainderCheck": {
+        "objectiveId": "O-U1-VERTICAL-03",
+        "hints": [
+          "",
+          "余数表示还没有分掉的数量。",
+          "如果余数≥除数，还能再分出至少1份。",
+          "17≥12。",
+          "所以商偏小，余数不能保留。"
+        ],
+        "view": {
+          "title": "余数为什么必须小于除数",
+          "prompt": "某一步算完得到余数17，而除数是12。这个余数可以保留吗？",
+          "choices": [
+            [
+              "no",
+              "不可以，说明商还可以再大"
+            ],
+            [
+              "yes",
+              "可以，只要不是0就行"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "no",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "yes",
+            "to": "repairRemainder",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U1-VERTICAL-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairRemainder": {
+        "objectiveId": "O-U1-VERTICAL-03",
+        "hints": [
+          "",
+          "余数是“再也分不出一整份”的剩余。",
+          "若余数达到除数，就还能继续分。",
+          "所以余数必须小于除数。",
+          "0≤r<除数。"
+        ],
+        "view": {
+          "title": "只修“余数约束”",
+          "prompt": "余数与除数必须满足什么关系？",
+          "choices": [
+            [
+              "lt",
+              "0≤余数＜除数"
+            ],
+            [
+              "any",
+              "余数可以大于除数"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "lt",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U1-VERTICAL-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "remainder-less-than-divisor"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U1-VERTICAL-02",
+        "hints": [
+          "",
+          "把前面三条证据合在一起。",
+          "先确定开始除的数位。",
+          "每一位都经历商、乘、减、落。",
+          "每一步都检查余数<除数。"
+        ],
+        "view": {
+          "title": "把竖式流程说完整",
+          "prompt": "哪一句最符合教材总结？",
+          "choices": [
+            [
+              "rule",
+              "先判断从哪一位开始除；除到哪一位商写哪一位；每步商、乘、减、落，并检查余数小于除数"
+            ],
+            [
+              "placeOnly",
+              "只要最后答案对，商位和中间余数不重要"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "long-division-cycle"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U1-VERTICAL-02",
+        "hints": [
+          "",
+          "先看72÷27。",
+          "商2写十位，2×27=54，余18。",
+          "落下9得189，再商7。",
+          "27×7=189，所以商27。"
+        ],
+        "view": {
+          "title": "换一道新竖式独立完成",
+          "prompt": "729÷27的商是多少？",
+          "choices": [
+            [
+              "27",
+              "27"
+            ],
+            [
+              "23",
+              "23"
+            ],
+            [
+              "37",
+              "37"
+            ]
+          ],
+          "renderer": "longDivision",
+          "rendererArgs": {
+            "dividend": 729,
+            "divisor": 27,
+            "quotient": "27",
+            "current": 189,
+            "product": 189,
+            "remainder": 0,
+            "highlight": "none",
+            "label": "729除以27的长除法结构"
+          }
+        },
+        "transitions": [
+          {
+            "when": "27",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U1-VERTICAL-04",
+        "hints": [
+          "",
+          "64÷32先商2在十位。",
+          "2×32=64，余0，落下5。",
+          "5<32，个位商0。",
+          "所以商20，余5。"
+        ],
+        "view": {
+          "title": "迁移到有余数的竖式",
+          "prompt": "645÷32的结果是哪一个？",
+          "choices": [
+            [
+              "20r5",
+              "20……5"
+            ],
+            [
+              "21r5",
+              "21……5"
+            ],
+            [
+              "20r25",
+              "20……25"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "20r5",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U1-VERTICAL-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "竖式已经变成可检查的程序",
+          "prompt": "商位由当前处理的数位决定；每一步都商、乘、减、落；结束前检查余数小于除数，并可用“除数×商＋余数=被除数”验算。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
   "u2.formula.v2": {
     "schemaVersion": "0.2",
     "flowId": "u2.formula.v2",
@@ -3732,6 +4240,435 @@ globalThis.CoursePackageData={
       }
     }
   },
+  "u4.bracket.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u4.bracket.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u4",
+    "nodeId": "bracket",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "程序顺序正式课",
+      "title": "小括号与中括号",
+      "description": "把括号看成改变先后关系的结构：先小括号，再中括号，括号内仍遵守运算顺序。"
+    },
+    "objectives": {
+      "inner": "O-U4-BRACKET-01",
+      "nested": "O-U4-BRACKET-02",
+      "order": "O-U4-BRACKET-03",
+      "transfer": "O-U4-BRACKET-04"
+    },
+    "misconceptions": {
+      "ignore": "M-U4-BRACKET-01",
+      "outerFirst": "M-U4-BRACKET-02",
+      "insideLeft": "M-U4-BRACKET-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "procedural",
+      "sourcePages": "60-62",
+      "sourceNote": "教材以(600－126×4)÷48说明括号中的量先算，且括号内仍先乘除后加减；再明确既有小括号又有中括号时先算小括号，再算中括号，最后算括号外，并安排58×(20－78÷13)、42×[169－(78+35)]等练习。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U4-BRACKET-01",
+        "hints": [
+          "",
+          "先确定最外层有没有括号。",
+          "括号里面要先完成。",
+          "但括号内部仍遵守乘除先于加减。",
+          "所以先算126×4。"
+        ],
+        "view": {
+          "title": "有括号不等于“从左往右”",
+          "prompt": "(600－126×4)÷48，第一步应该算什么？",
+          "choices": [
+            [
+              "mul",
+              "126×4"
+            ],
+            [
+              "sub",
+              "600－126"
+            ],
+            [
+              "div",
+              "先÷48"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "mul",
+            "to": "nested",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "sub",
+            "to": "repairInside",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-BRACKET-03",
+                "confidence": "high"
+              }
+            ]
+          },
+          {
+            "when": "div",
+            "to": "repairIgnore",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-BRACKET-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairInside": {
+        "objectiveId": "O-U4-BRACKET-01",
+        "hints": [
+          "",
+          "括号表示这部分先整体完成。",
+          "不代表括号内部改成纯左到右。",
+          "126×4是乘法。",
+          "乘法先于600－。"
+        ],
+        "view": {
+          "title": "括号里面也有自己的运算顺序",
+          "prompt": "在600－126×4这个括号内部，应该先算哪类运算？",
+          "choices": [
+            [
+              "mul",
+              "乘法"
+            ],
+            [
+              "sub",
+              "减法"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "mul",
+            "to": "nested",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-BRACKET-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "order-inside-parentheses"
+              }
+            ]
+          }
+        ]
+      },
+      "repairIgnore": {
+        "objectiveId": "O-U4-BRACKET-01",
+        "hints": [
+          "",
+          "括号把一部分变成一个整体。",
+          "外面的运算要等这个整体有值。",
+          "先求括号内结果。",
+          "再用结果÷48。"
+        ],
+        "view": {
+          "title": "只修“不能越过括号先算外面”",
+          "prompt": "整个式子最后的÷48能不能先算？",
+          "choices": [
+            [
+              "no",
+              "不能，要先完成括号"
+            ],
+            [
+              "yes",
+              "能，除法优先"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "no",
+            "to": "nested",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-BRACKET-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "parentheses-before-outside"
+              }
+            ]
+          }
+        ]
+      },
+      "nested": {
+        "objectiveId": "O-U4-BRACKET-02",
+        "hints": [
+          "",
+          "找最里面的括号。",
+          "(81－56)在中括号内部。",
+          "先把小括号算成25。",
+          "再算中括号里的25×3，最后525÷。"
+        ],
+        "view": {
+          "title": "小括号和中括号谁先",
+          "prompt": "525÷[(81－56)×3]，第一步是哪一个？",
+          "choices": [
+            [
+              "small",
+              "81－56"
+            ],
+            [
+              "times",
+              "先×3"
+            ],
+            [
+              "divide",
+              "525÷"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "small",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "times",
+            "to": "repairNested",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U4-BRACKET-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairNested": {
+        "objectiveId": "O-U4-BRACKET-02",
+        "hints": [
+          "",
+          "看结构的包含关系。",
+          "小括号在中括号内部。",
+          "先得到最里面部分的值。",
+          "再一层层向外。"
+        ],
+        "view": {
+          "title": "嵌套括号要从内向外",
+          "prompt": "同时有( )和[ ]时，教材规定怎样算？",
+          "choices": [
+            [
+              "inside",
+              "先小括号，再中括号，最后括号外"
+            ],
+            [
+              "outer",
+              "先中括号，再小括号"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "inside",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U4-BRACKET-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "nested-bracket-order"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U4-BRACKET-03",
+        "hints": [
+          "",
+          "括号决定层级。",
+          "运算规则决定每层内部的先后。",
+          "两套规则同时存在。",
+          "从内到外，每层内部再遵守乘除先于加减。"
+        ],
+        "view": {
+          "title": "把括号规则说完整",
+          "prompt": "哪一句最准确？",
+          "choices": [
+            [
+              "rule",
+              "先小括号，再中括号，最后括号外；每个括号内部仍按正常运算顺序"
+            ],
+            [
+              "simple",
+              "只要看见括号，就把里面从左往右算"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "nested-bracket-order"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U4-BRACKET-03",
+        "hints": [
+          "",
+          "先处理括号。",
+          "括号内先78÷13=6。",
+          "20－6=14。",
+          "58×14=812。"
+        ],
+        "view": {
+          "title": "换一道教材式表达式独立算",
+          "prompt": "58×(20－78÷13)的结果是多少？",
+          "choices": [
+            [
+              "812",
+              "812"
+            ],
+            [
+              "2088",
+              "2088"
+            ],
+            [
+              "638",
+              "638"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "812",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U4-BRACKET-04",
+        "hints": [
+          "",
+          "先最里面的小括号。",
+          "78+35=113。",
+          "中括号169－113=56。",
+          "42×56=2352。"
+        ],
+        "view": {
+          "title": "迁移到中括号嵌套",
+          "prompt": "42×[169－(78＋35)]的结果是多少？",
+          "choices": [
+            [
+              "2352",
+              "2352"
+            ],
+            [
+              "4704",
+              "4704"
+            ],
+            [
+              "3612",
+              "3612"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "2352",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U4-BRACKET-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "括号不再是装饰符号",
+          "prompt": "先看括号层级，再看每层内部的运算顺序：小括号→中括号→括号外；任何一层里仍遵守同级从左到右、乘除先于加减。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
   "u4.reverse.v2": {
     "packageVersion": "0.1.0",
     "schemaVersion": "0.2",
@@ -4699,6 +5636,507 @@ globalThis.CoursePackageData={
         "view": {
           "title": "比较、改写、近似已经分清了",
           "prompt": "先统一单位和数量级，再比较；精确改写保持数值不变用“=”，舍去尾数得到近似数用“≈”。",
+          "choices": []
+        },
+        "transitions": [],
+        "reviewOnH4": false
+      }
+    }
+  },
+  "u5.read.v2": {
+    "packageVersion": "0.1.0",
+    "schemaVersion": "0.2",
+    "flowId": "u5.read.v2",
+    "flowVersion": "0.1.0",
+    "courseId": "sujiao-math-2026",
+    "unitId": "u5",
+    "nodeId": "read",
+    "initialStep": "diagnose",
+    "labels": {
+      "badge": "数级表征正式课",
+      "title": "读数、写数与零",
+      "description": "先按四位一级组织大数，再用级末零与级内零规则读写。"
+    },
+    "objectives": {
+      "group": "O-U5-READ-01",
+      "zero": "O-U5-READ-02",
+      "read": "O-U5-READ-03",
+      "write": "O-U5-READ-04"
+    },
+    "misconceptions": {
+      "ungrouped": "M-U5-READ-01",
+      "readAllZero": "M-U5-READ-02",
+      "skipBridgeZero": "M-U5-READ-03"
+    },
+    "meta": {
+      "authoringStatus": "ready",
+      "knowledgeType": "concept-representation",
+      "sourcePages": "71-76",
+      "sourceNote": "教材从右边起每四个数位分一级，使用万级/个级及亿级位值表；明确“每级末尾不管有几个0都不读，其他数位有一个0或连续几个0都只读一个零”，并用52395239、6004000、300800007等数组织读写和比较活动。"
+    },
+    "steps": {
+      "diagnose": {
+        "objectiveId": "O-U5-READ-01",
+        "hints": [
+          "",
+          "我国整数数位按“级”组织。",
+          "从右边个位开始数。",
+          "每四个数位一级。",
+          "5239属于个级，前面的5239属于万级。"
+        ],
+        "view": {
+          "title": "先分级，再读数",
+          "prompt": "52395239应该先怎样分组？",
+          "choices": [
+            [
+              "groups",
+              "5239｜5239（万级｜个级）"
+            ],
+            [
+              "three",
+              "52｜395｜239"
+            ],
+            [
+              "none",
+              "不分级直接逐位读"
+            ]
+          ],
+          "renderer": "placeValueGroups",
+          "rendererArgs": {
+            "value": "52395239",
+            "label": "52395239按万级和个级每四位分组"
+          }
+        },
+        "transitions": [
+          {
+            "when": "groups",
+            "to": "zeroRule",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "three",
+            "to": "repairGroup",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-READ-01",
+                "confidence": "high"
+              }
+            ]
+          },
+          {
+            "when": "none",
+            "to": "repairGroup",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-READ-01",
+                "confidence": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      "repairGroup": {
+        "objectiveId": "O-U5-READ-01",
+        "hints": [
+          "",
+          "看教材整数数位顺序表。",
+          "个、十、百、千组成个级。",
+          "再往左四位组成万级。",
+          "所以从右向左每四位一级。"
+        ],
+        "view": {
+          "title": "只修“四位一级”",
+          "prompt": "从个位起，每多少个数位分一级？",
+          "choices": [
+            [
+              "four",
+              "4位"
+            ],
+            [
+              "three",
+              "3位"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "four",
+            "to": "zeroRule",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-READ-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "four-digits-per-group"
+              }
+            ]
+          }
+        ]
+      },
+      "zeroRule": {
+        "objectiveId": "O-U5-READ-02",
+        "hints": [
+          "",
+          "先分别读万级和个级。",
+          "每级末尾的0不读。",
+          "万级600读“六百万”。",
+          "个级4000读“四千”，合起来“六百万四千”。"
+        ],
+        "view": {
+          "title": "级末尾的零为什么不读",
+          "prompt": "6004000按级写成600｜4000。正确读法是哪一个？",
+          "choices": [
+            [
+              "correct",
+              "六百万四千"
+            ],
+            [
+              "all",
+              "六百零零万四千"
+            ],
+            [
+              "bridge",
+              "六百万零四千"
+            ]
+          ],
+          "renderer": "placeValueGroups",
+          "rendererArgs": {
+            "value": "6004000",
+            "label": "6004000按万级和个级分组，观察每级末尾的零"
+          }
+        },
+        "transitions": [
+          {
+            "when": "correct",
+            "to": "crossZero",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "all",
+            "to": "repairZero",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-READ-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairZero": {
+        "objectiveId": "O-U5-READ-02",
+        "hints": [
+          "",
+          "区分“级末尾”和“级内”。",
+          "级末尾的0只是占位。",
+          "教材明确说级末尾几个0都不读。",
+          "所以不要逐位念零。"
+        ],
+        "view": {
+          "title": "零不是看见一个就读一个",
+          "prompt": "教材对“每级末尾的0”怎么规定？",
+          "choices": [
+            [
+              "silent",
+              "不管有几个都不读"
+            ],
+            [
+              "all",
+              "每个0都读"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "silent",
+            "to": "crossZero",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-READ-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "group-ending-zero"
+              }
+            ]
+          }
+        ]
+      },
+      "crossZero": {
+        "objectiveId": "O-U5-READ-02",
+        "hints": [
+          "",
+          "先分成3｜0080｜0007。",
+          "每一级按个级读法处理，再加“亿”“万”。",
+          "级内缺位造成的一个或连续多个0只读一个“零”。",
+          "所以读“三亿零八十万零七”。"
+        ],
+        "view": {
+          "title": "级内连续零只读一个",
+          "prompt": "300800007正确读法是哪一个？",
+          "choices": [
+            [
+              "correct",
+              "三亿零八十万零七"
+            ],
+            [
+              "skip",
+              "三亿八十万七"
+            ],
+            [
+              "many",
+              "三亿零零八十万零零零七"
+            ]
+          ],
+          "renderer": "placeValueGroups",
+          "rendererArgs": {
+            "value": "300800007",
+            "label": "300800007按亿级万级个级分组，观察跨级缺位零"
+          }
+        },
+        "transitions": [
+          {
+            "when": "correct",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "skip",
+            "to": "repairBridge",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-READ-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairBridge": {
+        "objectiveId": "O-U5-READ-02",
+        "hints": [
+          "",
+          "这些0不全在每级末尾。",
+          "它们出现在本级有效数字之前。",
+          "连续多个0也只读一个零。",
+          "因此需要“三亿零八十万零七”。"
+        ],
+        "view": {
+          "title": "只修“跨级缺位不能直接跳过”",
+          "prompt": "3｜0080｜0007中，万级开头和个级开头缺位时应该怎样读？",
+          "choices": [
+            [
+              "oneZero",
+              "需要用一个“零”连接缺位"
+            ],
+            [
+              "skip",
+              "全部跳过"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "oneZero",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-READ-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "internal-zero-reading"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U5-READ-03",
+        "hints": [
+          "",
+          "先结构，再语音。",
+          "四位一级决定哪里添“万”“亿”。",
+          "零规则在每一级内部处理。",
+          "最后按从高到低的级连接。"
+        ],
+        "view": {
+          "title": "把大数读法整理成步骤",
+          "prompt": "哪套流程最可靠？",
+          "choices": [
+            [
+              "rule",
+              "从右四位一级→从最高级读→每级按个级读法→添万/亿→级末0不读，其他连续0只读一个"
+            ],
+            [
+              "digit",
+              "从最高位开始逐位念数字和0"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "four-digit-groups-zero-reading"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "independent": {
+        "objectiveId": "O-U5-READ-03",
+        "hints": [
+          "",
+          "分成2｜0060｜0000。",
+          "亿级读二亿。",
+          "万级0060读零六十万。",
+          "个级全0不读，所以二亿零六十万。"
+        ],
+        "view": {
+          "title": "换一个跨级零的新数独立读",
+          "prompt": "200600000正确读法是哪一个？",
+          "choices": [
+            [
+              "correct",
+              "二亿零六十万"
+            ],
+            [
+              "skip",
+              "二亿六十万"
+            ],
+            [
+              "many",
+              "二亿零零六十万"
+            ]
+          ],
+          "renderer": "placeValueGroups",
+          "rendererArgs": {
+            "value": "200600000",
+            "label": "200600000按亿级万级个级分组"
+          }
+        },
+        "transitions": [
+          {
+            "when": "correct",
+            "to": "transfer",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "INDEPENDENT_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "independent_success"
+              }
+            ]
+          }
+        ]
+      },
+      "transfer": {
+        "objectiveId": "O-U5-READ-04",
+        "hints": [
+          "",
+          "先按亿级、万级、个级分别填。",
+          "六亿→6｜____｜____。",
+          "四十二万→0042放在万级；五千→5000放在个级。",
+          "合起来6｜0042｜5000=600425000。"
+        ],
+        "view": {
+          "title": "迁移到“听读法写数”",
+          "prompt": "“六亿零四十二万五千”写成数字是哪一个？",
+          "choices": [
+            [
+              "600425000",
+              "600425000"
+            ],
+            [
+              "604205000",
+              "604205000"
+            ],
+            [
+              "600420500",
+              "600420500"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "600425000",
+            "to": "complete",
+            "effects": [
+              {
+                "type": "emit",
+                "event": "TRANSFER_PASS",
+                "result": {
+                  "independent": true
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "transfer_success"
+              }
+            ]
+          }
+        ]
+      },
+      "complete": {
+        "objectiveId": "O-U5-READ-04",
+        "hints": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "view": {
+          "title": "大数读写已经有“骨架”了",
+          "prompt": "先四位一级，再按级读写；级末尾的0不读，级内一个或连续多个0只读一个。写数时也按亿级、万级、个级逐级补足四位。",
           "choices": []
         },
         "transitions": [],

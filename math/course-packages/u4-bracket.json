@@ -1,0 +1,429 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u4.bracket.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u4",
+  "nodeId": "bracket",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "程序顺序正式课",
+    "title": "小括号与中括号",
+    "description": "把括号看成改变先后关系的结构：先小括号，再中括号，括号内仍遵守运算顺序。"
+  },
+  "objectives": {
+    "inner": "O-U4-BRACKET-01",
+    "nested": "O-U4-BRACKET-02",
+    "order": "O-U4-BRACKET-03",
+    "transfer": "O-U4-BRACKET-04"
+  },
+  "misconceptions": {
+    "ignore": "M-U4-BRACKET-01",
+    "outerFirst": "M-U4-BRACKET-02",
+    "insideLeft": "M-U4-BRACKET-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "procedural",
+    "sourcePages": "60-62",
+    "sourceNote": "教材以(600－126×4)÷48说明括号中的量先算，且括号内仍先乘除后加减；再明确既有小括号又有中括号时先算小括号，再算中括号，最后算括号外，并安排58×(20－78÷13)、42×[169－(78+35)]等练习。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U4-BRACKET-01",
+      "hints": [
+        "",
+        "先确定最外层有没有括号。",
+        "括号里面要先完成。",
+        "但括号内部仍遵守乘除先于加减。",
+        "所以先算126×4。"
+      ],
+      "view": {
+        "title": "有括号不等于“从左往右”",
+        "prompt": "(600－126×4)÷48，第一步应该算什么？",
+        "choices": [
+          [
+            "mul",
+            "126×4"
+          ],
+          [
+            "sub",
+            "600－126"
+          ],
+          [
+            "div",
+            "先÷48"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "mul",
+          "to": "nested",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "sub",
+          "to": "repairInside",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-BRACKET-03",
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "when": "div",
+          "to": "repairIgnore",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-BRACKET-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairInside": {
+      "objectiveId": "O-U4-BRACKET-01",
+      "hints": [
+        "",
+        "括号表示这部分先整体完成。",
+        "不代表括号内部改成纯左到右。",
+        "126×4是乘法。",
+        "乘法先于600－。"
+      ],
+      "view": {
+        "title": "括号里面也有自己的运算顺序",
+        "prompt": "在600－126×4这个括号内部，应该先算哪类运算？",
+        "choices": [
+          [
+            "mul",
+            "乘法"
+          ],
+          [
+            "sub",
+            "减法"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "mul",
+          "to": "nested",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-BRACKET-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "order-inside-parentheses"
+            }
+          ]
+        }
+      ]
+    },
+    "repairIgnore": {
+      "objectiveId": "O-U4-BRACKET-01",
+      "hints": [
+        "",
+        "括号把一部分变成一个整体。",
+        "外面的运算要等这个整体有值。",
+        "先求括号内结果。",
+        "再用结果÷48。"
+      ],
+      "view": {
+        "title": "只修“不能越过括号先算外面”",
+        "prompt": "整个式子最后的÷48能不能先算？",
+        "choices": [
+          [
+            "no",
+            "不能，要先完成括号"
+          ],
+          [
+            "yes",
+            "能，除法优先"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "nested",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-BRACKET-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "parentheses-before-outside"
+            }
+          ]
+        }
+      ]
+    },
+    "nested": {
+      "objectiveId": "O-U4-BRACKET-02",
+      "hints": [
+        "",
+        "找最里面的括号。",
+        "(81－56)在中括号内部。",
+        "先把小括号算成25。",
+        "再算中括号里的25×3，最后525÷。"
+      ],
+      "view": {
+        "title": "小括号和中括号谁先",
+        "prompt": "525÷[(81－56)×3]，第一步是哪一个？",
+        "choices": [
+          [
+            "small",
+            "81－56"
+          ],
+          [
+            "times",
+            "先×3"
+          ],
+          [
+            "divide",
+            "525÷"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "small",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "times",
+          "to": "repairNested",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U4-BRACKET-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairNested": {
+      "objectiveId": "O-U4-BRACKET-02",
+      "hints": [
+        "",
+        "看结构的包含关系。",
+        "小括号在中括号内部。",
+        "先得到最里面部分的值。",
+        "再一层层向外。"
+      ],
+      "view": {
+        "title": "嵌套括号要从内向外",
+        "prompt": "同时有( )和[ ]时，教材规定怎样算？",
+        "choices": [
+          [
+            "inside",
+            "先小括号，再中括号，最后括号外"
+          ],
+          [
+            "outer",
+            "先中括号，再小括号"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "inside",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U4-BRACKET-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "nested-bracket-order"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U4-BRACKET-03",
+      "hints": [
+        "",
+        "括号决定层级。",
+        "运算规则决定每层内部的先后。",
+        "两套规则同时存在。",
+        "从内到外，每层内部再遵守乘除先于加减。"
+      ],
+      "view": {
+        "title": "把括号规则说完整",
+        "prompt": "哪一句最准确？",
+        "choices": [
+          [
+            "rule",
+            "先小括号，再中括号，最后括号外；每个括号内部仍按正常运算顺序"
+          ],
+          [
+            "simple",
+            "只要看见括号，就把里面从左往右算"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "nested-bracket-order"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U4-BRACKET-03",
+      "hints": [
+        "",
+        "先处理括号。",
+        "括号内先78÷13=6。",
+        "20－6=14。",
+        "58×14=812。"
+      ],
+      "view": {
+        "title": "换一道教材式表达式独立算",
+        "prompt": "58×(20－78÷13)的结果是多少？",
+        "choices": [
+          [
+            "812",
+            "812"
+          ],
+          [
+            "2088",
+            "2088"
+          ],
+          [
+            "638",
+            "638"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "812",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U4-BRACKET-04",
+      "hints": [
+        "",
+        "先最里面的小括号。",
+        "78+35=113。",
+        "中括号169－113=56。",
+        "42×56=2352。"
+      ],
+      "view": {
+        "title": "迁移到中括号嵌套",
+        "prompt": "42×[169－(78＋35)]的结果是多少？",
+        "choices": [
+          [
+            "2352",
+            "2352"
+          ],
+          [
+            "4704",
+            "4704"
+          ],
+          [
+            "3612",
+            "3612"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "2352",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U4-BRACKET-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "括号不再是装饰符号",
+        "prompt": "先看括号层级，再看每层内部的运算顺序：小括号→中括号→括号外；任何一层里仍遵守同级从左到右、乘除先于加减。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}

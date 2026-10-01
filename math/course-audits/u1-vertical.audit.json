@@ -1,0 +1,32 @@
+{
+  "auditVersion": "0.1.0",
+  "flowId": "u1.vertical.v2",
+  "revisionRound": 1,
+  "scores": {
+    "sourceGrounding": 2,
+    "knowledgeTypeFit": 2,
+    "misconceptionQuality": 2,
+    "hintLadder": 2,
+    "evidenceIntegrity": 2,
+    "transferQuality": 2,
+    "rendererFit": 2
+  },
+  "total": 14,
+  "criticalFailures": [],
+  "gaps": {
+    "source": [],
+    "renderer": []
+  },
+  "findings": [
+    {
+      "dimension": "rendererFit",
+      "severity": "major",
+      "issue": "Existing renderers could not expose quotient place, current dividend, product, remainder, and bring-down as a reusable long-division structure.",
+      "revision": "Add generic longDivision renderer with semantic labels and no routing logic.",
+      "resolved": true
+    }
+  ],
+  "decision": "pass",
+  "finalRecommendation": "ready",
+  "summary": "Textbook-grounded quotient placement, bring-down cycle, remainder constraint, fresh long-division evidence, and remainder transfer satisfy the ready gate."
+}

@@ -1,0 +1,508 @@
+{
+  "packageVersion": "0.1.0",
+  "schemaVersion": "0.2",
+  "flowId": "u1.vertical.v2",
+  "flowVersion": "0.1.0",
+  "courseId": "sujiao-math-2026",
+  "unitId": "u1",
+  "nodeId": "vertical",
+  "initialStep": "diagnose",
+  "labels": {
+    "badge": "程序竖式正式课",
+    "title": "竖式与余数",
+    "description": "把商位、乘减落和余数约束连成可检查的长除法流程。"
+  },
+  "objectives": {
+    "place": "O-U1-VERTICAL-01",
+    "cycle": "O-U1-VERTICAL-02",
+    "remainder": "O-U1-VERTICAL-03",
+    "transfer": "O-U1-VERTICAL-04"
+  },
+  "misconceptions": {
+    "place": "M-U1-VERTICAL-01",
+    "bringDown": "M-U1-VERTICAL-02",
+    "remainder": "M-U1-VERTICAL-03"
+  },
+  "meta": {
+    "authoringStatus": "ready",
+    "knowledgeType": "procedural",
+    "sourcePages": "8-9",
+    "sourceNote": "教材以156÷12说明先把1百5十看作15个十，商1写在十位；并总结“除到被除数的哪一位，商就写在那一位上面”“每次除后的余数都比除数小”，再安排593÷28、680÷17及729÷27等竖式练习。"
+  },
+  "steps": {
+    "diagnose": {
+      "objectiveId": "O-U1-VERTICAL-01",
+      "hints": [
+        "",
+        "先看当前实际除到被除数的哪一位。",
+        "15表示15个十。",
+        "15个十÷12，每份先得到1个十。",
+        "所以商1写在十位。"
+      ],
+      "view": {
+        "title": "商的第一位为什么写在十位",
+        "prompt": "156÷12，先用15个十除以12，商1。这个1应该写在哪一位上？",
+        "choices": [
+          [
+            "tens",
+            "十位"
+          ],
+          [
+            "ones",
+            "个位"
+          ],
+          [
+            "hundreds",
+            "百位"
+          ]
+        ],
+        "renderer": "longDivision",
+        "rendererArgs": {
+          "dividend": 156,
+          "divisor": 12,
+          "quotient": "1_",
+          "current": 15,
+          "product": 12,
+          "remainder": 3,
+          "bringDown": 6,
+          "highlight": "current",
+          "label": "156除以12，先用15个十除以12，商1写十位"
+        }
+      },
+      "transitions": [
+        {
+          "when": "tens",
+          "to": "bringDown",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "diagnostic_success"
+            }
+          ]
+        },
+        {
+          "when": "ones",
+          "to": "repairPlace",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U1-VERTICAL-01",
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "when": "hundreds",
+          "to": "repairPlace",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U1-VERTICAL-01",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairPlace": {
+      "objectiveId": "O-U1-VERTICAL-01",
+      "hints": [
+        "",
+        "15来自百位和十位组成的15个十。",
+        "除法分的是“十”这个单位。",
+        "得到1份十。",
+        "因此商位必须在十位。"
+      ],
+      "view": {
+        "title": "只修“商位跟着当前被除数”",
+        "prompt": "如果当前拿15个“十”去除，商得到的1表示什么？",
+        "choices": [
+          [
+            "oneTen",
+            "1个十"
+          ],
+          [
+            "one",
+            "1个一"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "oneTen",
+          "to": "bringDown",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U1-VERTICAL-01"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "quotient-place-value"
+            }
+          ]
+        }
+      ]
+    },
+    "bringDown": {
+      "objectiveId": "O-U1-VERTICAL-02",
+      "hints": [
+        "",
+        "检查被除数还有没有没处理的数位。",
+        "个位6还没有参与。",
+        "把6落到当前余数3后面。",
+        "组成36，再继续36÷12。"
+      ],
+      "view": {
+        "title": "减完以后为什么还不能停",
+        "prompt": "15－12=3。156还有个位6没有处理，下一步应该做什么？",
+        "choices": [
+          [
+            "bring",
+            "把个位6落下来，组成36继续除"
+          ],
+          [
+            "stop",
+            "把3当最终余数直接停"
+          ]
+        ],
+        "renderer": "longDivision",
+        "rendererArgs": {
+          "dividend": 156,
+          "divisor": 12,
+          "quotient": "1_",
+          "current": 15,
+          "product": 12,
+          "remainder": 3,
+          "bringDown": 6,
+          "highlight": "bringDown",
+          "label": "156除以12，减后余3，再落下个位6组成36"
+        }
+      },
+      "transitions": [
+        {
+          "when": "bring",
+          "to": "remainderCheck",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "stop",
+          "to": "repairBring",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U1-VERTICAL-02",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairBring": {
+      "objectiveId": "O-U1-VERTICAL-02",
+      "hints": [
+        "",
+        "竖式要从高位依次处理到个位。",
+        "还有一位没处理就不能结束。",
+        "3个十加上落下来的6个一，得到36个一。",
+        "继续36÷12。"
+      ],
+      "view": {
+        "title": "余数只有在最后一位处理完后才可能是最终余数",
+        "prompt": "3后面还有被除数的个位6，应该怎样处理？",
+        "choices": [
+          [
+            "bring",
+            "落下6组成36"
+          ],
+          [
+            "ignore",
+            "忽略6"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "bring",
+          "to": "remainderCheck",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U1-VERTICAL-02"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "division-bring-down"
+            }
+          ]
+        }
+      ]
+    },
+    "remainderCheck": {
+      "objectiveId": "O-U1-VERTICAL-03",
+      "hints": [
+        "",
+        "余数表示还没有分掉的数量。",
+        "如果余数≥除数，还能再分出至少1份。",
+        "17≥12。",
+        "所以商偏小，余数不能保留。"
+      ],
+      "view": {
+        "title": "余数为什么必须小于除数",
+        "prompt": "某一步算完得到余数17，而除数是12。这个余数可以保留吗？",
+        "choices": [
+          [
+            "no",
+            "不可以，说明商还可以再大"
+          ],
+          [
+            "yes",
+            "可以，只要不是0就行"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "no",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "yes",
+          "to": "repairRemainder",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U1-VERTICAL-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairRemainder": {
+      "objectiveId": "O-U1-VERTICAL-03",
+      "hints": [
+        "",
+        "余数是“再也分不出一整份”的剩余。",
+        "若余数达到除数，就还能继续分。",
+        "所以余数必须小于除数。",
+        "0≤r<除数。"
+      ],
+      "view": {
+        "title": "只修“余数约束”",
+        "prompt": "余数与除数必须满足什么关系？",
+        "choices": [
+          [
+            "lt",
+            "0≤余数＜除数"
+          ],
+          [
+            "any",
+            "余数可以大于除数"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "lt",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U1-VERTICAL-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "remainder-less-than-divisor"
+            }
+          ]
+        }
+      ]
+    },
+    "formalize": {
+      "objectiveId": "O-U1-VERTICAL-02",
+      "hints": [
+        "",
+        "把前面三条证据合在一起。",
+        "先确定开始除的数位。",
+        "每一位都经历商、乘、减、落。",
+        "每一步都检查余数<除数。"
+      ],
+      "view": {
+        "title": "把竖式流程说完整",
+        "prompt": "哪一句最符合教材总结？",
+        "choices": [
+          [
+            "rule",
+            "先判断从哪一位开始除；除到哪一位商写哪一位；每步商、乘、减、落，并检查余数小于除数"
+          ],
+          [
+            "placeOnly",
+            "只要最后答案对，商位和中间余数不重要"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "rule",
+          "to": "independent",
+          "effects": [
+            {
+              "type": "setFlag",
+              "key": "formalized",
+              "value": true
+            },
+            {
+              "type": "emit",
+              "event": "FORMALIZATION_UNLOCKED",
+              "result": {
+                "rule": "long-division-cycle"
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "guided_success"
+            }
+          ]
+        }
+      ]
+    },
+    "independent": {
+      "objectiveId": "O-U1-VERTICAL-02",
+      "hints": [
+        "",
+        "先看72÷27。",
+        "商2写十位，2×27=54，余18。",
+        "落下9得189，再商7。",
+        "27×7=189，所以商27。"
+      ],
+      "view": {
+        "title": "换一道新竖式独立完成",
+        "prompt": "729÷27的商是多少？",
+        "choices": [
+          [
+            "27",
+            "27"
+          ],
+          [
+            "23",
+            "23"
+          ],
+          [
+            "37",
+            "37"
+          ]
+        ],
+        "renderer": "longDivision",
+        "rendererArgs": {
+          "dividend": 729,
+          "divisor": 27,
+          "quotient": "27",
+          "current": 189,
+          "product": 189,
+          "remainder": 0,
+          "highlight": "none",
+          "label": "729除以27的长除法结构"
+        }
+      },
+      "transitions": [
+        {
+          "when": "27",
+          "to": "transfer",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "INDEPENDENT_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "independent_success"
+            }
+          ]
+        }
+      ]
+    },
+    "transfer": {
+      "objectiveId": "O-U1-VERTICAL-04",
+      "hints": [
+        "",
+        "64÷32先商2在十位。",
+        "2×32=64，余0，落下5。",
+        "5<32，个位商0。",
+        "所以商20，余5。"
+      ],
+      "view": {
+        "title": "迁移到有余数的竖式",
+        "prompt": "645÷32的结果是哪一个？",
+        "choices": [
+          [
+            "20r5",
+            "20……5"
+          ],
+          [
+            "21r5",
+            "21……5"
+          ],
+          [
+            "20r25",
+            "20……25"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "20r5",
+          "to": "complete",
+          "effects": [
+            {
+              "type": "emit",
+              "event": "TRANSFER_PASS",
+              "result": {
+                "independent": true
+              }
+            },
+            {
+              "type": "markObjective",
+              "stage": "transfer_success"
+            }
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "objectiveId": "O-U1-VERTICAL-04",
+      "hints": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "view": {
+        "title": "竖式已经变成可检查的程序",
+        "prompt": "商位由当前处理的数位决定；每一步都商、乘、减、落；结束前检查余数小于除数，并可用“除数×商＋余数=被除数”验算。",
+        "choices": []
+      },
+      "transitions": [],
+      "reviewOnH4": false
+    }
+  }
+}
