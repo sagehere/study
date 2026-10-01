@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Course Package Pedagogy Audit",
+  "type": "object",
+  "required": ["auditVersion","flowId","revisionRound","scores","total","criticalFailures","gaps","findings","decision","finalRecommendation","summary"],
+  "additionalProperties": false,
+  "properties": {
+    "auditVersion": {"const":"0.1.0"},
+    "flowId": {"type":"string","minLength":1},
+    "revisionRound": {"type":"integer","minimum":0,"maximum":3},
+    "scores": {
+      "type":"object","additionalProperties":false,
+      "required":["sourceGrounding","knowledgeTypeFit","misconceptionQuality","hintLadder","evidenceIntegrity","transferQuality","rendererFit"],
+      "properties": {
+        "sourceGrounding":{"type":"integer","minimum":0,"maximum":2},
+        "knowledgeTypeFit":{"type":"integer","minimum":0,"maximum":2},
+        "misconceptionQuality":{"type":"integer","minimum":0,"maximum":2},
+        "hintLadder":{"type":"integer","minimum":0,"maximum":2},
+        "evidenceIntegrity":{"type":"integer","minimum":0,"maximum":2},
+        "transferQuality":{"type":"integer","minimum":0,"maximum":2},
+        "rendererFit":{"type":"integer","minimum":0,"maximum":2}
+      }
+    },
+    "total":{"type":"integer","minimum":0,"maximum":14},
+    "criticalFailures":{"type":"array","items":{"type":"string"}},
+    "gaps":{"type":"object","additionalProperties":false,"required":["source","renderer"],"properties":{"source":{"type":"array","items":{"type":"string"}},"renderer":{"type":"array","items":{"type":"string"}}}},
+    "findings":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["dimension","severity","issue","revision","resolved"],"properties":{"dimension":{"type":"string"},"severity":{"enum":["minor","major","critical"]},"issue":{"type":"string"},"revision":{"type":"string"},"resolved":{"type":"boolean"}}}},
+    "decision":{"enum":["pass","revise","blocked"]},
+    "finalRecommendation":{"enum":["draft","ready"]},
+    "summary":{"type":"string"}
+  }
+}
