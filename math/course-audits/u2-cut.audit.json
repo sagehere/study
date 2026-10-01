@@ -1,7 +1,7 @@
 {
   "auditVersion": "0.1.0",
   "flowId": "u2.cut.v2",
-  "revisionRound": 1,
+  "revisionRound": 2,
   "scores": {
     "sourceGrounding": 2,
     "knowledgeTypeFit": 2,
@@ -21,12 +21,12 @@
     {
       "dimension": "rendererFit",
       "severity": "major",
-      "issue": "Existing renderers did not distinguish counted outer edges from internal seams or wall-replaced edges.",
-      "revision": "Add generic boundaryTrace renderer with semantic counted/excluded edge roles.",
+      "issue": "Existing renderers did not distinguish counted final-boundary segments from internal seams or wall-excluded material.",
+      "revision": "Add generic boundaryTrace renderer with per-segment counted/excluded semantics and accessible labels, while keeping boundary decisions in Course Package data.",
       "resolved": true
     }
   ],
   "decision": "pass",
   "finalRecommendation": "ready",
-  "summary": "Textbook-grounded wall/seam boundary reasoning, same-area/different-perimeter distinction, generic boundary renderer, fresh composite-boundary evidence, and compactness transfer satisfy ready gate."
+  "summary": "After textbook re-grounding, cut/paste/wall tasks are unified by final-boundary tracing; the generic boundaryTrace renderer, fresh wall evidence, and seam-exclusion transfer satisfy the ready gate."
 }

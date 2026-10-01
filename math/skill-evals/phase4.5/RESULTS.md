@@ -2,37 +2,59 @@
 
 ## Scope
 
-Promoted three structurally different nodes:
+Promoted three new textbook-grounded nodes:
 
-- `u1.invariant.v2` — concept/rule induction: quotient invariance under same nonzero scaling, including remainder-unit restoration as a mathematical extension.
-- `u2.cut.v2` — concept/representation: final outer boundary, wall-excluded edges, internal seams, and same-area/different-perimeter reasoning.
-- `u5.code.v2` — concept/representation: field-based numeric encoding where digits carry category/time/order semantics rather than ordinary magnitude.
+- `u1.invariant.v2` — quotient invariance under simultaneous scaling.
+- `u2.cut.v2` — final-boundary reasoning for cutting, joining, and wall-adjacent fencing.
+- `u5.code.v2` — segmented digital codes and information-bearing fields.
 
-All three passed Course Package validation, 14-point audit, and `--require-ready` before Runtime integration.
+All three passed Course Package validation, the 14-point pedagogy audit, `--require-ready`, state-machine regression, and offline browser E2E before release.
 
 ## u1.invariant
 
-Grounded in the textbook exploration table around `270÷30=9`, `540÷60`, `810÷90`, `54÷6`, and `27÷3`. The flow delays formalization until the learner has observed both expansion and reduction and has rejected unequal scaling.
+Grounded in textbook pp.13-15. The key source is the exploration table built from `270÷30=9`, comparing `540÷60`, `810÷90`, `54÷6`, and `27÷3`.
 
-The remainder case is explicitly documented as a mathematical extension rather than a quoted textbook rule: when both dividend and divisor are scaled by the same factor, the integer quotient can remain unchanged, but the remainder belongs to the original quantity unit and scales with that unit.
+Production scope intentionally stays narrower than the legacy node copy: the ready flow teaches only the textbook-supported quotient-invariance rule. It does **not** claim the project's extra remainder-rescaling statement as a textbook conclusion.
 
-Fresh evidence: `72÷8=9 → 720÷80=9`; transfer: `462÷30=15余12 → 154÷10=15余4`.
+The flow diagnoses three conditions explicitly:
+
+- both dividend and divisor must change;
+- they must change by the same factor;
+- the common multiplier/divisor must be nonzero.
+
+Fresh independent evidence: compare `720÷80` and `72÷8`. Transfer: simplify `3600÷45` by dividing both terms by 5.
 
 ## u2.cut
 
-Grounded in the textbook wall-garden, joined-square, composite-fence, and six-unit-square perimeter explorations. The governing strategy is “trace the final relevant outer boundary first, then calculate.”
+Grounded in textbook pp.25-26, 33, and 40-41. These pages repeatedly require learners to reason about the *final* perimeter/material boundary after cutting, joining, or using a wall as one side of a fence.
 
-Added generic `boundaryTrace` renderer. It labels boundary segments as counted or excluded and supports wall edges, internal seams, and other non-counted segments without embedding routing logic or a specific exercise.
+A generic `boundaryTrace` renderer was retained from interrupted work after review. It carries no routing logic and accepts arbitrary segment names with `counted`/excluded semantics. Accessibility text states which segments count and which do not.
 
-Fresh evidence: an L-shaped composite boundary with side lengths 36 m and 18 m; transfer asks how to minimize perimeter for six equal unit squares by maximizing shared edges.
+The flow unifies three misconceptions:
+
+- adding every visible/original edge, including internal seams;
+- assuming any cut necessarily makes perimeter longer;
+- applying full rectangle perimeter when one or more sides are walls and require no fence material.
+
+Fresh independent evidence: a rectangle with two adjacent wall sides. Transfer: two 3 cm squares joined into one rectangle, excluding the shared seam.
 
 ## u5.code
 
-Grounded in the textbook school-numbering example (`202603321`), the decode task (`202704302`), competition numbering, room numbering, and barcode discussion. The flow makes field boundaries explicit before interpretation.
+Grounded in textbook pp.82-85. The textbook explicitly treats identity numbers and school numbers as structured information fields rather than numerical magnitude. Its student-code example maps `202603321` to 2026 enrollment, class 03, number 32, male; the final digit uses 1/2 for male/female.
 
-Added generic `codeSegments` renderer, driven only by a raw value and semantic field labels/values. The initial `code` argument name was rejected by the DSL executable-key guard; it was renamed to neutral `rawValue` instead of weakening the validator.
+A generic `codeSegments` renderer was retained after review. During validation, its initial argument name `code` was rejected by the executable-field safety rule. The validator was **not** relaxed; the renderer API was renamed to neutral `rawValue`, preserving the DSL safety boundary.
 
-Fresh evidence: decode a new year/category/serial code; transfer reverses the process by encoding year/class/serial/sex into a fixed-field student number.
+The flow repairs:
+
+- treating code digits as ordinary quantities;
+- arbitrary segmentation instead of schema-based segmentation;
+- misunderstanding leading zeroes as magnitude rather than fixed-width formatting.
+
+Fresh independent evidence: decode textbook item `202704302`. Transfer: encode “2028 enrollment, class 05, number 07, male” as `202805071`.
+
+## Interruption recovery
+
+A previous interrupted Phase 4.5 attempt left generic renderer files, registry edits, and partial tests in the working tree. Valid generic work was reviewed and reused; duplicate script tags and stale flow/test paths were removed. Course Package design was re-grounded from the textbook rather than inheriting the interrupted draft blindly.
 
 ## Acceptance
 

@@ -1,7 +1,7 @@
 {
   "auditVersion": "0.1.0",
   "flowId": "u5.code.v2",
-  "revisionRound": 1,
+  "revisionRound": 2,
   "scores": {
     "sourceGrounding": 2,
     "knowledgeTypeFit": 2,
@@ -21,12 +21,12 @@
     {
       "dimension": "rendererFit",
       "severity": "major",
-      "issue": "Existing renderers could not show code-field boundaries and meanings without treating the code as a magnitude.",
-      "revision": "Add generic codeSegments renderer driven by field labels and values.",
+      "issue": "Existing renderers could not show code-field boundaries and meanings without treating the code as numerical magnitude.",
+      "revision": "Add generic codeSegments renderer driven by field labels/values; keep schema meaning in Course Package data and use neutral rawValue rather than an executable-looking code field.",
       "resolved": true
     }
   ],
   "decision": "pass",
   "finalRecommendation": "ready",
-  "summary": "Textbook-grounded field semantics, generic segmented-code representation, fresh decode evidence, and reverse-encoding transfer satisfy ready gate."
+  "summary": "After textbook re-grounding, field semantics, fixed-width zero padding, fresh decode evidence, reverse encoding, and the safe generic codeSegments renderer satisfy the ready gate."
 }

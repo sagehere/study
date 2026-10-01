@@ -11,40 +11,40 @@ globalThis.CoursePackageData={
     "nodeId": "invariant",
     "initialStep": "diagnose",
     "labels": {
-      "badge": "规律归纳正式课",
+      "badge": "关系规律正式课",
       "title": "商不变规律",
-      "description": "先从多组等商算式发现“同时同倍变化”，再处理有余数时余数的单位还原。"
+      "description": "从成组算式比较中发现：被除数和除数同时乘或除以同一个非零数，商不变。"
     },
     "objectives": {
-      "observe": "O-U1-INVARIANT-01",
-      "condition": "O-U1-INVARIANT-02",
-      "remainder": "O-U1-INVARIANT-03",
+      "notice": "O-U1-INVARIANT-01",
+      "sameFactor": "O-U1-INVARIANT-02",
+      "nonzero": "O-U1-INVARIANT-03",
       "transfer": "O-U1-INVARIANT-04"
     },
     "misconceptions": {
       "oneSide": "M-U1-INVARIANT-01",
       "differentFactor": "M-U1-INVARIANT-02",
-      "sameRemainder": "M-U1-INVARIANT-03"
+      "zeroFactor": "M-U1-INVARIANT-03"
     },
     "meta": {
       "authoringStatus": "ready",
       "knowledgeType": "concept-representation",
       "sourcePages": "13-15",
-      "sourceNote": "教材探索表从270÷30=9扩展到540÷60、810÷90、54÷6、27÷3，引导发现被除数和除数同时按同一倍数变化时商保持不变。本课程的有余数情形作为对该规律的数学延伸：整数商可保持，但余数随原数量单位的缩放同步变化，不声称是教材原句。"
+      "sourceNote": "教材第15页探索表以270÷30=9为基准，列出540÷60、810÷90、54÷6、27÷3，引导发现被除数和除数同时乘或除以同一个非零数，商保持不变。本ready流程仅覆盖教材直接支持的商不变规律，不把“有余数时余数如何还原”的项目扩展结论冒充教材原结论。"
     },
     "steps": {
       "diagnose": {
         "objectiveId": "O-U1-INVARIANT-01",
         "hints": [
           "",
-          "不要只看被除数变大。",
-          "除数也同时变大。",
-          "540÷60可以同时去掉一个0，变成54÷6。",
-          "54÷6=9。"
+          "不要只看被除数。",
+          "被除数和除数都同时变了。",
+          "540÷60可以同时÷2还原成270÷30。",
+          "所以商仍是9。"
         ],
         "view": {
-          "title": "先看结果，再猜规律",
-          "prompt": "270÷30=9。把被除数和除数都乘2，540÷60等于多少？",
+          "title": "先看一组算式里“什么没变”",
+          "prompt": "270÷30=9。把被除数和除数都乘2，得到540÷60。商是多少？",
           "choices": [
             [
               "9",
@@ -63,7 +63,7 @@ globalThis.CoursePackageData={
         "transitions": [
           {
             "when": "9",
-            "to": "divideBoth",
+            "to": "sameFactor",
             "effects": [
               {
                 "type": "markObjective",
@@ -89,29 +89,29 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-INVARIANT-01",
         "hints": [
           "",
-          "商可以理解为“里面有几份”。",
-          "总量和每份大小一起乘2。",
-          "能分成的份数不需要变化。",
-          "所以商仍是9。"
+          "比较270→540。",
+          "再比较30→60。",
+          "两边都乘了同一个2。",
+          "比例关系没有变，所以商不变。"
         ],
         "view": {
-          "title": "为什么商没有跟着翻倍",
-          "prompt": "270→540乘2，30→60也乘2。两边同时乘2，相当于每一份和总量一起放大，份数会怎样？",
+          "title": "为什么不能只把商也乘2",
+          "prompt": "540÷60里，被除数和除数相对270÷30发生了什么？",
           "choices": [
             [
-              "same",
-              "份数不变"
+              "both",
+              "都乘2"
             ],
             [
-              "double",
-              "份数也翻倍"
+              "dividend",
+              "只有被除数乘2"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "same",
-            "to": "divideBoth",
+            "when": "both",
+            "to": "sameFactor",
             "effects": [
               {
                 "type": "resolveMisconception",
@@ -119,47 +119,7 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "same-scale-quotient"
-              }
-            ]
-          }
-        ]
-      },
-      "divideBoth": {
-        "objectiveId": "O-U1-INVARIANT-02",
-        "hints": [
-          "",
-          "两边都除以同一个数。",
-          "27÷3可以直接算。",
-          "27里有9个3。",
-          "商仍然是9。"
-        ],
-        "view": {
-          "title": "反过来同时缩小也一样",
-          "prompt": "270÷30=9。把两数都除以10得到27÷3，商是多少？",
-          "choices": [
-            [
-              "9",
-              "9"
-            ],
-            [
-              "0.9",
-              "0.9"
-            ],
-            [
-              "90",
-              "90"
-            ]
-          ]
-        },
-        "transitions": [
-          {
-            "when": "9",
-            "to": "sameFactor",
-            "effects": [
-              {
-                "type": "markObjective",
-                "stage": "guided_success"
+                "reason": "quotient-invariant-both-sides"
               }
             ]
           }
@@ -169,22 +129,162 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-INVARIANT-02",
         "hints": [
           "",
-          "比较两个变化倍数。",
-          "一个×2，一个×3，不是同倍变化。",
-          "比例已经改变。",
-          "因此商不能保证不变。"
+          "比较两个数分别乘了几倍。",
+          "270→810是×3。",
+          "30→90也是×3。",
+          "只有同乘同一个倍数才能保证商不变。"
         ],
         "view": {
-          "title": "“同时变化”还不够，还要同一个倍数",
-          "prompt": "270÷30中，如果只把被除数乘2、除数乘3，商还能保证不变吗？",
+          "title": "关键不是“都变”，而是“同倍数变”",
+          "prompt": "270÷30=9。下面哪一个一定仍等于9？",
+          "choices": [
+            [
+              "same",
+              "810÷90"
+            ],
+            [
+              "different",
+              "810÷60"
+            ],
+            [
+              "one",
+              "540÷30"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "same",
+            "to": "dividePattern",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "different",
+            "to": "repairDifferent",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U1-INVARIANT-02",
+                "confidence": "high"
+              }
+            ]
+          },
+          {
+            "when": "one",
+            "to": "repairDifferent",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U1-INVARIANT-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairDifferent": {
+        "objectiveId": "O-U1-INVARIANT-02",
+        "hints": [
+          "",
+          "270→810是×3。",
+          "30→60是×2。",
+          "倍数不同，原比例变了。",
+          "所以不能套商不变规律。"
+        ],
+        "view": {
+          "title": "“都变了”还不够",
+          "prompt": "810÷60里，270和30分别变成了几倍？",
+          "choices": [
+            [
+              "diff",
+              "被除数×3，除数×2，不是同一个倍数"
+            ],
+            [
+              "same",
+              "都是×3"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "diff",
+            "to": "dividePattern",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U1-INVARIANT-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "same-factor-requirement"
+              }
+            ]
+          }
+        ]
+      },
+      "dividePattern": {
+        "objectiveId": "O-U1-INVARIANT-02",
+        "hints": [
+          "",
+          "270→54。",
+          "30→6。",
+          "两者都同时÷5。",
+          "所以商仍为9。"
+        ],
+        "view": {
+          "title": "同时除也可以保持商",
+          "prompt": "270÷30=9。54÷6为什么也等于9？",
+          "choices": [
+            [
+              "divide",
+              "被除数和除数同时÷5"
+            ],
+            [
+              "subtract",
+              "两个数都减216"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "divide",
+            "to": "nonzero",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "nonzero": {
+        "objectiveId": "O-U1-INVARIANT-03",
+        "hints": [
+          "",
+          "先检查除法是否合法。",
+          "除数不能是0。",
+          "同时乘0会把除数变成0。",
+          "所以规律中的共同乘数/除数必须非零。"
+        ],
+        "view": {
+          "title": "为什么规则里必须写“非零”",
+          "prompt": "把270和30都乘0，会得到0÷0。这个算式能作为“商不变”的例子吗？",
           "choices": [
             [
               "no",
-              "不能保证"
+              "不能，除数不能是0"
             ],
             [
               "yes",
-              "仍然保证不变"
+              "能，商还是9"
             ]
           ]
         },
@@ -201,147 +301,7 @@ globalThis.CoursePackageData={
           },
           {
             "when": "yes",
-            "to": "repairFactor",
-            "lane": "repair",
-            "effects": [
-              {
-                "type": "markMisconception",
-                "id": "M-U1-INVARIANT-02",
-                "confidence": "high"
-              }
-            ]
-          }
-        ]
-      },
-      "repairFactor": {
-        "objectiveId": "O-U1-INVARIANT-02",
-        "hints": [
-          "",
-          "教材表格的每一行都检查“同一个倍数”。",
-          "×2配×2，×3配×3，÷5配÷5。",
-          "而且不能除以0。",
-          "条件是“同时、同一个、非零”。"
-        ],
-        "view": {
-          "title": "规律的条件不能少",
-          "prompt": "哪种变化一定保持商不变？",
-          "choices": [
-            [
-              "same",
-              "被除数和除数同时乘或除以同一个非零数"
-            ],
-            [
-              "any",
-              "两边只要都变化就行"
-            ]
-          ]
-        },
-        "transitions": [
-          {
-            "when": "same",
-            "to": "formalize",
-            "effects": [
-              {
-                "type": "resolveMisconception",
-                "id": "M-U1-INVARIANT-02"
-              },
-              {
-                "type": "scheduleReview",
-                "reason": "same-factor-condition"
-              }
-            ]
-          }
-        ]
-      },
-      "formalize": {
-        "objectiveId": "O-U1-INVARIANT-02",
-        "hints": [
-          "",
-          "把刚才三个证据放一起。",
-          "关键条件是同倍缩放。",
-          "除数不能变成0。",
-          "满足这些条件时商不变。"
-        ],
-        "view": {
-          "title": "现在再形成商不变规律",
-          "prompt": "哪句话完整？",
-          "choices": [
-            [
-              "rule",
-              "被除数和除数同时乘或除以同一个非零数，商不变"
-            ],
-            [
-              "half",
-              "被除数和除数只要同时变化，商就不变"
-            ]
-          ]
-        },
-        "transitions": [
-          {
-            "when": "rule",
-            "to": "remainder",
-            "effects": [
-              {
-                "type": "setFlag",
-                "key": "formalized",
-                "value": true
-              },
-              {
-                "type": "emit",
-                "event": "FORMALIZATION_UNLOCKED",
-                "result": {
-                  "rule": "quotient-invariant-same-scale"
-                }
-              },
-              {
-                "type": "markObjective",
-                "stage": "guided_success"
-              }
-            ]
-          }
-        ]
-      },
-      "remainder": {
-        "objectiveId": "O-U1-INVARIANT-03",
-        "hints": [
-          "",
-          "整数商4可以保持。",
-          "但原来的“3”也属于被除数量的单位。",
-          "整体放大10倍，没分完的部分也放大10倍。",
-          "所以余数3→30。"
-        ],
-        "view": {
-          "title": "有余数时，余数也有“单位”",
-          "prompt": "83÷20=4余3。把被除数和除数都乘10得到830÷200，结果应该是哪一个？",
-          "choices": [
-            [
-              "scaled",
-              "4余30"
-            ],
-            [
-              "same",
-              "4余3"
-            ],
-            [
-              "forty",
-              "40余30"
-            ]
-          ]
-        },
-        "transitions": [
-          {
-            "when": "scaled",
-            "to": "independent",
-            "effects": [
-              {
-                "type": "markObjective",
-                "stage": "guided_success"
-              }
-            ]
-          },
-          {
-            "when": "same",
-            "to": "repairRemainder",
+            "to": "repairZero",
             "lane": "repair",
             "effects": [
               {
@@ -353,33 +313,33 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "repairRemainder": {
+      "repairZero": {
         "objectiveId": "O-U1-INVARIANT-03",
         "hints": [
           "",
-          "用被除数=除数×商+余数检查。",
-          "200×4=800。",
-          "830－800=30。",
-          "所以余数必须是30。"
+          "这不是大小问题。",
+          "除法有定义条件。",
+          "除数必须不为0。",
+          "所以共同变化的因数不能取0。"
         ],
         "view": {
-          "title": "为什么不能把余数3原样抄过去",
-          "prompt": "检验830=200×4＋?，问号是多少？",
+          "title": "只修“非零条件”",
+          "prompt": "为什么不能用0作共同乘数？",
           "choices": [
             [
-              "30",
-              "30"
+              "divisor",
+              "会把除数变成0，除法失去意义"
             ],
             [
-              "3",
-              "3"
+              "small",
+              "因为0太小"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "30",
-            "to": "independent",
+            "when": "divisor",
+            "to": "formalize",
             "effects": [
               {
                 "type": "resolveMisconception",
@@ -387,7 +347,55 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "remainder-scale-unit"
+                "reason": "nonzero-invariant-factor"
+              }
+            ]
+          }
+        ]
+      },
+      "formalize": {
+        "objectiveId": "O-U1-INVARIANT-03",
+        "hints": [
+          "",
+          "同时、同一个、非零，三个条件都重要。",
+          "只变一边不行。",
+          "两个倍数不同也不行。",
+          "完整条件：同时乘或除以同一个非零数。"
+        ],
+        "view": {
+          "title": "现在再说完整规律",
+          "prompt": "哪一句最准确？",
+          "choices": [
+            [
+              "rule",
+              "被除数和除数同时乘或除以同一个非零数，商不变"
+            ],
+            [
+              "one",
+              "只要被除数变化，商就不变"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "rule",
+            "to": "independent",
+            "effects": [
+              {
+                "type": "setFlag",
+                "key": "formalized",
+                "value": true
+              },
+              {
+                "type": "emit",
+                "event": "FORMALIZATION_UNLOCKED",
+                "result": {
+                  "rule": "quotient-invariant"
+                }
+              },
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
               }
             ]
           }
@@ -397,32 +405,28 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-INVARIANT-02",
         "hints": [
           "",
-          "找“同时乘同一个数”。",
-          "72→720乘10。",
-          "8→80也乘10。",
-          "所以720÷80仍等于9。"
+          "720→72是÷10。",
+          "80→8也是÷10。",
+          "共同除数10非零。",
+          "所以商相同，都是9。"
         ],
         "view": {
-          "title": "换一组独立判断",
-          "prompt": "72÷8=9。下面哪一个商也一定是9？",
+          "title": "换一道新题独立判断",
+          "prompt": "720÷80与72÷8的商是否相同？",
           "choices": [
             [
-              "correct",
-              "720÷80"
+              "same",
+              "相同，都是9"
             ],
             [
-              "wrong",
-              "720÷8"
-            ],
-            [
-              "mixed",
-              "144÷24"
+              "different",
+              "不同"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "correct",
+            "when": "same",
             "to": "transfer",
             "effects": [
               {
@@ -444,32 +448,32 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U1-INVARIANT-04",
         "hints": [
           "",
-          "商保持15。",
-          "余数也要按同样的缩放还原。",
-          "12÷3=4。",
-          "所以154÷10=15余4。"
+          "先做等值变形。",
+          "3600÷5=720。",
+          "45÷5=9。",
+          "720÷9=80。"
         ],
         "view": {
-          "title": "迁移到有余数的缩放",
-          "prompt": "462÷30=15余12。把被除数和除数都除以3，154÷10应该是多少？",
+          "title": "用规律简化一个较难除法",
+          "prompt": "3600÷45可以把被除数和除数同时÷5，变成720÷9。结果是多少？",
           "choices": [
             [
-              "correct",
-              "15余4"
+              "80",
+              "80"
             ],
             [
-              "same",
-              "15余12"
+              "400",
+              "400"
             ],
             [
-              "five",
-              "5余4"
+              "8",
+              "8"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "correct",
+            "when": "80",
             "to": "complete",
             "effects": [
               {
@@ -497,8 +501,8 @@ globalThis.CoursePackageData={
           ""
         ],
         "view": {
-          "title": "你已经把“商不变”理解成比例不变",
-          "prompt": "同倍缩放保持商；有余数时，整数商可以保持，但余数属于原数量单位，也必须按相同倍数缩放或还原。",
+          "title": "你会判断什么时候商真的不变了",
+          "prompt": "商不变不是“两个数都动了就行”，而是被除数和除数必须同时按同一个非零倍数变化。",
           "choices": []
         },
         "transitions": [],
@@ -1671,38 +1675,298 @@ globalThis.CoursePackageData={
     "labels": {
       "badge": "边界表征正式课",
       "title": "拼剪与靠墙围栏",
-      "description": "先追踪最终外边界，再决定哪些边计入；内部接缝和贴墙边不是需要围的外边界。"
+      "description": "先描最终外边界，再决定哪些边计入周长或围栏；内部接缝和贴墙边不计。"
     },
     "objectives": {
       "boundary": "O-U2-CUT-01",
-      "seam": "O-U2-CUT-02",
-      "change": "O-U2-CUT-03",
+      "cut": "O-U2-CUT-02",
+      "wall": "O-U2-CUT-03",
       "transfer": "O-U2-CUT-04"
     },
     "misconceptions": {
-      "fullPerimeter": "M-U2-CUT-01",
-      "doubleSeam": "M-U2-CUT-02",
-      "sameAreaSamePerimeter": "M-U2-CUT-03"
+      "allEdges": "M-U2-CUT-01",
+      "cutAlways": "M-U2-CUT-02",
+      "wall": "M-U2-CUT-03"
     },
     "meta": {
       "authoringStatus": "ready",
       "knowledgeType": "concept-representation",
-      "sourcePages": "26,41-42",
-      "sourceNote": "教材26页包含一面靠墙的12m×8m花圃、组合图形篱笆和两个3cm正方形拼成长方形；42页用6个1cm正方形拼不同图形比较面积与周长，明确同面积可以有不同周长。"
+      "sourcePages": "25-26,33,40-41",
+      "sourceNote": "教材第25页直接比较剪去正方形后面积和周长变化，第26/33页用拼接图形要求识别最终周长，第26页花圃与第40页鸡圈明确出现一面/两面靠墙的围栏情境。共同认知动作是先辨认最终外边界，再决定哪些线段计入。"
     },
     "steps": {
       "diagnose": {
         "objectiveId": "O-U2-CUT-01",
         "hints": [
           "",
-          "先描“真正要围”的边。",
-          "靠墙的一边不需要栅栏。",
-          "只算另外三边：12+8+8。",
-          "得到28米。"
+          "周长只沿最终图形外面走一圈。",
+          "公共边被两个图形夹在中间。",
+          "它不再属于最终外边界。",
+          "所以不计入周长。"
         ],
         "view": {
-          "title": "先问：到底围哪几条边",
-          "prompt": "长12米、宽8米的长方形花圃有一面靠墙。需要栅栏多少米？",
+          "title": "先别急着加长度，先问“这条边还在外面吗”",
+          "prompt": "两个长方形拼成一个大长方形后，中间贴在一起的公共边要不要算大长方形周长？",
+          "choices": [
+            [
+              "no",
+              "不算，它变成内部接缝"
+            ],
+            [
+              "yes",
+              "要算，因为它原来是边"
+            ]
+          ],
+          "renderer": "boundaryTrace",
+          "rendererArgs": {
+            "label": "拼接后的边界角色",
+            "segments": [
+              {
+                "name": "外侧上边",
+                "counted": true
+              },
+              {
+                "name": "内部公共接缝",
+                "counted": false
+              },
+              {
+                "name": "外侧下边",
+                "counted": true
+              }
+            ]
+          }
+        },
+        "transitions": [
+          {
+            "when": "no",
+            "to": "cornerCut",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "diagnostic_success"
+              }
+            ]
+          },
+          {
+            "when": "yes",
+            "to": "repairBoundary",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U2-CUT-01",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairBoundary": {
+        "objectiveId": "O-U2-CUT-01",
+        "hints": [
+          "",
+          "周长描述的是最终图形。",
+          "拼接后有些原边会进入内部。",
+          "内部接缝不沿外圈出现。",
+          "所以要看最终外边界，而不是历史身份。"
+        ],
+        "view": {
+          "title": "原来是边，不代表最后仍是外边界",
+          "prompt": "判断一条线段是否计入周长，最关键看什么？",
+          "choices": [
+            [
+              "outside",
+              "它是否属于最终图形的外边界"
+            ],
+            [
+              "original",
+              "它原来是不是某个小图形的边"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "outside",
+            "to": "cornerCut",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U2-CUT-01"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "final-outer-boundary"
+              }
+            ]
+          }
+        ]
+      },
+      "cornerCut": {
+        "objectiveId": "O-U2-CUT-02",
+        "hints": [
+          "",
+          "不要只看到“新增切口”。",
+          "先数被剪掉的原外边界长度。",
+          "再数新露出的切口边界长度。",
+          "两边都共4厘米，所以周长不变。"
+        ],
+        "view": {
+          "title": "剪去一块，周长不一定变长",
+          "prompt": "从长方形一个角剪去边长2厘米的正方形：原来外边界少了两段各2厘米，同时新露出两段各2厘米。周长怎样变？",
+          "choices": [
+            [
+              "same",
+              "不变"
+            ],
+            [
+              "longer",
+              "一定变长4厘米"
+            ],
+            [
+              "shorter",
+              "变短4厘米"
+            ]
+          ],
+          "renderer": "boundaryTrace",
+          "rendererArgs": {
+            "label": "角上剪去正方形后的边界替换",
+            "segments": [
+              {
+                "name": "被剪去的原上边2cm",
+                "counted": false
+              },
+              {
+                "name": "被剪去的原侧边2cm",
+                "counted": false
+              },
+              {
+                "name": "新切口横边2cm",
+                "counted": true
+              },
+              {
+                "name": "新切口竖边2cm",
+                "counted": true
+              }
+            ]
+          }
+        },
+        "transitions": [
+          {
+            "when": "same",
+            "to": "notch",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "longer",
+            "to": "repairCut",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U2-CUT-02",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairCut": {
+        "objectiveId": "O-U2-CUT-02",
+        "hints": [
+          "",
+          "周长只由边界长度决定。",
+          "剪切会同时删除一些旧外边界、增加一些新外边界。",
+          "比较这两部分长度。",
+          "不能用“面积变小”直接推出“周长变小/变大”。"
+        ],
+        "view": {
+          "title": "“剪了”不是周长变化的充分理由",
+          "prompt": "判断剪切后的周长变化，应该比较哪两类长度？",
+          "choices": [
+            [
+              "replace",
+              "失去的原外边界和新增的切口外边界"
+            ],
+            [
+              "area",
+              "只看面积减少多少"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "replace",
+            "to": "notch",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U2-CUT-02"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "cut-boundary-replacement"
+              }
+            ]
+          }
+        ]
+      },
+      "notch": {
+        "objectiveId": "O-U2-CUT-02",
+        "hints": [
+          "",
+          "先算被替换的旧边。",
+          "少掉2厘米。",
+          "新增3×2=6厘米。",
+          "净增加6－2=4厘米。"
+        ],
+        "view": {
+          "title": "从边中间挖一个凹口会发生什么",
+          "prompt": "从一条直边中间向内剪去一个边长2厘米的正方形凹口：原来少1段2厘米，新增凹口3段共6厘米。周长怎样变？",
+          "choices": [
+            [
+              "plus4",
+              "增加4厘米"
+            ],
+            [
+              "same",
+              "不变"
+            ],
+            [
+              "minus4",
+              "减少4厘米"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "plus4",
+            "to": "wall",
+            "effects": [
+              {
+                "type": "markObjective",
+                "stage": "guided_success"
+              }
+            ]
+          }
+        ]
+      },
+      "wall": {
+        "objectiveId": "O-U2-CUT-03",
+        "hints": [
+          "",
+          "先标出哪一边靠墙。",
+          "靠墙的12米不需要围。",
+          "只加另一条12米和两条8米。",
+          "12+8+8=28米。"
+        ],
+        "view": {
+          "title": "靠墙时，墙本身不是要买的围栏",
+          "prompt": "长12米、宽8米的长方形花圃，一条12米的长边靠墙。需要围另外三边，围栏长多少米？",
           "choices": [
             [
               "28",
@@ -1719,22 +1983,22 @@ globalThis.CoursePackageData={
           ],
           "renderer": "boundaryTrace",
           "rendererArgs": {
-            "label": "靠墙花圃：哪些边需要栅栏",
+            "label": "一面靠墙花圃的围栏边界",
             "segments": [
               {
-                "name": "上边12m",
+                "name": "靠墙长边12m",
                 "counted": false
               },
               {
-                "name": "左边8m",
+                "name": "另一长边12m",
                 "counted": true
               },
               {
-                "name": "右边8m",
+                "name": "左侧8m",
                 "counted": true
               },
               {
-                "name": "下边12m",
+                "name": "右侧8m",
                 "counted": true
               }
             ]
@@ -1743,212 +2007,6 @@ globalThis.CoursePackageData={
         "transitions": [
           {
             "when": "28",
-            "to": "seam",
-            "effects": [
-              {
-                "type": "markObjective",
-                "stage": "diagnostic_success"
-              }
-            ]
-          },
-          {
-            "when": "40",
-            "to": "repairWall",
-            "lane": "repair",
-            "effects": [
-              {
-                "type": "markMisconception",
-                "id": "M-U2-CUT-01",
-                "confidence": "high"
-              }
-            ]
-          }
-        ]
-      },
-      "repairWall": {
-        "objectiveId": "O-U2-CUT-01",
-        "hints": [
-          "",
-          "题目问的是“栅栏长度”，不是完整几何周长。",
-          "墙已经把这一边封住。",
-          "因此实际材料只覆盖其余外边界。",
-          "先判断边的角色，再计算。"
-        ],
-        "view": {
-          "title": "周长公式不能先于边界判断",
-          "prompt": "靠墙的那一边为什么不能算进栅栏长度？",
-          "choices": [
-            [
-              "wall",
-              "因为墙已经充当边界，不需要再围"
-            ],
-            [
-              "short",
-              "因为那条边比较短"
-            ]
-          ]
-        },
-        "transitions": [
-          {
-            "when": "wall",
-            "to": "seam",
-            "effects": [
-              {
-                "type": "resolveMisconception",
-                "id": "M-U2-CUT-01"
-              },
-              {
-                "type": "scheduleReview",
-                "reason": "wall-edge-excluded"
-              }
-            ]
-          }
-        ]
-      },
-      "seam": {
-        "objectiveId": "O-U2-CUT-02",
-        "hints": [
-          "",
-          "拼接前两块各有4条外边。",
-          "拼接后中间那条接缝藏到内部。",
-          "新长方形长6、宽3。",
-          "周长=2×(6+3)=18厘米。"
-        ],
-        "view": {
-          "title": "拼起来以后，接缝还算外边界吗",
-          "prompt": "两个边长3厘米的正方形拼成一个长方形，新图形周长是多少？",
-          "choices": [
-            [
-              "18",
-              "18厘米"
-            ],
-            [
-              "12",
-              "12厘米"
-            ],
-            [
-              "24",
-              "24厘米"
-            ]
-          ],
-          "renderer": "boundaryTrace",
-          "rendererArgs": {
-            "label": "两个正方形拼成长方形",
-            "segments": [
-              {
-                "name": "左外边3cm",
-                "counted": true
-              },
-              {
-                "name": "上外边6cm",
-                "counted": true
-              },
-              {
-                "name": "右外边3cm",
-                "counted": true
-              },
-              {
-                "name": "下外边6cm",
-                "counted": true
-              },
-              {
-                "name": "两个正方形接缝3cm",
-                "counted": false
-              }
-            ]
-          }
-        },
-        "transitions": [
-          {
-            "when": "18",
-            "to": "areaVsPerimeter",
-            "effects": [
-              {
-                "type": "markObjective",
-                "stage": "guided_success"
-              }
-            ]
-          },
-          {
-            "when": "24",
-            "to": "repairSeam",
-            "lane": "repair",
-            "effects": [
-              {
-                "type": "markMisconception",
-                "id": "M-U2-CUT-02",
-                "confidence": "high"
-              }
-            ]
-          }
-        ]
-      },
-      "repairSeam": {
-        "objectiveId": "O-U2-CUT-02",
-        "hints": [
-          "",
-          "周长只看最终外轮廓。",
-          "接缝两侧都被图形占住。",
-          "它不再暴露在外面。",
-          "所以不计入最终周长。"
-        ],
-        "view": {
-          "title": "内部接缝不能重复算",
-          "prompt": "拼接后的中间3厘米接缝，手指沿最终图形外圈能摸到吗？",
-          "choices": [
-            [
-              "no",
-              "摸不到，它在内部"
-            ],
-            [
-              "yes",
-              "能，所以要算两次"
-            ]
-          ]
-        },
-        "transitions": [
-          {
-            "when": "no",
-            "to": "areaVsPerimeter",
-            "effects": [
-              {
-                "type": "resolveMisconception",
-                "id": "M-U2-CUT-02"
-              },
-              {
-                "type": "scheduleReview",
-                "reason": "internal-seam-excluded"
-              }
-            ]
-          }
-        ]
-      },
-      "areaVsPerimeter": {
-        "objectiveId": "O-U2-CUT-03",
-        "hints": [
-          "",
-          "面积数的是用了多少个小正方形。",
-          "周长数的是最终暴露在外的边。",
-          "拼法不同会改变共享接缝数量。",
-          "所以面积相同，周长可以不同。"
-        ],
-        "view": {
-          "title": "面积相同，周长一定相同吗",
-          "prompt": "用6个边长1厘米的小正方形拼不同图形。它们面积都6平方厘米，周长一定相同吗？",
-          "choices": [
-            [
-              "no",
-              "不一定"
-            ],
-            [
-              "yes",
-              "一定相同"
-            ]
-          ]
-        },
-        "transitions": [
-          {
-            "when": "no",
             "to": "formalize",
             "effects": [
               {
@@ -1958,8 +2016,8 @@ globalThis.CoursePackageData={
             ]
           },
           {
-            "when": "yes",
-            "to": "repairSame",
+            "when": "40",
+            "to": "repairWall",
             "lane": "repair",
             "effects": [
               {
@@ -1971,32 +2029,32 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "repairSame": {
+      "repairWall": {
         "objectiveId": "O-U2-CUT-03",
         "hints": [
           "",
-          "小正方形总数相同，所以面积相同。",
-          "但拼接越紧密，隐藏到内部的边越多。",
-          "外面暴露的边就可能更少。",
-          "周长取决于外边界结构。"
+          "题目问的是“需要多少围栏材料”。",
+          "墙已经封住这一边。",
+          "这条边仍是几何边界，但不是需要购买的围栏。",
+          "所以从材料长度中排除。"
         ],
         "view": {
-          "title": "面积和周长在数不同的东西",
-          "prompt": "两个图形都用6个小正方形，为什么周长还能不同？",
+          "title": "“图形周长”和“需要围栏长度”不是同一问法",
+          "prompt": "靠墙的一边为什么不计围栏？",
           "choices": [
             [
-              "boundary",
-              "因为内部共享边数量不同，外边界会变"
+              "wall",
+              "因为墙已经承担边界作用，不需要再用材料围"
             ],
             [
-              "area",
-              "因为面积其实不同"
+              "short",
+              "因为这条边比较短"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "boundary",
+            "when": "wall",
             "to": "formalize",
             "effects": [
               {
@@ -2005,38 +2063,38 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "same-area-different-boundary"
+                "reason": "wall-excluded-from-fence"
               }
             ]
           }
         ]
       },
       "formalize": {
-        "objectiveId": "O-U2-CUT-03",
+        "objectiveId": "O-U2-CUT-01",
         "hints": [
           "",
-          "题目中的边可能改变角色。",
-          "有的边变成内部接缝，有的被墙替代。",
-          "公式只能对“确定后的边界”计算。",
-          "所以先描边，再列式。"
+          "不同题型共享同一认知动作。",
+          "先问“最终要沿哪里走/围哪里”。",
+          "内部接缝不算最终外圈；墙边不算材料；剪切要比较替换前后边界。",
+          "最后再计算长度。"
         ],
         "view": {
-          "title": "现在形成“先描边，再计算”的策略",
-          "prompt": "遇到拼剪、靠墙、组合图形时，最可靠的第一步是什么？",
+          "title": "把三类题统一成一个方法",
+          "prompt": "哪套方法最可靠？",
           "choices": [
             [
-              "trace",
-              "先描清最终需要计算的外边界，再列式"
+              "rule",
+              "先描最终外边界/材料边界，再把内部接缝、被替换旧边和靠墙不需材料的边排除"
             ],
             [
-              "formula",
-              "先套原图形周长公式"
+              "all",
+              "把图上看见的所有线段都相加"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "trace",
+            "when": "rule",
             "to": "independent",
             "effects": [
               {
@@ -2048,7 +2106,7 @@ globalThis.CoursePackageData={
                 "type": "emit",
                 "event": "FORMALIZATION_UNLOCKED",
                 "result": {
-                  "rule": "trace-final-boundary-first"
+                  "rule": "trace-final-boundary"
                 }
               },
               {
@@ -2060,35 +2118,57 @@ globalThis.CoursePackageData={
         ]
       },
       "independent": {
-        "objectiveId": "O-U2-CUT-01",
+        "objectiveId": "O-U2-CUT-03",
         "hints": [
           "",
-          "沿最终外圈一段一段走。",
-          "底边54，右边18，上回18，再向上18。",
-          "再走左上边36和左边36。",
-          "54+18+18+18+36+36=180米。"
+          "两条相邻边靠墙。",
+          "需要围的是与它们相对的另外两边。",
+          "一条10米、一条6米。",
+          "共16米。"
         ],
         "view": {
-          "title": "换一道教材组合边界题",
-          "prompt": "一个边长36米的正方形右下方再向右伸出一个边长18米的正方形，形成L形。这个L形外边界周长是多少？",
+          "title": "换一个两面靠墙的新情境",
+          "prompt": "一个长10米、宽6米的长方形鸡圈，两条相邻边分别靠两面墙。只围另外两边，需要多少米网？",
           "choices": [
             [
-              "180",
-              "180米"
+              "16",
+              "16米"
             ],
             [
-              "144",
-              "144米"
+              "32",
+              "32米"
             ],
             [
-              "216",
-              "216米"
+              "26",
+              "26米"
             ]
-          ]
+          ],
+          "renderer": "boundaryTrace",
+          "rendererArgs": {
+            "label": "两面靠墙鸡圈的材料边界",
+            "segments": [
+              {
+                "name": "靠墙长边10m",
+                "counted": false
+              },
+              {
+                "name": "靠墙短边6m",
+                "counted": false
+              },
+              {
+                "name": "需围长边10m",
+                "counted": true
+              },
+              {
+                "name": "需围短边6m",
+                "counted": true
+              }
+            ]
+          }
         },
         "transitions": [
           {
-            "when": "180",
+            "when": "16",
             "to": "transfer",
             "effects": [
               {
@@ -2110,28 +2190,32 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U2-CUT-04",
         "hints": [
           "",
-          "每共享一条边，就有两条原外边藏到内部。",
-          "共享边越多，暴露外边越少。",
-          "紧凑拼法通常共享边更多。",
-          "所以更容易得到较小周长。"
+          "两个正方形单独周长总和24。",
+          "拼接后公共边长3厘米，在两图中各算一次。",
+          "这两段都变成内部接缝，共减6。",
+          "24－6=18厘米。"
         ],
         "view": {
-          "title": "迁移：同面积如何让周长变小",
-          "prompt": "用同样6个1cm²小正方形拼图，想让周长尽量小，应该怎样拼？",
+          "title": "迁移：拼接时去掉内部接缝",
+          "prompt": "两个边长3厘米的正方形并排拼成长方形，拼成后的周长是多少？",
           "choices": [
             [
-              "compact",
-              "尽量紧凑，让更多边互相贴合"
+              "18",
+              "18厘米"
             ],
             [
-              "spread",
-              "尽量分散，让更少边接触"
+              "24",
+              "24厘米"
+            ],
+            [
+              "12",
+              "12厘米"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "compact",
+            "when": "18",
             "to": "complete",
             "effects": [
               {
@@ -2159,8 +2243,8 @@ globalThis.CoursePackageData={
           ""
         ],
         "view": {
-          "title": "你已经会先看“边的角色”",
-          "prompt": "拼、剪、靠墙都会改变边界结构。不要先套公式：先追踪最终外边界，排除内部接缝或不需要围的边，再计算。",
+          "title": "你会先追踪边界，再算长度了",
+          "prompt": "剪、拼、靠墙看起来不同，其实都先回答同一个问题：哪些线段属于最终要计算的外边界或材料边界？",
           "choices": []
         },
         "transitions": [],
@@ -6297,42 +6381,42 @@ globalThis.CoursePackageData={
     "initialStep": "diagnose",
     "labels": {
       "badge": "信息编码正式课",
-      "title": "数字编码与信息表达",
-      "description": "把编码按字段拆开：数字可以表示年份、类别、顺序或属性，不一定表示数量大小。"
+      "title": "数字编码",
+      "description": "编码里的数字按字段承载信息；先按规则分段，再解释每段含义，不把编码当数量大小。"
     },
     "objectives": {
       "meaning": "O-U5-CODE-01",
-      "fields": "O-U5-CODE-02",
-      "decode": "O-U5-CODE-03",
+      "segment": "O-U5-CODE-02",
+      "fixedWidth": "O-U5-CODE-03",
       "transfer": "O-U5-CODE-04"
     },
     "misconceptions": {
       "magnitude": "M-U5-CODE-01",
-      "fieldShift": "M-U5-CODE-02",
-      "noRule": "M-U5-CODE-03"
+      "segment": "M-U5-CODE-02",
+      "leadingZero": "M-U5-CODE-03"
     },
     "meta": {
       "authoringStatus": "ready",
       "knowledgeType": "concept-representation",
       "sourcePages": "82-85",
-      "sourceNote": "教材讨论全校学号设计，建议编码表达入学年份、班级、序号、性别等信息；例202603321表示2026年入学、三班、32号、男生，并要求解码202704302。教材还用比赛作品编号、房间编号和条形码说明编码依规则承载信息。"
+      "sourceNote": "教材数字编码专题明确身份证字段承载地址、出生日期、顺序、校验等信息，并给出学号方案：202603321表示2026年入学、三班、32号、男生；末位1男2女。教材强调设计编码要表达年级/班级、性别、入学年份等信息。"
     },
     "steps": {
       "diagnose": {
         "objectiveId": "O-U5-CODE-01",
         "hints": [
           "",
-          "先看题目给的编码规则。",
-          "末位规定：1男、2女。",
-          "这里的1是类别标记，不是在表示数量。",
-          "所以表示男生。"
+          "先看教材给出的编码规则。",
+          "同一个数字在不同字段含义不同。",
+          "末位是性别字段。",
+          "规则规定1表示男生，2表示女生。"
         ],
         "view": {
-          "title": "编码里的数字，不一定是在“数多少”",
-          "prompt": "学号202603321中，最后的“1”按题目规则表示什么？",
+          "title": "编码里的数字首先是“信息”，不是“大小”",
+          "prompt": "学号202603321按教材规则表示2026年入学、三班、32号、男生。末位的1表示什么？",
           "choices": [
             [
-              "sex",
+              "male",
               "男生"
             ],
             [
@@ -6340,38 +6424,38 @@ globalThis.CoursePackageData={
               "数量1"
             ],
             [
-              "grade",
-              "一年级"
+              "rank",
+              "第1名"
             ]
           ],
           "renderer": "codeSegments",
           "rendererArgs": {
-            "rawValue": "202603321",
-            "label": "学号字段",
+            "label": "教材学号编码",
             "segments": [
               {
-                "label": "入学年份",
-                "value": "2026"
+                "value": "2026",
+                "label": "入学年份"
               },
               {
-                "label": "班级",
-                "value": "03"
+                "value": "03",
+                "label": "班级"
               },
               {
-                "label": "序号",
-                "value": "32"
+                "value": "32",
+                "label": "顺序号"
               },
               {
-                "label": "性别",
-                "value": "1"
+                "value": "1",
+                "label": "性别"
               }
-            ]
+            ],
+            "rawValue": "202603321"
           }
         },
         "transitions": [
           {
-            "when": "sex",
-            "to": "fields",
+            "when": "male",
+            "to": "segment",
             "effects": [
               {
                 "type": "markObjective",
@@ -6381,7 +6465,7 @@ globalThis.CoursePackageData={
           },
           {
             "when": "one",
-            "to": "repairMagnitude",
+            "to": "repairMeaning",
             "lane": "repair",
             "effects": [
               {
@@ -6393,22 +6477,22 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "repairMagnitude": {
+      "repairMeaning": {
         "objectiveId": "O-U5-CODE-01",
         "hints": [
           "",
-          "编码先有规则，再有数字。",
-          "同一个数字放在不同字段可以表示不同信息。",
-          "这里末位字段表示性别。",
-          "因此解释编码必须先看字段规则。"
+          "编码不是一个整体数量。",
+          "要先分字段。",
+          "字段含义来自约定规则。",
+          "同样的1放在别的字段可能代表完全不同的信息。"
         ],
         "view": {
-          "title": "编码不是普通大小比较",
-          "prompt": "为什么学号里的“1”不能直接理解成数量1？",
+          "title": "编码不是拿来做数量运算",
+          "prompt": "为什么末位1不能解释成“有1个学生”？",
           "choices": [
             [
-              "rule",
-              "因为它所在字段被规则定义为性别类别"
+              "field",
+              "因为它处在性别字段，含义由编码规则规定"
             ],
             [
               "small",
@@ -6418,8 +6502,8 @@ globalThis.CoursePackageData={
         },
         "transitions": [
           {
-            "when": "rule",
-            "to": "fields",
+            "when": "field",
+            "to": "segment",
             "effects": [
               {
                 "type": "resolveMisconception",
@@ -6427,66 +6511,66 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "code-field-not-magnitude"
+                "reason": "code-fields-carry-meaning"
               }
             ]
           }
         ]
       },
-      "fields": {
+      "segment": {
         "objectiveId": "O-U5-CODE-02",
         "hints": [
           "",
-          "题目已经给了每段含义。",
-          "年份需要4位。",
-          "班级2位、序号2位、性别1位。",
+          "根据字段规则，而不是随意切。",
+          "入学年份4位。",
+          "班级2位、顺序号2位、性别1位。",
           "所以2026｜03｜32｜1。"
         ],
         "view": {
           "title": "先分段，才能解释",
-          "prompt": "202603321 按规则应怎样分字段？",
+          "prompt": "202603321最合理的分段是哪一个？",
           "choices": [
             [
               "correct",
               "2026｜03｜32｜1"
             ],
             [
-              "wrong",
-              "20｜26｜033｜21"
+              "digits",
+              "2｜0｜2｜6｜0｜3｜3｜2｜1"
             ],
             [
-              "single",
-              "每一位独立一个字段"
+              "wrong",
+              "202｜60｜33｜21"
             ]
           ],
           "renderer": "codeSegments",
           "rendererArgs": {
-            "rawValue": "202603321",
-            "label": "按规则分段",
+            "label": "按字段规则分段",
             "segments": [
               {
-                "label": "入学年份",
-                "value": "2026"
+                "value": "2026",
+                "label": "入学年份"
               },
               {
-                "label": "班级",
-                "value": "03"
+                "value": "03",
+                "label": "班级"
               },
               {
-                "label": "序号",
-                "value": "32"
+                "value": "32",
+                "label": "顺序号"
               },
               {
-                "label": "性别",
-                "value": "1"
+                "value": "1",
+                "label": "性别"
               }
-            ]
+            ],
+            "rawValue": "202603321"
           }
         },
         "transitions": [
           {
             "when": "correct",
-            "to": "decode",
+            "to": "fixedWidth",
             "effects": [
               {
                 "type": "markObjective",
@@ -6496,7 +6580,7 @@ globalThis.CoursePackageData={
           },
           {
             "when": "wrong",
-            "to": "repairFields",
+            "to": "repairSegment",
             "lane": "repair",
             "effects": [
               {
@@ -6508,33 +6592,37 @@ globalThis.CoursePackageData={
           }
         ]
       },
-      "repairFields": {
+      "repairSegment": {
         "objectiveId": "O-U5-CODE-02",
         "hints": [
           "",
-          "编码靠位置解释信息。",
-          "一个字段切错，后面所有位置都会跟着移动。",
-          "因此字段长度必须固定、明确。",
-          "先分段，再解码。"
+          "看例子202603321。",
+          "三班写成03。",
+          "这说明班级字段占2位。",
+          "固定字段长度有利于稳定解析。"
         ],
         "view": {
-          "title": "字段长度也是编码规则的一部分",
-          "prompt": "如果把年份只取前2位，会发生什么？",
+          "title": "分段由规则决定，不由“看起来顺眼”决定",
+          "prompt": "教材方案里班级字段固定占几位？",
           "choices": [
             [
-              "shift",
-              "后面的班级、序号字段都会错位"
+              "two",
+              "2位"
             ],
             [
-              "fine",
-              "没有影响"
+              "one",
+              "1位"
+            ],
+            [
+              "three",
+              "3位"
             ]
           ]
         },
         "transitions": [
           {
-            "when": "shift",
-            "to": "decode",
+            "when": "two",
+            "to": "fixedWidth",
             "effects": [
               {
                 "type": "resolveMisconception",
@@ -6542,66 +6630,99 @@ globalThis.CoursePackageData={
               },
               {
                 "type": "scheduleReview",
-                "reason": "code-field-boundary"
+                "reason": "code-segment-rules"
               }
             ]
           }
         ]
       },
-      "decode": {
+      "fixedWidth": {
         "objectiveId": "O-U5-CODE-03",
         "hints": [
           "",
-          "按同样长度切段。",
-          "2027｜04｜30｜2。",
-          "2表示女生。",
-          "所以是2027年入学、4班30号女生。"
+          "03和3表示同一个班级号。",
+          "前面的0不增加数量。",
+          "它在维持字段宽度。",
+          "固定宽度让机器和人都能稳定找到字段边界。"
         ],
         "view": {
-          "title": "按同一规则解码新学号",
-          "prompt": "202704302 表示哪位同学？",
+          "title": "为什么“三班”写03而不是3",
+          "prompt": "把三班编码为03，最重要的作用是什么？",
           "choices": [
             [
-              "correct",
-              "2027年入学，4班30号，女生"
+              "width",
+              "保持字段长度固定，避免和后面的顺序号混在一起"
             ],
             [
-              "wrong",
-              "2027年入学，43班02号，男生"
+              "bigger",
+              "让数字变大"
+            ],
+            [
+              "pretty",
+              "只是看起来整齐"
             ]
-          ],
-          "renderer": "codeSegments",
-          "rendererArgs": {
-            "rawValue": "202704302",
-            "label": "新学号解码",
-            "segments": [
-              {
-                "label": "入学年份",
-                "value": "2027"
-              },
-              {
-                "label": "班级",
-                "value": "04"
-              },
-              {
-                "label": "序号",
-                "value": "30"
-              },
-              {
-                "label": "性别",
-                "value": "2"
-              }
-            ]
-          }
+          ]
         },
         "transitions": [
           {
-            "when": "correct",
+            "when": "width",
             "to": "formalize",
             "effects": [
               {
                 "type": "markObjective",
                 "stage": "guided_success"
+              }
+            ]
+          },
+          {
+            "when": "bigger",
+            "to": "repairZero",
+            "lane": "repair",
+            "effects": [
+              {
+                "type": "markMisconception",
+                "id": "M-U5-CODE-03",
+                "confidence": "high"
+              }
+            ]
+          }
+        ]
+      },
+      "repairZero": {
+        "objectiveId": "O-U5-CODE-03",
+        "hints": [
+          "",
+          "教材还问“为什么2月用02表示”。",
+          "这类0常用于固定格式。",
+          "它不代表数量变大。",
+          "它帮助字段保持统一长度。"
+        ],
+        "view": {
+          "title": "这里的0是格式信息",
+          "prompt": "03中的0最准确的作用是什么？",
+          "choices": [
+            [
+              "padding",
+              "占位，保证班级字段始终两位"
+            ],
+            [
+              "ten",
+              "表示十个班"
+            ]
+          ]
+        },
+        "transitions": [
+          {
+            "when": "padding",
+            "to": "formalize",
+            "effects": [
+              {
+                "type": "resolveMisconception",
+                "id": "M-U5-CODE-03"
+              },
+              {
+                "type": "scheduleReview",
+                "reason": "leading-zero-fixed-width"
               }
             ]
           }
@@ -6611,22 +6732,22 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U5-CODE-03",
         "hints": [
           "",
-          "编码的价值是稳定传递信息。",
-          "字段必须有固定规则。",
-          "不同字段可以表示日期、类别、顺序等。",
-          "所以先定义字段，再使用数字。"
+          "编码先有规则，再有数字串。",
+          "字段位置决定语义。",
+          "同一数字在不同字段可有不同含义。",
+          "固定宽度和前导0用于可靠解析。"
         ],
         "view": {
-          "title": "现在总结编码的本质",
-          "prompt": "设计或读取数字编码时，最重要的是什么？",
+          "title": "把编码方法总结成可迁移规则",
+          "prompt": "哪组步骤最可靠？",
           "choices": [
             [
               "rule",
-              "先明确每个字段的位置、长度和含义，再编码/解码"
+              "先知道编码规则→按字段分段→解释每段含义→必要时用前导0保持固定宽度"
             ],
             [
               "number",
-              "把所有数字当作一个普通数比较大小"
+              "把整串数字当成一个大数比较大小"
             ]
           ]
         },
@@ -6644,7 +6765,7 @@ globalThis.CoursePackageData={
                 "type": "emit",
                 "event": "FORMALIZATION_UNLOCKED",
                 "result": {
-                  "rule": "field-based-encoding"
+                  "rule": "segment-code-by-schema"
                 }
               },
               {
@@ -6656,35 +6777,58 @@ globalThis.CoursePackageData={
         ]
       },
       "independent": {
-        "objectiveId": "O-U5-CODE-03",
+        "objectiveId": "O-U5-CODE-02",
         "hints": [
           "",
-          "先按字段长度切。",
-          "2026｜05｜017。",
-          "中间2位是类别。",
-          "所以类别代码是05。"
+          "按4｜2｜2｜1分段。",
+          "2027｜04｜30｜2。",
+          "末位2表示女生。",
+          "所以是2027年入学、四班、30号、女生。"
         ],
         "view": {
-          "title": "换一个编码规则独立解码",
-          "prompt": "某图书编码规则是“年份4位｜类别2位｜流水号3位”。202605017 中，类别代码是多少？",
+          "title": "教材原题：独立解码",
+          "prompt": "按同样规则，202704302表示哪一位学生？",
           "choices": [
             [
-              "05",
-              "05"
+              "correct",
+              "2027年入学、四班、30号、女生"
             ],
             [
-              "50",
-              "50"
+              "male",
+              "2027年入学、四班、30号、男生"
             ],
             [
-              "017",
-              "017"
+              "class",
+              "2027年入学、43班、02号"
             ]
-          ]
+          ],
+          "renderer": "codeSegments",
+          "rendererArgs": {
+            "label": "独立解码",
+            "segments": [
+              {
+                "value": "2027",
+                "label": "入学年份"
+              },
+              {
+                "value": "04",
+                "label": "班级"
+              },
+              {
+                "value": "30",
+                "label": "顺序号"
+              },
+              {
+                "value": "2",
+                "label": "性别"
+              }
+            ],
+            "rawValue": "202704302"
+          }
         },
         "transitions": [
           {
-            "when": "05",
+            "when": "correct",
             "to": "transfer",
             "effects": [
               {
@@ -6706,50 +6850,50 @@ globalThis.CoursePackageData={
         "objectiveId": "O-U5-CODE-04",
         "hints": [
           "",
-          "每个字段要补足固定长度。",
-          "年份2028，班级06，序号08。",
-          "女生代码2。",
-          "拼起来2028｜06｜08｜2。"
+          "年份4位：2028。",
+          "班级2位：05。",
+          "顺序号2位：07。",
+          "男生末位1，所以2028｜05｜07｜1。"
         ],
         "view": {
-          "title": "迁移：反过来编码",
-          "prompt": "仍用“年份4位｜班级2位｜序号2位｜性别1位（1男2女）”。2028年入学、6班8号女生应编码为哪一个？",
+          "title": "反过来设计一条编码",
+          "prompt": "按同样规则，为“2028年入学、五班、7号、男生”编码，哪一个正确？",
           "choices": [
             [
               "correct",
-              "202806082"
+              "202805071"
             ],
             [
-              "wrong",
-              "2028682"
+              "short",
+              "2028571"
             ],
             [
-              "other",
-              "202806081"
+              "female",
+              "202805072"
             ]
           ],
           "renderer": "codeSegments",
           "rendererArgs": {
-            "rawValue": "202806082",
-            "label": "按字段反向编码",
+            "label": "按规则设计编码",
             "segments": [
               {
-                "label": "入学年份",
-                "value": "2028"
+                "value": "2028",
+                "label": "入学年份"
               },
               {
-                "label": "班级",
-                "value": "06"
+                "value": "05",
+                "label": "班级"
               },
               {
-                "label": "序号",
-                "value": "08"
+                "value": "07",
+                "label": "顺序号"
               },
               {
-                "label": "性别",
-                "value": "2"
+                "value": "1",
+                "label": "性别"
               }
-            ]
+            ],
+            "rawValue": "202805071"
           }
         },
         "transitions": [
@@ -6782,8 +6926,8 @@ globalThis.CoursePackageData={
           ""
         ],
         "view": {
-          "title": "你已经把数字看成“信息字段”",
-          "prompt": "编码不是把数字堆在一起：先规定字段，再按位置解释。数字在编码中可以表示时间、类别、顺序或属性，不一定表示数量大小。",
+          "title": "你已经会“先规则、再字段、后解释”",
+          "prompt": "数字编码不是把数字拼得越大越好，而是让每个字段按规则稳定表达信息，并能被准确解码。",
           "choices": []
         },
         "transitions": [],

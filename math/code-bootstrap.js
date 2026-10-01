@@ -1,4 +1,4 @@
-/* Registers u5 information-encoding flow from a declarative Course Package. */
+/* Registers u5 digital-code flow from a declarative Course Package. */
 'use strict';
 (() => {
  const pkg=CoursePackageData['u5.code.v2'];if(!pkg)throw new Error('Missing Course Package u5.code.v2');

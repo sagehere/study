@@ -9,42 +9,42 @@
   "initialStep": "diagnose",
   "labels": {
     "badge": "信息编码正式课",
-    "title": "数字编码与信息表达",
-    "description": "把编码按字段拆开：数字可以表示年份、类别、顺序或属性，不一定表示数量大小。"
+    "title": "数字编码",
+    "description": "编码里的数字按字段承载信息；先按规则分段，再解释每段含义，不把编码当数量大小。"
   },
   "objectives": {
     "meaning": "O-U5-CODE-01",
-    "fields": "O-U5-CODE-02",
-    "decode": "O-U5-CODE-03",
+    "segment": "O-U5-CODE-02",
+    "fixedWidth": "O-U5-CODE-03",
     "transfer": "O-U5-CODE-04"
   },
   "misconceptions": {
     "magnitude": "M-U5-CODE-01",
-    "fieldShift": "M-U5-CODE-02",
-    "noRule": "M-U5-CODE-03"
+    "segment": "M-U5-CODE-02",
+    "leadingZero": "M-U5-CODE-03"
   },
   "meta": {
     "authoringStatus": "ready",
     "knowledgeType": "concept-representation",
     "sourcePages": "82-85",
-    "sourceNote": "教材讨论全校学号设计，建议编码表达入学年份、班级、序号、性别等信息；例202603321表示2026年入学、三班、32号、男生，并要求解码202704302。教材还用比赛作品编号、房间编号和条形码说明编码依规则承载信息。"
+    "sourceNote": "教材数字编码专题明确身份证字段承载地址、出生日期、顺序、校验等信息，并给出学号方案：202603321表示2026年入学、三班、32号、男生；末位1男2女。教材强调设计编码要表达年级/班级、性别、入学年份等信息。"
   },
   "steps": {
     "diagnose": {
       "objectiveId": "O-U5-CODE-01",
       "hints": [
         "",
-        "先看题目给的编码规则。",
-        "末位规定：1男、2女。",
-        "这里的1是类别标记，不是在表示数量。",
-        "所以表示男生。"
+        "先看教材给出的编码规则。",
+        "同一个数字在不同字段含义不同。",
+        "末位是性别字段。",
+        "规则规定1表示男生，2表示女生。"
       ],
       "view": {
-        "title": "编码里的数字，不一定是在“数多少”",
-        "prompt": "学号202603321中，最后的“1”按题目规则表示什么？",
+        "title": "编码里的数字首先是“信息”，不是“大小”",
+        "prompt": "学号202603321按教材规则表示2026年入学、三班、32号、男生。末位的1表示什么？",
         "choices": [
           [
-            "sex",
+            "male",
             "男生"
           ],
           [
@@ -52,38 +52,38 @@
             "数量1"
           ],
           [
-            "grade",
-            "一年级"
+            "rank",
+            "第1名"
           ]
         ],
         "renderer": "codeSegments",
         "rendererArgs": {
-          "rawValue": "202603321",
-          "label": "学号字段",
+          "label": "教材学号编码",
           "segments": [
             {
-              "label": "入学年份",
-              "value": "2026"
+              "value": "2026",
+              "label": "入学年份"
             },
             {
-              "label": "班级",
-              "value": "03"
+              "value": "03",
+              "label": "班级"
             },
             {
-              "label": "序号",
-              "value": "32"
+              "value": "32",
+              "label": "顺序号"
             },
             {
-              "label": "性别",
-              "value": "1"
+              "value": "1",
+              "label": "性别"
             }
-          ]
+          ],
+          "rawValue": "202603321"
         }
       },
       "transitions": [
         {
-          "when": "sex",
-          "to": "fields",
+          "when": "male",
+          "to": "segment",
           "effects": [
             {
               "type": "markObjective",
@@ -93,7 +93,7 @@
         },
         {
           "when": "one",
-          "to": "repairMagnitude",
+          "to": "repairMeaning",
           "lane": "repair",
           "effects": [
             {
@@ -105,22 +105,22 @@
         }
       ]
     },
-    "repairMagnitude": {
+    "repairMeaning": {
       "objectiveId": "O-U5-CODE-01",
       "hints": [
         "",
-        "编码先有规则，再有数字。",
-        "同一个数字放在不同字段可以表示不同信息。",
-        "这里末位字段表示性别。",
-        "因此解释编码必须先看字段规则。"
+        "编码不是一个整体数量。",
+        "要先分字段。",
+        "字段含义来自约定规则。",
+        "同样的1放在别的字段可能代表完全不同的信息。"
       ],
       "view": {
-        "title": "编码不是普通大小比较",
-        "prompt": "为什么学号里的“1”不能直接理解成数量1？",
+        "title": "编码不是拿来做数量运算",
+        "prompt": "为什么末位1不能解释成“有1个学生”？",
         "choices": [
           [
-            "rule",
-            "因为它所在字段被规则定义为性别类别"
+            "field",
+            "因为它处在性别字段，含义由编码规则规定"
           ],
           [
             "small",
@@ -130,8 +130,8 @@
       },
       "transitions": [
         {
-          "when": "rule",
-          "to": "fields",
+          "when": "field",
+          "to": "segment",
           "effects": [
             {
               "type": "resolveMisconception",
@@ -139,66 +139,66 @@
             },
             {
               "type": "scheduleReview",
-              "reason": "code-field-not-magnitude"
+              "reason": "code-fields-carry-meaning"
             }
           ]
         }
       ]
     },
-    "fields": {
+    "segment": {
       "objectiveId": "O-U5-CODE-02",
       "hints": [
         "",
-        "题目已经给了每段含义。",
-        "年份需要4位。",
-        "班级2位、序号2位、性别1位。",
+        "根据字段规则，而不是随意切。",
+        "入学年份4位。",
+        "班级2位、顺序号2位、性别1位。",
         "所以2026｜03｜32｜1。"
       ],
       "view": {
         "title": "先分段，才能解释",
-        "prompt": "202603321 按规则应怎样分字段？",
+        "prompt": "202603321最合理的分段是哪一个？",
         "choices": [
           [
             "correct",
             "2026｜03｜32｜1"
           ],
           [
-            "wrong",
-            "20｜26｜033｜21"
+            "digits",
+            "2｜0｜2｜6｜0｜3｜3｜2｜1"
           ],
           [
-            "single",
-            "每一位独立一个字段"
+            "wrong",
+            "202｜60｜33｜21"
           ]
         ],
         "renderer": "codeSegments",
         "rendererArgs": {
-          "rawValue": "202603321",
-          "label": "按规则分段",
+          "label": "按字段规则分段",
           "segments": [
             {
-              "label": "入学年份",
-              "value": "2026"
+              "value": "2026",
+              "label": "入学年份"
             },
             {
-              "label": "班级",
-              "value": "03"
+              "value": "03",
+              "label": "班级"
             },
             {
-              "label": "序号",
-              "value": "32"
+              "value": "32",
+              "label": "顺序号"
             },
             {
-              "label": "性别",
-              "value": "1"
+              "value": "1",
+              "label": "性别"
             }
-          ]
+          ],
+          "rawValue": "202603321"
         }
       },
       "transitions": [
         {
           "when": "correct",
-          "to": "decode",
+          "to": "fixedWidth",
           "effects": [
             {
               "type": "markObjective",
@@ -208,7 +208,7 @@
         },
         {
           "when": "wrong",
-          "to": "repairFields",
+          "to": "repairSegment",
           "lane": "repair",
           "effects": [
             {
@@ -220,33 +220,37 @@
         }
       ]
     },
-    "repairFields": {
+    "repairSegment": {
       "objectiveId": "O-U5-CODE-02",
       "hints": [
         "",
-        "编码靠位置解释信息。",
-        "一个字段切错，后面所有位置都会跟着移动。",
-        "因此字段长度必须固定、明确。",
-        "先分段，再解码。"
+        "看例子202603321。",
+        "三班写成03。",
+        "这说明班级字段占2位。",
+        "固定字段长度有利于稳定解析。"
       ],
       "view": {
-        "title": "字段长度也是编码规则的一部分",
-        "prompt": "如果把年份只取前2位，会发生什么？",
+        "title": "分段由规则决定，不由“看起来顺眼”决定",
+        "prompt": "教材方案里班级字段固定占几位？",
         "choices": [
           [
-            "shift",
-            "后面的班级、序号字段都会错位"
+            "two",
+            "2位"
           ],
           [
-            "fine",
-            "没有影响"
+            "one",
+            "1位"
+          ],
+          [
+            "three",
+            "3位"
           ]
         ]
       },
       "transitions": [
         {
-          "when": "shift",
-          "to": "decode",
+          "when": "two",
+          "to": "fixedWidth",
           "effects": [
             {
               "type": "resolveMisconception",
@@ -254,66 +258,99 @@
             },
             {
               "type": "scheduleReview",
-              "reason": "code-field-boundary"
+              "reason": "code-segment-rules"
             }
           ]
         }
       ]
     },
-    "decode": {
+    "fixedWidth": {
       "objectiveId": "O-U5-CODE-03",
       "hints": [
         "",
-        "按同样长度切段。",
-        "2027｜04｜30｜2。",
-        "2表示女生。",
-        "所以是2027年入学、4班30号女生。"
+        "03和3表示同一个班级号。",
+        "前面的0不增加数量。",
+        "它在维持字段宽度。",
+        "固定宽度让机器和人都能稳定找到字段边界。"
       ],
       "view": {
-        "title": "按同一规则解码新学号",
-        "prompt": "202704302 表示哪位同学？",
+        "title": "为什么“三班”写03而不是3",
+        "prompt": "把三班编码为03，最重要的作用是什么？",
         "choices": [
           [
-            "correct",
-            "2027年入学，4班30号，女生"
+            "width",
+            "保持字段长度固定，避免和后面的顺序号混在一起"
           ],
           [
-            "wrong",
-            "2027年入学，43班02号，男生"
+            "bigger",
+            "让数字变大"
+          ],
+          [
+            "pretty",
+            "只是看起来整齐"
           ]
-        ],
-        "renderer": "codeSegments",
-        "rendererArgs": {
-          "rawValue": "202704302",
-          "label": "新学号解码",
-          "segments": [
-            {
-              "label": "入学年份",
-              "value": "2027"
-            },
-            {
-              "label": "班级",
-              "value": "04"
-            },
-            {
-              "label": "序号",
-              "value": "30"
-            },
-            {
-              "label": "性别",
-              "value": "2"
-            }
-          ]
-        }
+        ]
       },
       "transitions": [
         {
-          "when": "correct",
+          "when": "width",
           "to": "formalize",
           "effects": [
             {
               "type": "markObjective",
               "stage": "guided_success"
+            }
+          ]
+        },
+        {
+          "when": "bigger",
+          "to": "repairZero",
+          "lane": "repair",
+          "effects": [
+            {
+              "type": "markMisconception",
+              "id": "M-U5-CODE-03",
+              "confidence": "high"
+            }
+          ]
+        }
+      ]
+    },
+    "repairZero": {
+      "objectiveId": "O-U5-CODE-03",
+      "hints": [
+        "",
+        "教材还问“为什么2月用02表示”。",
+        "这类0常用于固定格式。",
+        "它不代表数量变大。",
+        "它帮助字段保持统一长度。"
+      ],
+      "view": {
+        "title": "这里的0是格式信息",
+        "prompt": "03中的0最准确的作用是什么？",
+        "choices": [
+          [
+            "padding",
+            "占位，保证班级字段始终两位"
+          ],
+          [
+            "ten",
+            "表示十个班"
+          ]
+        ]
+      },
+      "transitions": [
+        {
+          "when": "padding",
+          "to": "formalize",
+          "effects": [
+            {
+              "type": "resolveMisconception",
+              "id": "M-U5-CODE-03"
+            },
+            {
+              "type": "scheduleReview",
+              "reason": "leading-zero-fixed-width"
             }
           ]
         }
@@ -323,22 +360,22 @@
       "objectiveId": "O-U5-CODE-03",
       "hints": [
         "",
-        "编码的价值是稳定传递信息。",
-        "字段必须有固定规则。",
-        "不同字段可以表示日期、类别、顺序等。",
-        "所以先定义字段，再使用数字。"
+        "编码先有规则，再有数字串。",
+        "字段位置决定语义。",
+        "同一数字在不同字段可有不同含义。",
+        "固定宽度和前导0用于可靠解析。"
       ],
       "view": {
-        "title": "现在总结编码的本质",
-        "prompt": "设计或读取数字编码时，最重要的是什么？",
+        "title": "把编码方法总结成可迁移规则",
+        "prompt": "哪组步骤最可靠？",
         "choices": [
           [
             "rule",
-            "先明确每个字段的位置、长度和含义，再编码/解码"
+            "先知道编码规则→按字段分段→解释每段含义→必要时用前导0保持固定宽度"
           ],
           [
             "number",
-            "把所有数字当作一个普通数比较大小"
+            "把整串数字当成一个大数比较大小"
           ]
         ]
       },
@@ -356,7 +393,7 @@
               "type": "emit",
               "event": "FORMALIZATION_UNLOCKED",
               "result": {
-                "rule": "field-based-encoding"
+                "rule": "segment-code-by-schema"
               }
             },
             {
@@ -368,35 +405,58 @@
       ]
     },
     "independent": {
-      "objectiveId": "O-U5-CODE-03",
+      "objectiveId": "O-U5-CODE-02",
       "hints": [
         "",
-        "先按字段长度切。",
-        "2026｜05｜017。",
-        "中间2位是类别。",
-        "所以类别代码是05。"
+        "按4｜2｜2｜1分段。",
+        "2027｜04｜30｜2。",
+        "末位2表示女生。",
+        "所以是2027年入学、四班、30号、女生。"
       ],
       "view": {
-        "title": "换一个编码规则独立解码",
-        "prompt": "某图书编码规则是“年份4位｜类别2位｜流水号3位”。202605017 中，类别代码是多少？",
+        "title": "教材原题：独立解码",
+        "prompt": "按同样规则，202704302表示哪一位学生？",
         "choices": [
           [
-            "05",
-            "05"
+            "correct",
+            "2027年入学、四班、30号、女生"
           ],
           [
-            "50",
-            "50"
+            "male",
+            "2027年入学、四班、30号、男生"
           ],
           [
-            "017",
-            "017"
+            "class",
+            "2027年入学、43班、02号"
           ]
-        ]
+        ],
+        "renderer": "codeSegments",
+        "rendererArgs": {
+          "label": "独立解码",
+          "segments": [
+            {
+              "value": "2027",
+              "label": "入学年份"
+            },
+            {
+              "value": "04",
+              "label": "班级"
+            },
+            {
+              "value": "30",
+              "label": "顺序号"
+            },
+            {
+              "value": "2",
+              "label": "性别"
+            }
+          ],
+          "rawValue": "202704302"
+        }
       },
       "transitions": [
         {
-          "when": "05",
+          "when": "correct",
           "to": "transfer",
           "effects": [
             {
@@ -418,50 +478,50 @@
       "objectiveId": "O-U5-CODE-04",
       "hints": [
         "",
-        "每个字段要补足固定长度。",
-        "年份2028，班级06，序号08。",
-        "女生代码2。",
-        "拼起来2028｜06｜08｜2。"
+        "年份4位：2028。",
+        "班级2位：05。",
+        "顺序号2位：07。",
+        "男生末位1，所以2028｜05｜07｜1。"
       ],
       "view": {
-        "title": "迁移：反过来编码",
-        "prompt": "仍用“年份4位｜班级2位｜序号2位｜性别1位（1男2女）”。2028年入学、6班8号女生应编码为哪一个？",
+        "title": "反过来设计一条编码",
+        "prompt": "按同样规则，为“2028年入学、五班、7号、男生”编码，哪一个正确？",
         "choices": [
           [
             "correct",
-            "202806082"
+            "202805071"
           ],
           [
-            "wrong",
-            "2028682"
+            "short",
+            "2028571"
           ],
           [
-            "other",
-            "202806081"
+            "female",
+            "202805072"
           ]
         ],
         "renderer": "codeSegments",
         "rendererArgs": {
-          "rawValue": "202806082",
-          "label": "按字段反向编码",
+          "label": "按规则设计编码",
           "segments": [
             {
-              "label": "入学年份",
-              "value": "2028"
+              "value": "2028",
+              "label": "入学年份"
             },
             {
-              "label": "班级",
-              "value": "06"
+              "value": "05",
+              "label": "班级"
             },
             {
-              "label": "序号",
-              "value": "08"
+              "value": "07",
+              "label": "顺序号"
             },
             {
-              "label": "性别",
-              "value": "2"
+              "value": "1",
+              "label": "性别"
             }
-          ]
+          ],
+          "rawValue": "202805071"
         }
       },
       "transitions": [
@@ -494,8 +554,8 @@
         ""
       ],
       "view": {
-        "title": "你已经把数字看成“信息字段”",
-        "prompt": "编码不是把数字堆在一起：先规定字段，再按位置解释。数字在编码中可以表示时间、类别、顺序或属性，不一定表示数量大小。",
+        "title": "你已经会“先规则、再字段、后解释”",
+        "prompt": "数字编码不是把数字拼得越大越好，而是让每个字段按规则稳定表达信息，并能被准确解码。",
         "choices": []
       },
       "transitions": [],

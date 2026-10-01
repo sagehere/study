@@ -1,7 +1,7 @@
 {
   "auditVersion": "0.1.0",
   "flowId": "u1.invariant.v2",
-  "revisionRound": 1,
+  "revisionRound": 2,
   "scores": {
     "sourceGrounding": 2,
     "knowledgeTypeFit": 2,
@@ -17,8 +17,16 @@
     "source": [],
     "renderer": []
   },
-  "findings": [],
+  "findings": [
+    {
+      "dimension": "sourceGrounding",
+      "severity": "major",
+      "issue": "The interrupted production draft treated the project-specific remainder-rescaling extension as part of the textbook-grounded invariant lesson.",
+      "revision": "Narrow the ready flow to the quotient-invariance rule directly supported by the inspected textbook exploration table; keep the remainder extension outside this ready Course Package unless separately sourced.",
+      "resolved": true
+    }
+  ],
   "decision": "pass",
   "finalRecommendation": "ready",
-  "summary": "Textbook table induction, exact same-factor conditions, explicit remainder-unit extension, fresh independent evidence, and remainder transfer satisfy ready gate."
+  "summary": "After textbook re-grounding, the ready scope is limited to the directly supported quotient-invariance rule; same-factor/nonzero conditions, fresh independent evidence, and simplification transfer satisfy the ready gate."
 }
